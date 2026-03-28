@@ -1,0 +1,15 @@
+{
+    "name": "DroneX Social",
+    "short_name": "DroneX",
+    "start_url": "index.html",
+    "display": "standalone",
+    "background_color": "#000000",
+    "theme_color": "#f5576c",
+    "icons": [
+        {
+            "src": "https://cdn-icons-png.flaticon.com/512/3233/3233475.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
