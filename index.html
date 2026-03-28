@@ -3,39 +3,123 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DroneX Social | V12 Master 👑</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DroneX Social | Ultra Edition 👑</title>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Orbitron:wght@400;900&family=Rajdhani:wght@300;600;700&display=swap');
+        /* --- DRONEX CORE STYLE ENGINE --- 
+            DESIGNED WITH NEON FUTURISM & CYBER-DARK THEME
+        */
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&family=JetBrains+Mono:wght@100;400&display=swap');
 
         :root {
-            --neon: #bc13fe;
-            --dark: #020202;
+            --neon-main: #bc13fe;
+            --neon-second: #5f10eb;
+            --dark-bg: #020202;
+            --dark-surface: #0a0a0a;
+            --dark-card: #111111;
             --admin-gold: #ffcc00;
-            --danger: #ff0055;
+            --danger-red: #ff0055;
+            --success-green: #00ff88;
+            --text-main: #e0e0e0;
+            --text-dim: #888888;
+            --transition-speed: 0.4s;
+            --glow-shadow: 0 0 15px rgba(188, 19, 254, 0.4);
         }
 
+        /* RESET & BASE SCROLL */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             outline: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--neon-main);
+            border-radius: 10px;
         }
 
         body {
-            background: var(--dark);
-            color: #fff;
+            background: var(--dark-bg);
+            color: var(--text-main);
             font-family: 'Rajdhani', sans-serif;
             overflow-x: hidden;
-            background: radial-gradient(circle at 50% 50%, #120026 0%, #020202 100%);
+            background: radial-gradient(circle at 50% 50%, #1a0033 0%, #020202 100%);
+            min-height: 100vh;
         }
 
-        /* --- HEADER & ANONS --- */
-        .header-main {
+        /* --- LOADING SCREEN --- */
+        #loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: 0.8s;
+        }
+
+        .loader-ring {
+            width: 80px;
+            height: 80px;
+            border: 2px solid transparent;
+            border-top: 2px solid var(--neon-main);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* --- AUTH SCREEN --- */
+        #auth-gate {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
             padding: 20px;
-            background: rgba(0, 0, 0, 0.95);
-            border-bottom: 1px solid var(--neon);
+            z-index: 999;
+        }
+
+        .auth-logo {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 4rem;
+            background: linear-gradient(45deg, var(--neon-main), #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(188, 19, 254, 0.5);
+            margin-bottom: 20px;
+        }
+
+        /* --- LAYOUT COMPONENTS --- */
+        .app-header {
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(188, 19, 254, 0.3);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -44,167 +128,360 @@
             align-items: center;
         }
 
-        #admin-anons {
-            display: none;
-            background: var(--neon);
-            color: #fff;
-            padding: 15px;
+        .header-logo {
+            font-family: 'Orbitron';
             font-weight: 900;
-            text-align: center;
-            font-size: 1.2rem;
-            box-shadow: 0 0 25px var(--neon);
+            color: var(--neon-main);
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+        }
+
+        #system-marquee {
+            display: none;
+            background: linear-gradient(90deg, var(--neon-main), var(--neon-second));
+            color: #fff;
+            padding: 10px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            padding-bottom: 120px;
+            min-height: calc(100vh - 80px);
         }
 
         .page {
             display: none;
-            padding: 20px;
-            max-width: 800px;
-            margin: 0 auto;
-            min-height: 85vh;
-            padding-bottom: 120px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: 0.5s;
         }
 
         .page.active {
             display: block;
-            animation: fadeInUp 0.5s ease;
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        /* --- CHAT STYLES --- */
-        #chat-flow {
+        /* --- CARDS & PANELS --- */
+        .card-cyber {
+            background: var(--dark-card);
+            border: 1px solid #222;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+
+        .card-cyber:hover {
+            border-color: var(--neon-main);
+            box-shadow: var(--glow-shadow);
+        }
+
+        /* --- GLOBAL CHAT ENGINE UI --- */
+        #chat-window {
             height: 55vh;
             overflow-y: auto;
-            border: 1px solid #222;
-            padding: 15px;
-            border-radius: 15px;
-            background: rgba(0, 0, 0, 0.3);
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 15px;
+            padding-right: 10px;
         }
 
-        .msg-box {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 12px;
-            border-radius: 12px;
-            position: relative;
-            border-left: 3px solid var(--neon);
-            width: fit-content;
+        .message-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
             max-width: 85%;
         }
 
-        .author-name {
-            color: var(--neon);
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 0.9rem;
-            margin-bottom: 4px;
-            display: block;
+        .message-wrapper.me {
+            align-self: flex-end;
         }
 
-        .admin-tag {
-            color: var(--admin-gold);
-            font-size: 0.65rem;
-            border: 1px solid var(--admin-gold);
-            padding: 1px 4px;
+        .bubble {
+            padding: 12px 18px;
+            border-radius: 18px;
+            position: relative;
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 3px solid var(--neon-main);
+        }
+
+        .me .bubble {
+            background: var(--neon-main);
+            color: #000;
+            border-left: none;
+            border-right: 3px solid #fff;
+        }
+
+        .msg-info {
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 2px;
+        }
+
+        .username-link {
+            cursor: pointer;
+            font-weight: 700;
+            color: var(--neon-main);
+            transition: 0.2s;
+        }
+
+        .username-link:hover {
+            text-decoration: underline;
+        }
+
+        .me .username-link {
+            color: #fff;
+        }
+
+        .admin-badge {
+            background: var(--admin-gold);
+            color: #000;
+            font-size: 0.6rem;
+            padding: 2px 6px;
             border-radius: 4px;
-            margin-right: 5px;
+            font-weight: 900;
+            text-transform: uppercase;
         }
 
-        .admin-author {
-            color: var(--admin-gold) !important;
-            text-shadow: 0 0 8px var(--admin-gold);
-        }
-
-        .del-msg {
-            position: absolute;
-            right: -25px;
-            top: 10px;
-            color: var(--danger);
-            cursor: pointer;
-            opacity: 0.6;
-        }
-
-        /* --- PROFILE --- */
-        .profile-card {
+        /* --- PROFILE SYSTEM --- */
+        .profile-header {
             text-align: center;
-            background: rgba(255, 255, 255, 0.02);
-            padding: 35px;
-            border-radius: 30px;
-            border: 1px solid #222;
+            padding: 40px 20px;
+            position: relative;
         }
 
-        .pfp-wrap {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: 3px solid var(--neon);
-            margin: 0 auto 15px;
-            overflow: hidden;
-            box-shadow: 0 0 15px var(--neon);
+        .profile-avatar-container {
+            width: 130px;
+            height: 130px;
+            margin: 0 auto 20px;
+            position: relative;
         }
 
-        .pfp-wrap img {
+        .profile-avatar-container img {
             width: 100%;
             height: 100%;
+            border-radius: 50%;
             object-fit: cover;
+            border: 4px solid var(--neon-main);
+            box-shadow: 0 0 25px var(--neon-main);
         }
 
-        .btn-cyber {
-            background: transparent;
-            border: 1px solid var(--neon);
-            color: var(--neon);
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
+        .level-tag {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: #fff;
+            color: #000;
+            padding: 5px 10px;
+            border-radius: 10px;
+            font-weight: 900;
             font-family: 'Orbitron';
             font-size: 0.8rem;
-            transition: 0.3s;
-            margin: 5px;
         }
 
-        .btn-cyber:hover {
-            background: var(--neon);
-            color: #000;
-            box-shadow: 0 0 15px var(--neon);
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 20px 0;
         }
 
-        /* --- NAV DOCK & MOR RENK FIX --- */
-        .nav-dock {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(10, 10, 10, 0.95);
-            padding: 12px 25px;
-            border-radius: 50px;
+        .stat-item {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 15px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .stat-value {
+            display: block;
+            font-family: 'Orbitron';
+            font-size: 1.5rem;
+            color: var(--neon-main);
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- DM INTERFACE --- */
+        .dm-item {
             display: flex;
-            gap: 20px;
-            border: 1px solid #333;
-            z-index: 1001;
-        }
-
-        .nav-link {
-            color: #555;
-            font-size: 1.3rem;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 15px;
+            margin-bottom: 10px;
             cursor: pointer;
             transition: 0.3s;
+            border: 1px solid transparent;
         }
 
-        .nav-link.active {
-            color: var(--neon) !important;
-            transform: scale(1.2);
-            text-shadow: 0 0 10px var(--neon);
+        .dm-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--neon-main);
         }
 
-        @keyframes fadeInUp {
+        .dm-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--neon-main);
+        }
+
+        .dm-info h4 {
+            font-family: 'Orbitron';
+            font-size: 0.9rem;
+        }
+
+        .dm-last-msg {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 200px;
+        }
+
+        /* --- NAVIGATION DOCK --- */
+        .nav-dock {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(15px);
+            padding: 15px 30px;
+            border-radius: 50px;
+            display: flex;
+            gap: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 2000;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+        }
+
+        .nav-btn {
+            color: #444;
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .nav-btn.active {
+            color: var(--neon-main);
+            transform: translateY(-8px) scale(1.2);
+        }
+
+        .nav-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 5px;
+            height: 5px;
+            background: var(--neon-main);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--neon-main);
+        }
+
+        /* --- BUTTONS & INPUTS --- */
+        .btn-piro {
+            background: transparent;
+            border: 1px solid var(--neon-main);
+            color: var(--neon-main);
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-family: 'Orbitron';
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-block;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+
+        .btn-piro:hover {
+            background: var(--neon-main);
+            color: #000;
+            box-shadow: 0 0 20px var(--neon-main);
+        }
+
+        .btn-danger {
+            border-color: var(--danger-red);
+            color: var(--danger-red);
+        }
+
+        .btn-danger:hover {
+            background: var(--danger-red);
+            color: #fff;
+            box-shadow: 0 0 20px var(--danger-red);
+        }
+
+        .input-cyber {
+            width: 100%;
+            background: #050505;
+            border: 1px solid #222;
+            padding: 15px;
+            border-radius: 12px;
+            color: #fff;
+            font-family: 'Rajdhani';
+            transition: 0.3s;
+        }
+
+        .input-cyber:focus {
+            border-color: var(--neon-main);
+            box-shadow: 0 0 10px rgba(188, 19, 254, 0.2);
+        }
+
+        /* --- NOTIFICATION TOAST --- */
+        #toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+
+        .toast {
+            background: var(--dark-card);
+            border-left: 4px solid var(--neon-main);
+            padding: 15px 25px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideInRight 0.3s ease forwards;
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes slideInRight {
             from {
+                transform: translateX(100%);
                 opacity: 0;
-                transform: translateY(20px);
             }
 
             to {
+                transform: translateX(0);
                 opacity: 1;
-                transform: translateY(0);
             }
         }
     </style>
@@ -212,103 +489,199 @@
 
 <body>
 
-    <div id="landing-page"
-        style="height: 100vh; position: fixed; width: 100%; z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; background: #000;">
-        <h1 style="font-family:'Syncopate'; font-size:3.5rem; color:var(--neon);">DRONEX</h1>
-        <button id="btn-enter" class="btn-cyber" style="margin-top:30px;">GOOGLE GİRİŞ YAP</button>
+    <div id="loading-overlay">
+        <div class="loader-ring"></div>
+        <p style="margin-top:20px; font-family:'Orbitron'; letter-spacing:5px; color:var(--neon-main);">SYNCING
+            DRONEX...</p>
     </div>
 
-    <div id="main-content" style="display:none;">
-        <header class="header-main">
-            <div style="font-family:'Orbitron'; color:var(--neon); font-size:1.4rem; font-weight: 900;">DRONEX</div>
-            <div id="kurucu-badge"></div>
+    <section id="auth-gate">
+        <div class="auth-content animate__animated animate__fadeIn">
+            <h1 class="auth-logo">DRONEX</h1>
+            <p style="color:var(--text-dim); margin-bottom:40px; letter-spacing:2px;">CYBERNETIC SOCIAL NETWORK</p>
+            <button id="google-login-btn" class="btn-piro" style="font-size:1.1rem; padding: 20px 40px;">
+                <i class="fab fa-google" style="margin-right:10px;"></i> TERMINAL GİRİŞİ
+            </button>
+        </div>
+    </section>
+
+    <main id="app-shell" style="display:none;">
+        <header class="app-header">
+            <div class="header-logo">DRONEX <span style="font-size:0.6rem; vertical-align:top; opacity:0.5;">V14
+                    PRO</span></div>
+            <div id="admin-status-node"></div>
         </header>
 
-        <div id="admin-anons">
-            <marquee id="anons-text"></marquee>
+        <div id="system-marquee">
+            <marquee id="marquee-content">SİSTEM MESAJI: BAĞLANTI BAŞARILI...</marquee>
         </div>
 
-        <div id="home" class="page active">
-            <div
-                style="height:45vh; display:flex; flex-direction:column; justify-content:center; align-items:center; border:2px solid var(--neon); border-radius:30px; background:rgba(188,19,254,0.05);">
-                <h1 style="font-family:'Orbitron'; font-size:4rem;">HAT 30</h1>
-                <p style="letter-spacing:10px; color:var(--neon);">YAKINDA SİZLERLE</p>
-            </div>
-        </div>
+        <div class="container">
 
-        <div id="videos" class="page">
-            <h2 style="font-family:'Orbitron'; color:var(--neon); margin-bottom:20px;">VİDEOLAR</h2>
-            <div style="text-align:center; padding:50px; background:rgba(255,255,255,0.01); border-radius:20px;">
-                <p style="color:#444;">Paylaşılan video bulunmuyor.</p>
-            </div>
-        </div>
-
-        <div id="chat" class="page">
-            <h2 style="font-family:'Orbitron'; color:var(--neon); margin-bottom:20px;">GLOBAL CHAT</h2>
-            <div id="chat-flow"></div>
-            <div style="display:flex; gap:10px; margin-top:15px;">
-                <input id="chat-input" type="text" placeholder="Bir şeyler yaz..."
-                    style="flex:1; background:#0a0a0a; color:#fff; border:1px solid #333; padding:15px; border-radius:10px;">
-                <button onclick="sendMsg()" class="btn-cyber"><i class="fas fa-paper-plane"></i></button>
-            </div>
-        </div>
-
-        <div id="dm" class="page">
-            <h2 style="font-family:'Orbitron'; color:var(--neon); margin-bottom:20px;">DRONEX DM</h2>
-            <p style="color:#333; text-align:center; margin-top: 50px;">Özel mesaj kutusu yakında...</p>
-        </div>
-
-        <div id="profile" class="page">
-            <div class="profile-card">
-                <div class="pfp-wrap"><img id="my-img" src=""></div>
-                <h2 id="my-name" style="font-family:'Orbitron';">Yükleniyor</h2>
-                <div style="display:flex; justify-content:center; gap:30px; margin:20px 0;">
-                    <div><b id="my-fol-count">142</b><br><small>TAKİPÇİ</small></div>
-                    <div><b>89</b><br><small>TAKİP</small></div>
+            <div id="page-home" class="page active">
+                <div class="card-cyber animate__animated animate__zoomIn"
+                    style="text-align:center; padding:80px 20px; border-width:2px;">
+                    <h1 style="font-family:'Orbitron'; font-size:4.5rem; margin-bottom:10px;">HAT 30</h1>
+                    <div
+                        style="height:2px; background:linear-gradient(90deg, transparent, var(--neon-main), transparent); width:80%; margin:20px auto;">
+                    </div>
+                    <p style="letter-spacing:15px; color:var(--neon-main); font-weight:700;">YAKINDA SİZLERLE</p>
+                    <p style="margin-top:30px; color:#444; font-size:0.9rem;">PROJECT CODE: S-OFFLINE_03</p>
                 </div>
-                <button class="btn-cyber" onclick="changeName()">İSİM DEĞİŞTİR</button>
-                <button class="btn-cyber" onclick="document.getElementById('img-up').click()">FOTOĞRAF SEÇ</button>
-                <input type="file" id="img-up" style="display:none" onchange="previewImg(this)">
-                <button class="btn-cyber btn-danger" onclick="logout()"
-                    style="margin-top:20px; border-color: #ff0055; color: #ff0055;">GÜVENLİ ÇIKIŞ</button>
+                <div class="card-cyber">
+                    <h4 style="font-family:'Orbitron'; margin-bottom:15px; color:var(--neon-main);"><i
+                            class="fas fa-bolt"></i> SON AKTİVİTELER</h4>
+                    <p style="color:var(--text-dim); font-size:0.9rem;">DroneX Social V14 altyapısına geçiş yapıldı. Tüm
+                        veritabanı senkronize edildi.</p>
+                </div>
             </div>
-        </div>
 
-        <div id="admin" class="page">
-            <h2 style="color:var(--admin-gold); font-family:'Orbitron';">🛡️ KURUCU PANELİ</h2>
-            <div
-                style="background:rgba(255,204,0,0.05); padding:20px; border-radius:15px; border:1px solid var(--admin-gold); margin-top:20px;">
-                <input id="anons-val" type="text" placeholder="Yeni duyuru metni..."
-                    style="width:100%; background:#000; color:#fff; border:1px solid #333; padding:12px;">
-                <button onclick="pushAnons()" class="btn-cyber"
-                    style="width:100%; color:var(--admin-gold); border-color:var(--admin-gold); margin-top:10px;">ANONSU
-                    YAYINLA</button>
-                <button onclick="killAnons()" class="btn-cyber"
-                    style="width:100%; color:#ff0055; border-color:#ff0055; margin-top:5px;">SİSTEMDEN SİL</button>
-                <hr style="margin:20px 0; border-color:#333;">
-                <input id="ban-user" type="text" placeholder="Banlanacak kullanıcı..."
-                    style="width:100%; background:#000; color:#fff; border:1px solid #333; padding:12px;">
-                <button onclick="alert('Kullanıcı yasaklandı!')" class="btn-cyber"
-                    style="width:100%; color:#ff0055; border-color:#ff0055; margin-top:10px;">SİSTEMDEN BANLA</button>
+            <div id="page-videos" class="page">
+                <div class="card-cyber" style="text-align:center; padding:100px 20px;">
+                    <i class="fas fa-video-slash fa-4x" style="color:#111; margin-bottom:20px;"></i>
+                    <h2 style="font-family:'Orbitron';">SİSTEM ÇEVRİMDIŞI</h2>
+                    <p style="color:var(--text-dim); margin-top:10px;">Video yayınlama modülü şu an erişime kapalıdır.
+                    </p>
+                </div>
             </div>
+
+            <div id="page-chat" class="page">
+                <div class="card-cyber" style="padding:15px; margin-bottom:10px;">
+                    <div id="chat-window"></div>
+                </div>
+                <div
+                    style="display:flex; gap:10px; background:var(--dark-card); padding:10px; border-radius:15px; border:1px solid #222;">
+                    <input id="global-chat-input" class="input-cyber" placeholder="Terminal'e mesaj bırak..."
+                        autocomplete="off">
+                    <button id="send-global-btn" class="btn-piro"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+
+            <div id="page-dm" class="page">
+                <div id="dm-master-list">
+                    <h2 style="font-family:'Orbitron'; margin-bottom:20px; color:var(--neon-main);">MESSENGER</h2>
+                    <div id="dm-inbox-render"></div>
+                </div>
+
+                <div id="dm-conversation-view" style="display:none;">
+                    <div
+                        style="display:flex; align-items:center; gap:15px; margin-bottom:20px; border-bottom:1px solid #222; padding-bottom:15px;">
+                        <button onclick="DMEngine.close()" class="btn-piro" style="padding:8px 15px;"><i
+                                class="fas fa-chevron-left"></i></button>
+                        <img id="dm-target-pfp" src="" class="dm-avatar" style="width:40px; height:40px;">
+                        <h3 id="dm-target-name" style="font-family:'Orbitron'; font-size:1rem;">Kullanıcı</h3>
+                    </div>
+                    <div id="dm-chat-window"
+                        style="height:50vh; overflow-y:auto; margin-bottom:15px; display:flex; flex-direction:column; gap:10px;">
+                    </div>
+                    <div style="display:flex; gap:10px;">
+                        <input id="private-msg-input" class="input-cyber" placeholder="Gizli mesaj...">
+                        <button id="send-private-btn" class="btn-piro"><i class="fas fa-shield-alt"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="page-user-profile" class="page">
+                <button onclick="PageEngine.switch('chat')" class="btn-piro" style="margin-bottom:20px;"><i
+                        class="fas fa-arrow-left"></i> CHAT'E DÖN</button>
+                <div class="card-cyber profile-header">
+                    <div class="profile-avatar-container">
+                        <img id="view-pfp" src="">
+                        <div class="level-tag" id="view-lvl">LVL 1</div>
+                    </div>
+                    <h2 id="view-name" style="font-family:'Orbitron'; font-size:1.8rem;">---</h2>
+                    <p id="view-email" style="color:var(--text-dim); font-size:0.8rem; margin-bottom:20px;">---</p>
+
+                    <div class="stat-grid">
+                        <div class="stat-item"><span class="stat-value" id="view-fol-count">0</span><span
+                                class="stat-label">Takipçi</span></div>
+                        <div class="stat-item"><span class="stat-value" id="view-following-count">0</span><span
+                                class="stat-label">Takip</span></div>
+                        <div class="stat-item"><span class="stat-value" id="view-xp-count">0</span><span
+                                class="stat-label">XP</span></div>
+                    </div>
+
+                    <div style="display:flex; gap:10px; justify-content:center;">
+                        <button id="follow-action-btn" class="btn-piro" style="flex:1;">TAKİP ET</button>
+                        <button id="dm-action-btn" class="btn-piro" style="flex:1;"><i class="fas fa-envelope"></i>
+                            MESAJ</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="page-profile" class="page">
+                <div class="card-cyber profile-header">
+                    <div class="profile-avatar-container">
+                        <img id="my-pfp" src="">
+                        <div class="level-tag" id="my-lvl">LVL 1</div>
+                    </div>
+                    <h2 id="my-display-name" style="font-family:'Orbitron'; font-size:1.8rem;">YÜKLENİYOR...</h2>
+
+                    <div class="stat-grid">
+                        <div class="stat-item"><span class="stat-value" id="my-fol-count">0</span><span
+                                class="stat-label">Takipçi</span></div>
+                        <div class="stat-item"><span class="stat-value" id="my-following-count">0</span><span
+                                class="stat-label">Takip</span></div>
+                        <div class="stat-item"><span class="stat-value" id="my-xp-count">0</span><span
+                                class="stat-label">XP</span></div>
+                    </div>
+
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                        <button onclick="UserSystem.editName()" class="btn-piro">İSİM DEĞİŞTİR</button>
+                        <button onclick="document.getElementById('pfp-upload').click()" class="btn-piro">FOTOĞRAF
+                            SEÇ</button>
+                    </div>
+                    <input type="file" id="pfp-upload" hidden accept="image/*" onchange="UserSystem.updatePfp(this)">
+                    <button onclick="UserSystem.logout()" class="btn-piro btn-danger"
+                        style="width:100%; margin-top:20px;">SİSTEMDEN ÇIK</button>
+                </div>
+            </div>
+
+            <div id="page-admin" class="page">
+                <h2 style="font-family:'Orbitron'; color:var(--admin-gold); margin-bottom:20px;"><i
+                        class="fas fa-crown"></i> KURUCU MERKEZİ</h2>
+                <div class="card-cyber">
+                    <h4 style="margin-bottom:15px; border-bottom:1px solid #333; padding-bottom:10px;">ANONS YÖNETİMİ
+                    </h4>
+                    <input id="admin-anons-input" class="input-cyber" placeholder="Global anons metni...">
+                    <button onclick="AdminEngine.sendAnons()" class="btn-piro"
+                        style="width:100%; color:var(--admin-gold); border-color:var(--admin-gold); margin-top:10px;">YAYINLA</button>
+                    <button onclick="AdminEngine.clearAnons()" class="btn-piro btn-danger"
+                        style="width:100%; margin-top:5px;">ANONSU DURDUR</button>
+                </div>
+                <div class="card-cyber">
+                    <h4 style="margin-bottom:15px; border-bottom:1px solid #333; padding-bottom:10px;">BAN SİSTEMİ</h4>
+                    <input id="ban-target-uid" class="input-cyber" placeholder="Kullanıcı ID (UID)...">
+                    <div style="display:flex; gap:10px; margin-top:10px;">
+                        <button onclick="AdminEngine.banUser()" class="btn-piro btn-danger"
+                            style="flex:1;">BANLA</button>
+                        <button onclick="AdminEngine.unbanUser()" class="btn-piro"
+                            style="flex:1; border-color:#fff; color:#fff;">BANI AÇ</button>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <nav class="nav-dock">
-            <div class="nav-link active" onclick="tabTo('home', this)"><i class="fas fa-home"></i></div>
-            <div class="nav-link" onclick="tabTo('videos', this)"><i class="fas fa-camera-retro"></i></div>
-            <div class="nav-link" onclick="tabTo('chat', this)"><i class="fas fa-globe"></i></div>
-            <div class="nav-link" onclick="tabTo('dm', this)"><i class="fas fa-envelope"></i></div>
-            <div class="nav-link" onclick="tabTo('profile', this)"><i class="fas fa-user"></i></div>
-            <div id="admin-tab" class="nav-link" style="display:none;" onclick="tabTo('admin', this)"><i
+            <div class="nav-btn active" onclick="PageEngine.switch('home', this)"><i class="fas fa-home"></i></div>
+            <div class="nav-btn" onclick="PageEngine.switch('videos', this)"><i class="fas fa-video"></i></div>
+            <div class="nav-btn" onclick="PageEngine.switch('chat', this)"><i class="fas fa-globe"></i></div>
+            <div class="nav-btn" onclick="PageEngine.switch('dm', this)"><i class="fas fa-envelope"></i></div>
+            <div class="nav-btn" onclick="PageEngine.switch('profile', this)"><i class="fas fa-user"></i></div>
+            <div id="admin-nav-btn" class="nav-btn" style="display:none;" onclick="PageEngine.switch('admin', this)"><i
                     class="fas fa-crown"></i></div>
         </nav>
-    </div>
+    </main>
+
+    <div id="toast-container"></div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, doc, setDoc, getDoc, deleteDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, doc, setDoc, getDoc, deleteDoc, serverTimestamp, where, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
+        // CONFIGURATION
         const firebaseConfig = {
             apiKey: "AIzaSyAutPInq2BBsOnKlZS2A6M9XTEq9MuhgRY",
             authDomain: "tanitimsitesi-1ca45.firebaseapp.com",
@@ -318,109 +691,308 @@
             appId: "1:43485443013:web:4dd13cf9d8101c2fef51ac"
         };
 
+        // INITIALIZE
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
         const provider = new GoogleAuthProvider();
-        const MASTER = "adilerkamtek2011@gmail.com";
-        let me = null;
 
-        document.getElementById('btn-enter').onclick = () => signInWithPopup(auth, provider);
+        // SYSTEM CONSTANTS
+        const MASTER_EMAIL = "adilerkamtek2011@gmail.com";
+        let CURRENT_USER = null;
+        let VIEWING_USER_ID = null;
+        let ACTIVE_DM_ID = null;
 
-        onAuthStateChanged(auth, async (u) => {
-            if (u) {
-                me = u;
-                document.getElementById('landing-page').style.display = 'none';
-                document.getElementById('main-content').style.display = 'block';
-
-                const userDoc = await getDoc(doc(db, "users", u.uid));
-                const currentName = userDoc.exists() ? userDoc.data().name : u.displayName;
-                document.getElementById('my-name').innerText = currentName;
-                document.getElementById('my-img').src = u.photoURL;
-
-                if (u.email === MASTER) {
-                    document.getElementById('admin-tab').style.display = 'block';
-                    document.getElementById('kurucu-badge').innerHTML = '<span style="color:var(--admin-gold); border:1px solid var(--admin-gold); padding:5px 10px; font-weight:bold; font-size:0.7rem;">KURUCU</span>';
-                }
-                loadMessages();
-                loadAnons();
-            } else {
-                document.getElementById('main-content').style.display = 'none';
-                document.getElementById('landing-page').style.display = 'flex';
+        /* --- UI ENGINE --- */
+        const UI = {
+            showToast: (msg, type = 'info') => {
+                const toast = document.createElement('div');
+                toast.className = `toast animate__animated animate__fadeInRight`;
+                toast.innerHTML = `<i class="fas fa-info-circle" style="color:var(--neon-main)"></i> <span>${msg}</span>`;
+                document.getElementById('toast-container').appendChild(toast);
+                setTimeout(() => {
+                    toast.classList.replace('animate__fadeInRight', 'animate__fadeOutRight');
+                    setTimeout(() => toast.remove(), 500);
+                }, 3000);
+            },
+            hideLoader: () => {
+                const loader = document.getElementById('loading-overlay');
+                loader.style.opacity = '0';
+                setTimeout(() => loader.style.display = 'none', 800);
             }
-        });
+        };
 
-        function loadMessages() {
-            // "orderBy" kısmını serverTimestamp ile daha stabil hale getirdik
-            const q = query(collection(db, "messages"), orderBy("createdAt", "asc"));
-            onSnapshot(q, (snapshot) => {
-                const flow = document.getElementById('chat-flow');
-                flow.innerHTML = "";
-                snapshot.forEach((doc) => {
-                    const d = doc.data();
-                    const isAdm = d.email === MASTER;
-                    flow.innerHTML += `
-                        <div class="msg-box">
-                            ${isAdm ? '<span class="admin-tag">KURUCU</span>' : ''}
-                            <span class="author-name ${isAdm ? 'admin-author' : ''}">${d.author}:</span>
-                            <p>${d.text}</p>
-                            ${(d.uid === me.uid || me.email === MASTER) ? `<i class="fas fa-trash del-msg" onclick="deleteMsg('${doc.id}')"></i>` : ''}
-                        </div>`;
+        /* --- PAGE NAVIGATION ENGINE --- */
+        window.PageEngine = {
+            switch: (pageId, el = null) => {
+                document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+
+                const target = document.getElementById(`page-${pageId}`);
+                if (target) target.classList.add('active');
+                if (el) el.classList.add('active');
+
+                if (pageId === 'dm') DMEngine.loadInbox();
+            }
+        };
+
+        /* --- USER SYSTEM --- */
+        window.UserSystem = {
+            login: async () => {
+                try {
+                    await signInWithPopup(auth, provider);
+                } catch (err) {
+                    UI.showToast("Giriş başarısız!");
+                }
+            },
+            logout: () => signOut(auth),
+            editName: async () => {
+                const newName = prompt("Yeni Terminal İsmin:");
+                if (newName && newName.length > 2) {
+                    await updateDoc(doc(db, "users", CURRENT_USER.uid), { name: newName });
+                    UI.showToast("İsim güncellendi!");
+                }
+            },
+            updatePfp: (input) => {
+                if (input.files && input.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = async (e) => {
+                        document.getElementById('my-pfp').src = e.target.result;
+                        await updateDoc(doc(db, "users", CURRENT_USER.uid), { pfp: e.target.result });
+                        UI.showToast("Profil fotoğrafı güncellendi!");
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+        };
+
+        /* --- ADMIN ENGINE --- */
+        window.AdminEngine = {
+            sendAnons: async () => {
+                const val = document.getElementById('admin-anons-input').value;
+                if (!val) return;
+                await setDoc(doc(db, "system", "anons"), { text: val, active: true, timestamp: serverTimestamp() });
+                UI.showToast("Anons yayınlandı!");
+            },
+            clearAnons: async () => {
+                await setDoc(doc(db, "system", "anons"), { active: false });
+                UI.showToast("Anons kaldırıldı.");
+            },
+            banUser: () => UI.showToast("Yasaklama protokolü başlatıldı."),
+            unbanUser: () => UI.showToast("Yasak kaldırma başarılı.")
+        };
+
+        /* --- GLOBAL CHAT ENGINE --- */
+        const ChatEngine = {
+            init: () => {
+                const q = query(collection(db, "messages"), orderBy("createdAt", "asc"), limit(100));
+                onSnapshot(q, (snapshot) => {
+                    const win = document.getElementById('chat-window');
+                    win.innerHTML = "";
+                    snapshot.forEach(doc => {
+                        const m = doc.data();
+                        const isMe = m.uid === CURRENT_USER.uid;
+                        const isAdmin = m.email === MASTER_EMAIL;
+
+                        win.innerHTML += `
+                            <div class="message-wrapper ${isMe ? 'me' : ''} animate__animated animate__fadeInUp">
+                                <div class="msg-info">
+                                    ${isAdmin ? '<span class="admin-badge">KURUCU</span>' : ''}
+                                    <span class="username-link ${isAdmin ? 'admin-author' : ''}" onclick="window.inspectUser('${m.uid}')">${m.author}</span>
+                                </div>
+                                <div class="bubble">
+                                    ${m.text}
+                                    ${(isMe || CURRENT_USER.email === MASTER_EMAIL) ? `<i class="fas fa-trash-alt" style="margin-left:10px; opacity:0.3; cursor:pointer;" onclick="window.deleteGlobalMsg('${doc.id}')"></i>` : ''}
+                                </div>
+                            </div>
+                        `;
+                    });
+                    win.scrollTop = win.scrollHeight;
                 });
-                flow.scrollTop = flow.scrollHeight;
-            });
-        }
+            },
+            send: async () => {
+                const inp = document.getElementById('global-chat-input');
+                const myName = document.getElementById('my-display-name').innerText;
+                if (!inp.value.trim()) return;
 
-        window.sendMsg = async () => {
-            const inp = document.getElementById('chat-input');
-            const myName = document.getElementById('my-name').innerText;
-            if (inp.value.trim() !== "") {
                 await addDoc(collection(db, "messages"), {
                     text: inp.value,
                     author: myName,
-                    email: me.email,
-                    uid: me.uid,
-                    createdAt: serverTimestamp() // Gerçek zaman damgası
+                    uid: CURRENT_USER.uid,
+                    email: CURRENT_USER.email,
+                    createdAt: serverTimestamp()
                 });
+
+                // XP KAZANMA
+                await updateDoc(doc(db, "users", CURRENT_USER.uid), { xp: increment(5) });
                 inp.value = "";
             }
         };
 
-        window.deleteMsg = async (id) => { if (confirm("Bu mesajı silmek istiyor musun?")) await deleteDoc(doc(db, "messages", id)); };
+        /* --- PRIVATE MESSENGER (DM) ENGINE --- */
+        window.DMEngine = {
+            loadInbox: () => {
+                const q = query(collection(db, "dms"), where("participants", "array-contains", CURRENT_USER.uid), orderBy("lastUpdate", "desc"));
+                onSnapshot(q, async (snap) => {
+                    const list = document.getElementById('dm-inbox-render');
+                    list.innerHTML = snap.empty ? '<p style="text-align:center; color:#222; margin-top:30px;">Henüz mesaj yok.</p>' : '';
 
-        window.tabTo = (id, el) => {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            el.classList.add('active'); // MOR RENK BURADA AKTİF OLUYOR
-        };
+                    for (const d of snap.docs) {
+                        const data = d.data();
+                        const otherId = data.participants.find(id => id !== CURRENT_USER.uid);
+                        const otherSnap = await getDoc(doc(db, "users", otherId));
+                        const otherData = otherSnap.exists() ? otherSnap.data() : { name: "Bilinmeyen", pfp: "" };
 
-        window.changeName = async () => {
-            const n = prompt("Yeni kullanıcı adın:");
-            if (n) {
-                await setDoc(doc(db, "users", me.uid), { name: n }, { merge: true });
-                document.getElementById('my-name').innerText = n;
+                        list.innerHTML += `
+                            <div class="dm-item" onclick="DMEngine.open('${d.id}', '${otherData.name}', '${otherData.pfp}')">
+                                <img src="${otherData.pfp}" class="dm-avatar">
+                                <div class="dm-info">
+                                    <h4>${otherData.name}</h4>
+                                    <p class="dm-last-msg">${data.lastText || "Sohbet başlatıldı..."}</p>
+                                </div>
+                            </div>
+                        `;
+                    }
+                });
+            },
+            open: (dmId, name, pfp) => {
+                ACTIVE_DM_ID = dmId;
+                document.getElementById('dm-master-list').style.display = 'none';
+                document.getElementById('dm-conversation-view').style.display = 'block';
+                document.getElementById('dm-target-name').innerText = name;
+                document.getElementById('dm-target-pfp').src = pfp;
+
+                const q = query(collection(db, "dms", dmId, "messages"), orderBy("createdAt", "asc"));
+                onSnapshot(q, (snap) => {
+                    const win = document.getElementById('dm-chat-window');
+                    win.innerHTML = "";
+                    snap.forEach(mDoc => {
+                        const m = mDoc.data();
+                        const isMe = m.senderId === CURRENT_USER.uid;
+                        win.innerHTML += `
+                            <div class="message-wrapper ${isMe ? 'me' : ''}">
+                                <div class="bubble">${m.text}</div>
+                            </div>
+                        `;
+                    });
+                    win.scrollTop = win.scrollHeight;
+                });
+            },
+            send: async () => {
+                const inp = document.getElementById('private-msg-input');
+                if (!inp.value.trim() || !ACTIVE_DM_ID) return;
+
+                const msgData = { text: inp.value, senderId: CURRENT_USER.uid, createdAt: serverTimestamp() };
+                await addDoc(collection(db, "dms", ACTIVE_DM_ID, "messages"), msgData);
+                await updateDoc(doc(db, "dms", ACTIVE_DM_ID), { lastText: inp.value, lastUpdate: serverTimestamp() });
+                inp.value = "";
+            },
+            close: () => {
+                document.getElementById('dm-master-list').style.display = 'block';
+                document.getElementById('dm-conversation-view').style.display = 'none';
+                ACTIVE_DM_ID = null;
             }
         };
 
-        function loadAnons() {
-            onSnapshot(doc(db, "system", "anons"), (doc) => {
-                const d = doc.data();
-                const bar = document.getElementById('admin-anons');
-                if (d && d.active) { bar.style.display = 'block'; document.getElementById('anons-text').innerText = "📢 " + d.text; }
-                else { bar.style.display = 'none'; }
+        /* --- PROFILE INSPECTOR ENGINE --- */
+        window.inspectUser = async (uid) => {
+            if (uid === CURRENT_USER.uid) { PageEngine.switch('profile', document.querySelector('.fa-user').parentElement); return; }
+
+            const uSnap = await getDoc(doc(db, "users", uid));
+            if (uSnap.exists()) {
+                const data = uSnap.data();
+                VIEWING_USER_ID = uid;
+                document.getElementById('view-name').innerText = data.name;
+                document.getElementById('view-pfp').src = data.pfp;
+                document.getElementById('view-email').innerText = data.email.replace(/(.{3}).*@/, "$1***@");
+                document.getElementById('view-fol-count').innerText = data.followers || 0;
+                document.getElementById('view-following-count').innerText = data.following || 0;
+                document.getElementById('view-xp-count').innerText = data.xp || 0;
+                document.getElementById('view-lvl').innerText = `LVL ${Math.floor((data.xp || 0) / 100) + 1}`;
+
+                PageEngine.switch('user-profile');
+            }
+        };
+
+        window.startDmFromProfile = async () => {
+            const dmId = [CURRENT_USER.uid, VIEWING_USER_ID].sort().join("_");
+            await setDoc(doc(db, "dms", dmId), { participants: [CURRENT_USER.uid, VIEWING_USER_ID], lastUpdate: serverTimestamp() }, { merge: true });
+            PageEngine.switch('dm', document.querySelector('.fa-envelope').parentElement);
+            DMEngine.open(dmId, document.getElementById('view-name').innerText, document.getElementById('view-pfp').src);
+        };
+
+        /* --- AUTH OBSERVER --- */
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                CURRENT_USER = user;
+                document.getElementById('auth-gate').style.display = 'none';
+                document.getElementById('app-shell').style.display = 'block';
+
+                // USER DATA SYNC
+                const userRef = doc(db, "users", user.uid);
+                const userSnap = await getDoc(userRef);
+
+                if (!userSnap.exists()) {
+                    await setDoc(userRef, {
+                        name: user.displayName,
+                        pfp: user.photoURL,
+                        email: user.email,
+                        followers: 0,
+                        following: 0,
+                        xp: 0,
+                        createdAt: serverTimestamp()
+                    });
+                }
+
+                // LIVE SYNC FOR PERSONAL DATA
+                onSnapshot(userRef, (snap) => {
+                    const d = snap.data();
+                    if (!d) return;
+                    document.getElementById('my-display-name').innerText = d.name;
+                    document.getElementById('my-pfp').src = d.pfp;
+                    document.getElementById('my-fol-count').innerText = d.followers || 0;
+                    document.getElementById('my-following-count').innerText = d.following || 0;
+                    document.getElementById('my-xp-count').innerText = d.xp || 0;
+                    document.getElementById('my-lvl').innerText = `LVL ${Math.floor((d.xp || 0) / 100) + 1}`;
+                });
+
+                if (user.email === MASTER_EMAIL) {
+                    document.getElementById('admin-nav-btn').style.display = 'block';
+                    document.getElementById('admin-status-node').innerHTML = '<span class="admin-badge" style="box-shadow:0 0 10px var(--admin-gold)">ROOT ADMIN</span>';
+                }
+
+                ChatEngine.init();
+                loadSystemAnons();
+                UI.hideLoader();
+                UI.showToast(`Hoş geldin, ${user.displayName}!`);
+            } else {
+                document.getElementById('app-shell').style.display = 'none';
+                document.getElementById('auth-gate').style.display = 'flex';
+                UI.hideLoader();
+            }
+        });
+
+        function loadSystemAnons() {
+            onSnapshot(doc(db, "system", "anons"), (d) => {
+                const bar = document.getElementById('system-marquee');
+                if (d.exists() && d.data().active) {
+                    bar.style.display = 'block';
+                    document.getElementById('marquee-content').innerText = "SYSTEM BROADCAST: " + d.data().text;
+                } else {
+                    bar.style.display = 'none';
+                }
             });
         }
 
-        window.pushAnons = async () => {
-            const v = document.getElementById('anons-val').value;
-            if (v) await setDoc(doc(db, "system", "anons"), { text: v, active: true });
-        };
+        // EVENT BINDINGS
+        document.getElementById('google-login-btn').onclick = UserSystem.login;
+        document.getElementById('send-global-btn').onclick = ChatEngine.send;
+        document.getElementById('send-private-btn').onclick = DMEngine.send;
+        document.getElementById('dm-action-btn').onclick = window.startDmFromProfile;
+        document.getElementById('global-chat-input').onkeypress = (e) => { if (e.key === 'Enter') ChatEngine.send(); };
 
-        window.killAnons = async () => await setDoc(doc(db, "system", "anons"), { active: false });
+        window.deleteGlobalMsg = async (id) => { if (confirm("Mesajı sil?")) await deleteDoc(doc(db, "messages", id)); };
 
-        window.previewImg = (i) => { if (i.files && i.files[0]) { const r = new FileReader(); r.onload = (e) => document.getElementById('my-img').src = e.target.result; r.readAsDataURL(i.files[0]); } };
-        window.logout = () => signOut(auth);
     </script>
 </body>
 
