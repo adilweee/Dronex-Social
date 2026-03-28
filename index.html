@@ -3,388 +3,314 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>DroneX | Official</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DroneX Social 👑 | Global Network</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --insta-gradient: linear-gradient(45deg, #f093fb, #f5576c);
-            --bg: #000;
-            --card: #111;
-            --gold: #ffd700;
+            --gold: #ffcc00;
+            --dark: #050505;
+            --card: #121212;
+            --text: #ffffff;
+            --admin-color: #ffcc00;
+            /* Bu değişkeni admin panelinden değiştireceğiz */
         }
 
         body {
+            background: var(--dark);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
             margin: 0;
-            font-family: -apple-system, sans-serif;
-            background: var(--bg);
-            color: white;
-            height: 100vh;
-            overflow: hidden;
+            padding-bottom: 70px;
         }
 
-        .screen {
-            display: none !important;
-            flex-direction: column;
-            height: 100vh;
-            overflow-y: auto;
-            padding-bottom: 100px;
-            box-sizing: border-box;
+        /* ÜST BAR (NAV) */
+        .top-nav {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #222;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--gold);
+        }
+
+        .admin-badge {
+            background: var(--admin-color);
+            color: #000;
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+
+        /* ANA SAYFA HAT 30 YAZISI */
+        .hat-30-banner {
+            background: linear-gradient(90deg, #000, #1a1a1a);
+            border: 1px dashed var(--gold);
+            padding: 10px;
+            text-align: center;
+            margin: 15px;
+            border-radius: 10px;
+            font-weight: bold;
+            color: var(--gold);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* SAYFA YAPISI */
+        .page {
+            display: none;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
         }
 
         .active {
-            display: flex !important;
+            display: block;
         }
 
-        /* ANONS */
-        .announcement-bar {
-            background: var(--insta-gradient);
-            padding: 25px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 1.3rem;
-            border-bottom: 3px solid gold;
-            display: none;
-            position: relative;
-            z-index: 2000;
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
-        /* CHAT */
-        #chat-box,
-        #private-chat-box {
-            flex: 1;
-            padding: 15px;
-            overflow-y: auto;
-        }
-
-        .msg-bubble {
-            background: #1e1e1e;
-            padding: 12px;
-            border-radius: 15px;
-            margin-bottom: 12px;
-            position: relative;
-            border-left: 3px solid #f5576c;
-        }
-
-        .msg-user {
-            font-weight: bold;
-            cursor: pointer;
-            color: #f5576c;
-            margin-bottom: 5px;
-        }
-
-        .admin-name {
-            color: var(--gold) !important;
-            font-weight: 900 !important;
-            text-shadow: 0 0 8px gold;
-        }
-
-        /* PROFİL */
-        .profile-pic {
-            width: 110px;
-            height: 110px;
-            border-radius: 50%;
-            background: #222;
-            margin: 0 auto;
-            overflow: hidden;
-            border: 3px solid #f5576c;
-        }
-
-        .profile-pic img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* NAV */
-        nav {
-            height: 70px;
-            border-top: 1px solid #222;
+        /* ALT MENÜ */
+        .bottom-nav {
             background: #000;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
             position: fixed;
             bottom: 0;
             width: 100%;
-            z-index: 1000;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            border-top: 1px solid #222;
         }
 
-        nav i {
-            font-size: 1.6rem;
+        .nav-item {
             color: #555;
+            font-size: 1.2rem;
             cursor: pointer;
+            transition: 0.3s;
         }
 
-        .active-nav {
-            color: #f5576c;
+        .nav-item.active-nav {
+            color: var(--gold);
         }
 
-        .btn {
-            width: 90%;
-            max-width: 320px;
-            padding: 14px;
-            margin: 10px auto;
-            border-radius: 12px;
+        /* SHORTS TASARIMI */
+        .shorts-container {
+            height: 80vh;
+            background: #000;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #333;
+        }
+
+        .no-video {
+            color: #444;
+            font-style: italic;
+        }
+
+        /* POST & MESAJLAR */
+        .post-card {
+            background: var(--card);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #222;
+        }
+
+        .btn-action {
+            background: var(--gold);
+            color: #000;
             border: none;
-            display: block;
+            padding: 8px 15px;
+            border-radius: 8px;
             font-weight: bold;
             cursor: pointer;
         }
 
-        .btn-main {
-            background: var(--insta-gradient);
-            color: white;
+        .btn-delete {
+            background: #ff4444;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            float: right;
+            font-size: 0.8rem;
         }
 
-        input {
-            width: 85%;
-            padding: 12px;
-            margin: 10px auto;
-            display: block;
-            background: #111;
-            border: 1px solid #333;
-            color: white;
-            border-radius: 10px;
+        /* ADMIN PANELİ */
+        .admin-panel {
+            background: #1a0000;
+            border: 1px solid #ff4444;
+            padding: 20px;
+            border-radius: 15px;
         }
     </style>
 </head>
 
-<body id="main-body">
+<body>
 
-    <div id="announcement" class="announcement-bar">
-        <span id="ann-text"></span>
-        <i class="fas fa-times" id="close-ann"
-            style="position:absolute; right:15px; top:15px; cursor:pointer; display:none;"
-            onclick="deleteAnnouncement()"></i>
-    </div>
-
-    <div id="auth-screen" class="screen active" style="justify-content:center; text-align:center;">
-        <h1
-            style="font-size: 4.5rem; margin: 0; background: var(--insta-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-            DroneX</h1>
-        <input type="email" id="email" placeholder="E-posta">
-        <input type="password" id="password" placeholder="Şifre">
-        <button class="btn btn-main" id="auth-btn">Giriş Yap / Kayıt Ol</button>
-    </div>
-
-    <div id="home-screen" class="screen">
-        <div
-            style="background: var(--insta-gradient); padding: 50px 20px; text-align: center; border-radius: 0 0 40px 40px;">
-            <h1 style="margin:0;">Hoş Geldin Pilot</h1>
-            <p>HAT30 Yakında!</p>
+    <div class="top-nav">
+        <div class="logo">DroneX <span id="admin-indicator"></span></div>
+        <div id="user-header">
+            <span id="user-display" class="user-gold">Misafir 👑</span>
         </div>
-        <div id="admin-panel" style="display:none; padding: 20px;">
-            <div
-                style="background:#111; border: 2px solid gold; border-radius: 20px; padding: 20px; text-align: center;">
-                <h3 style="color:gold;">🛡️ KURUCU PANELİ</h3>
-                <button class="btn btn-main" onclick="makeAnnouncement()">Büyük Anons Patlat</button>
-                <button class="btn" style="background:red; color:white;" onclick="deleteAnnouncement()">Anonsu
-                    Kaldır</button>
+    </div>
+
+    <div id="home" class="page active">
+        <div class="hat-30-banner">🚀 HAT 30 YAKINDA! SİSTEM HAZIRLANIYOR...</div>
+        <div id="global-anons" style="color: var(--gold); text-align: center; margin-bottom: 10px;"></div>
+        <div class="post-card">
+            <textarea id="post-input" placeholder="Geleceğe bir mesaj bırak Adil..."
+                style="width:100%; background:#000; color:#fff; border:1px solid #333; border-radius:10px; padding:10px;"></textarea>
+            <button class="btn-action" style="margin-top:10px;">Paylaş</button>
+        </div>
+        <div id="feed">
+            <div class="post-card">
+                <span style="color:var(--gold)">Adil 👑</span> <span class="admin-badge">KURUCU</span>
+                <p>DroneX Social'a hoş geldiniz. Bu sistemde her şey sizin elinizde.</p>
             </div>
         </div>
     </div>
 
-    <div id="chat-screen" class="screen">
-        <h3 style="padding:20px; border-bottom:1px solid #222; margin:0;">Global Sohbet 🌍</h3>
-        <div id="chat-box"></div>
-        <div style="padding: 15px; display:flex; background:#000; border-top:1px solid #222;">
-            <input type="text" id="chat-input" placeholder="Mesaj yaz..." style="flex:1; margin:0;">
-            <button onclick="sendMsg()"
-                style="background:none; border:none; color:#f5576c; font-size:1.8rem; padding-left:15px;"><i
-                    class="fas fa-paper-plane"></i></button>
+    <div id="shorts" class="page">
+        <h3>DroneX Shorts</h3>
+        <div class="shorts-container">
+            <i class="fas fa-video-slash fa-3x" style="color:#222; margin-bottom:10px;"></i>
+            <p class="no-video">Henüz video yok. İlk videoyu sen yükle!</p>
         </div>
     </div>
 
-    <div id="user-profile-screen" class="screen" style="text-align:center;">
-        <div class="profile-pic" id="u-pic" style="margin-top:40px;"></div>
-        <h2 id="u-name">...</h2>
-        <div style="margin: 20px 0; font-size: 1.2rem;">Takipçi: <span id="u-followers"
-                style="font-weight:bold; color:#f5576c;">0</span></div>
-        <button class="btn btn-main" id="follow-btn" onclick="toggleFollow()">Takip Et</button>
-        <button class="btn" style="background:#222; color:white;" onclick="openPrivateChat()">Özel Mesaj Gönder</button>
-        <div style="margin-top:30px; border-top:1px solid #222; padding:20px; color:#555;">
-            <i class="fas fa-video" style="font-size:2rem;"></i><br>Henüz Video Yok
+    <div id="messages" class="page">
+        <h3>Özel Mesajlar (DM)</h3>
+        <div class="post-card">Henüz mesajın yok. Takipçilerinle konuşmaya başla!</div>
+    </div>
+
+    <div id="profile" class="page">
+        <div style="text-align: center;">
+            <div
+                style="width:100px; height:100px; background:#333; border-radius:50%; margin: 0 auto; border: 3px solid var(--gold);">
+            </div>
+            <h2 id="profile-name">Adil 👑</h2>
+            <button class="btn-action" onclick="changeName()">İsim Değiştir</button>
+            <div style="margin-top:20px; display:flex; justify-content: space-around;">
+                <span><b>0</b> Takipçi</span>
+                <span><b>0</b> Takip</span>
+            </div>
+        </div>
+        <h4 style="margin-top:30px;">Videolarım</h4>
+        <p class="no-video">Video bulunamadı.</p>
+    </div>
+
+    <div id="admin" class="page">
+        <div class="admin-panel">
+            <h3>🛡️ DroneX Admin Paneli</h3>
+            <p>Renk Kombinasyonu: <input type="color" id="colorPicker" onchange="updateTheme(this.value)"> </p>
+            <button class="btn-action" style="background:#ff4444; color:#fff;">Kullanıcı Banla</button>
+            <button class="btn-action" onclick="makeAnons()">Global Anons Geç</button>
+            <hr>
+            <h4>Moderatör Araçları</h4>
+            <button class="btn-delete" style="float:none;">Tüm Mesajları Temizle</button>
         </div>
     </div>
 
-    <div id="private-chat-screen" class="screen">
-        <h3 id="dm-title" style="padding:20px; border-bottom:1px solid #222; margin:0; text-align:center;">Özel Sohbet
-        </h3>
-        <div id="private-chat-box"></div>
-        <div style="padding:15px; display:flex; background:#000; border-top:1px solid #222;">
-            <input type="text" id="private-input" placeholder="Sadece ikiniz..." style="flex:1; margin:0;">
-            <button onclick="sendPrivateMsg()"
-                style="background:none; border:none; color:#f5576c; font-size:1.8rem; padding-left:15px;"><i
-                    class="fas fa-paper-plane"></i></button>
-        </div>
+    <div class="bottom-nav">
+        <div class="nav-item active-nav" onclick="showPage('home')"><i class="fas fa-home"></i></div>
+        <div class="nav-item" onclick="showPage('shorts')"><i class="fas fa-bolt"></i></div>
+        <div class="nav-item" onclick="showPage('messages')"><i class="fas fa-comment"></i></div>
+        <div class="nav-item" onclick="showPage('profile')"><i class="fas fa-user"></i></div>
+        <div id="admin-nav" class="nav-item" onclick="showPage('admin')" style="display:none;"><i
+                class="fas fa-shield-alt"></i></div>
     </div>
-
-    <div id="my-profile-screen" class="screen" style="text-align:center; padding-top:40px;">
-        <div class="profile-pic" id="my-pic"></div>
-        <h2 id="my-display-name">Pilot</h2>
-        <input type="text" id="edit-name" placeholder="Yeni Adın">
-        <p style="color:#666; font-size:0.8rem;">Profil Fotoğrafı Seç:</p>
-        <input type="file" id="file-input" accept="image/*">
-        <button class="btn btn-main" onclick="saveProfile()">Güncelle</button>
-        <button onclick="logout()" style="color:red; background:none; border:none; margin-top:20px;">Çıkış Yap</button>
-    </div>
-
-    <nav id="main-nav" style="display:none;">
-        <i class="fas fa-home active-nav" onclick="nav('home-screen', this)"></i>
-        <i class="fas fa-comment" onclick="nav('chat-screen', this)"></i>
-        <i class="fas fa-user-circle" onclick="nav('my-profile-screen', this)"></i>
-    </nav>
 
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getFirestore, doc, setDoc, getDoc, collection, addDoc, query, orderBy, onSnapshot, limit, deleteDoc, updateDoc, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-        const firebaseConfig = { apiKey: "AIzaSyAutPInq2BBsOnKlZS2A6M9XTEq9MuhgRY", authDomain: "tanitimsitesi-1ca45.firebaseapp.com", projectId: "tanitimsitesi-1ca45", storageBucket: "tanitimsitesi-1ca45.firebasestorage.app", messagingSenderId: "43485443013", appId: "1:43485443013:web:4dd13cf9d8101c2fef51ac" };
+        const firebaseConfig = {
+            apiKey: "AIzaSyAutPInq2BBsOnKlZS2A6M9XTEq9MuhgRY",
+            authDomain: "tanitimsitesi-1ca45.firebaseapp.com",
+            projectId: "tanitimsitesi-1ca45",
+            storageBucket: "tanitimsitesi-1ca45.firebasestorage.app",
+            messagingSenderId: "43485443013",
+            appId: "1:43485443013:web:4dd13cf9d8101c2fef51ac"
+        };
+
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
-        const db = getFirestore(app);
-        const ADMIN_GMAIL = "adilerkamtek2011@gmail.com";
 
-        let myData = { name: "Pilot", pic: "" };
-        let selectedUserId = "";
+        // SAYFA GEÇİŞLERİ
+        window.showPage = function (pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active-nav'));
+            document.getElementById(pageId).classList.add('active');
+            event.currentTarget.classList.add('active-nav');
+        }
 
-        onAuthStateChanged(auth, user => {
+        // TEMA GÜNCELLEME (ADMIN)
+        window.updateTheme = function (color) {
+            document.documentElement.style.setProperty('--gold', color);
+            document.documentElement.style.setProperty('--admin-color', color);
+            // Burada Firebase'e kaydedip herkeste değişmesini sağlayacağız
+        }
+
+        // KULLANICI KONTROLÜ
+        onAuthStateChanged(auth, (user) => {
             if (user) {
-                if (user.email === ADMIN_GMAIL) {
-                    document.getElementById('main-body').classList.add('is-admin');
-                    document.getElementById('admin-panel').style.display = 'block';
-                    document.getElementById('close-ann').style.display = 'block';
+                document.getElementById('user-display').innerText = user.displayName;
+                document.getElementById('profile-name').innerText = user.displayName + " 👑";
+
+                // ADMİN KONTROLÜ (SENİN MAİLİN)
+                if (user.email === "adilerkamtek2011@gmail.com") {
+                    document.getElementById('admin-nav').style.display = 'block';
+                    document.getElementById('admin-indicator').innerHTML = '<span class="admin-badge">KURUCU</span>';
                 }
-                document.getElementById('auth-screen').classList.remove('active');
-                document.getElementById('home-screen').classList.add('active');
-                document.getElementById('main-nav').style.display = 'flex';
-                loadMyInfo();
-                listenAnnouncements();
-                listenGlobalChat();
             }
         });
 
-        // PROFİL SİSTEMİ
-        async function loadMyInfo() {
-            const s = await getDoc(doc(db, "users", auth.currentUser.uid));
-            if (s.exists()) {
-                myData = s.data();
-                document.getElementById('my-display-name').innerText = myData.name;
-                if (myData.pic) document.getElementById('my-pic').innerHTML = `<img src="${myData.pic}">`;
-            }
+        window.makeAnons = function () {
+            const msg = prompt("Global Anons Mesajı:");
+            if (msg) document.getElementById('global-anons').innerText = "📢 " + msg;
         }
 
-        window.saveProfile = async () => {
-            const file = document.getElementById('file-input').files[0];
-            const newName = document.getElementById('edit-name').value || myData.name;
-            if (file) {
-                const reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = async () => {
-                    await setDoc(doc(db, "users", auth.currentUser.uid), { name: newName, pic: reader.result }, { merge: true });
-                    location.reload();
-                };
-            } else {
-                await setDoc(doc(db, "users", auth.currentUser.uid), { name: newName }, { merge: true });
-                location.reload();
-            }
-        };
-
-        // GLOBAL CHAT
-        function listenGlobalChat() {
-            onSnapshot(query(collection(db, "messages"), orderBy("time", "asc"), limit(50)), snap => {
-                const box = document.getElementById('chat-box'); box.innerHTML = "";
-                snap.forEach(d => {
-                    const data = d.data();
-                    const isAdmin = data.email === ADMIN_GMAIL;
-                    box.innerHTML += `
-                        <div class="msg-bubble">
-                            <div class="msg-user ${isAdmin ? 'admin-name' : ''}" onclick="viewUser('${data.uid}')">${data.user} ${isAdmin ? '👑' : ''}</div>
-                            <div>${data.text}</div>
-                            <div class="is-admin" style="display:none; position:absolute; right:10px; top:10px;"><i class="fas fa-trash" style="color:red" onclick="deleteMsg('${d.id}')"></i></div>
-                        </div>`;
-                });
-                box.scrollTop = box.scrollHeight;
-            });
+        window.changeName = function () {
+            const newName = prompt("Yeni İsminiz:");
+            if (newName) document.getElementById('profile-name').innerText = newName + " 👑";
         }
-
-        window.sendMsg = async () => {
-            const val = document.getElementById('chat-input').value;
-            if (!val) return;
-            await addDoc(collection(db, "messages"), { text: val, user: myData.name, email: auth.currentUser.email, uid: auth.currentUser.uid, time: Date.now() });
-            document.getElementById('chat-input').value = "";
-        };
-
-        // KULLANICI GÖRÜNTÜLEME & TAKİP
-        window.viewUser = async (uid) => {
-            selectedUserId = uid;
-            const s = await getDoc(doc(db, "users", uid));
-            if (s.exists()) {
-                const d = s.data();
-                document.getElementById('u-name').innerText = d.name;
-                document.getElementById('u-followers').innerText = (d.followers || []).length;
-                document.getElementById('u-pic').innerHTML = d.pic ? `<img src="${d.pic}" style="width:100%; height:100%; object-fit:cover;">` : `<i class="fas fa-user" style="font-size:3rem; margin-top:20px;"></i>`;
-                nav('user-profile-screen');
-            }
-        };
-
-        window.toggleFollow = async () => {
-            const userRef = doc(db, "users", selectedUserId);
-            const s = await getDoc(userRef);
-            const f = s.data().followers || [];
-            if (f.includes(auth.currentUser.uid)) await updateDoc(userRef, { followers: arrayRemove(auth.currentUser.uid) });
-            else await updateDoc(userRef, { followers: arrayUnion(auth.currentUser.uid) });
-            viewUser(selectedUserId);
-        };
-
-        // ÖZEL MESAJ (DM)
-        window.openPrivateChat = () => {
-            const chatId = [auth.currentUser.uid, selectedUserId].sort().join("_");
-            nav('private-chat-screen');
-            onSnapshot(query(collection(db, "p_chats", chatId, "msgs"), orderBy("time", "asc")), snap => {
-                const box = document.getElementById('private-chat-box'); box.innerHTML = "";
-                snap.forEach(d => { box.innerHTML += `<div class="msg-bubble"><b>${d.data().user}:</b> ${d.data().text}</div>`; });
-                box.scrollTop = box.scrollHeight;
-            });
-        };
-
-        window.sendPrivateMsg = async () => {
-            const val = document.getElementById('private-input').value;
-            const chatId = [auth.currentUser.uid, selectedUserId].sort().join("_");
-            if (!val) return;
-            await addDoc(collection(db, "p_chats", chatId, "msgs"), { text: val, user: myData.name, time: Date.now() });
-            document.getElementById('private-input').value = "";
-        };
-
-        // ANONS SİSTEMİ
-        window.makeAnnouncement = async () => {
-            const txt = prompt("Büyük Anons Metni:");
-            if (txt) await setDoc(doc(db, "system", "announcement"), { text: txt });
-        };
-        window.deleteAnnouncement = async () => { await deleteDoc(doc(db, "system", "announcement")); };
-        function listenAnnouncements() {
-            onSnapshot(doc(db, "system", "announcement"), s => {
-                const bar = document.getElementById('announcement');
-                if (s.exists()) { document.getElementById('ann-text').innerText = "📢 " + s.data().text; bar.style.display = 'block'; }
-                else { bar.style.display = 'none'; }
-            });
-        }
-
-        // DİĞER
-        window.nav = (id, el) => {
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            document.querySelectorAll('nav i').forEach(i => i.classList.remove('active-nav'));
-            if (el) el.classList.add('active-nav');
-        };
-        document.getElementById('auth-btn').onclick = async () => {
-            const e = document.getElementById('email').value, p = document.getElementById('password').value;
-            try { await signInWithEmailAndPassword(auth, e, p); } catch { await createUserWithEmailAndPassword(auth, e, p); }
-        };
-        window.deleteMsg = async (id) => { if (confirm("Silinsin mi?")) await deleteDoc(doc(db, "messages", id)); };
-        window.logout = () => signOut(auth);
     </script>
 </body>
 
