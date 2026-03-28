@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DroneX Social | Cyber 👑</title>
+    <title>DroneX Social | Security 👑</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Orbitron:wght@400;900&family=Rajdhani:wght@300;600;700&display=swap');
@@ -32,7 +32,7 @@
             background: radial-gradient(circle at 50% 50%, #120026 0%, #020202 100%);
         }
 
-        /* --- LANDING / GİRİŞ --- */
+        /* --- LANDING --- */
         #landing-page {
             height: 100vh;
             position: fixed;
@@ -44,7 +44,7 @@
             align-items: center;
             background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=2070');
             background-size: cover;
-            transition: 1s cubic-bezier(0.85, 0, 0.15, 1);
+            transition: 0.8s cubic-bezier(0.85, 0, 0.15, 1);
         }
 
         .cyber-logo {
@@ -57,7 +57,6 @@
             -webkit-text-fill-color: transparent;
             animation: shine 3s linear infinite;
             letter-spacing: 15px;
-            margin-bottom: 20px;
         }
 
         @keyframes shine {
@@ -66,7 +65,7 @@
             }
         }
 
-        /* --- ANA NAVBAR --- */
+        /* --- NAVBAR --- */
         .header-main {
             padding: 25px;
             background: rgba(0, 0, 0, 0.9);
@@ -80,54 +79,22 @@
             z-index: 1000;
         }
 
-        .header-logo {
-            font-family: 'Orbitron';
+        /* --- DEV GLOBAL ANONS --- */
+        #admin-anons {
+            display: none;
+            background: linear-gradient(90deg, var(--neon), #7a00cc);
+            color: #fff;
+            padding: 20px;
             font-weight: 900;
-            font-size: 1.8rem;
-            color: var(--neon);
-            text-shadow: 0 0 15px var(--neon);
-        }
-
-        /* --- HAT 30 DEV BANNER --- */
-        .hat-30-mega {
-            height: 60vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
             text-align: center;
-            border: 2px solid var(--neon);
-            margin: 20px;
-            border-radius: 30px;
-            background: rgba(188, 19, 254, 0.05);
-            box-shadow: inset 0 0 50px rgba(188, 19, 254, 0.2);
-            animation: glow-border 2s infinite alternate;
-        }
-
-        .hat-30-mega h1 {
-            font-family: 'Orbitron';
-            font-size: 5rem;
-            margin-bottom: 10px;
-        }
-
-        .hat-30-mega p {
             font-size: 1.5rem;
-            letter-spacing: 10px;
-            color: var(--neon);
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            box-shadow: 0 0 30px var(--neon);
+            position: relative;
         }
 
-        @keyframes glow-border {
-            from {
-                border-color: #333;
-            }
-
-            to {
-                border-color: var(--neon);
-                box-shadow: 0 0 30px var(--neon);
-            }
-        }
-
-        /* --- TABLAR --- */
+        /* --- PAGES --- */
         .page {
             display: none;
             padding: 20px;
@@ -139,47 +106,6 @@
         .page.active {
             display: block;
             animation: fadeInUp 0.6s ease;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* --- NAVİGASYON --- */
-        .nav-dock {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(10, 10, 10, 0.9);
-            padding: 10px 30px;
-            border-radius: 40px;
-            display: flex;
-            gap: 30px;
-            border: 1px solid #333;
-            backdrop-filter: blur(15px);
-            z-index: 1001;
-        }
-
-        .nav-link {
-            color: #666;
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: 0.4s;
-        }
-
-        .nav-link.active {
-            color: var(--neon);
-            transform: scale(1.3);
-            text-shadow: 0 0 15px var(--neon);
         }
 
         /* --- BUTONLAR --- */
@@ -202,27 +128,57 @@
             box-shadow: 0 0 20px var(--neon);
         }
 
-        .btn-danger {
+        .btn-logout {
             border-color: var(--danger);
             color: var(--danger);
+            margin-top: 15px;
         }
 
-        .btn-danger:hover {
+        .btn-logout:hover {
             background: var(--danger);
             color: #fff;
             box-shadow: 0 0 20px var(--danger);
         }
 
-        /* --- PROFİL --- */
-        .pfp-circle {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 5px solid var(--neon);
-            margin: 0 auto 20px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 0 30px var(--neon);
+        /* --- NAV DOCK --- */
+        .nav-dock {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(10, 10, 10, 0.9);
+            padding: 10px 30px;
+            border-radius: 40px;
+            display: flex;
+            gap: 25px;
+            border: 1px solid #333;
+            backdrop-filter: blur(15px);
+            z-index: 1001;
+        }
+
+        .nav-link {
+            color: #666;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: 0.4s;
+        }
+
+        .nav-link.active {
+            color: var(--neon);
+            transform: scale(1.2);
+            text-shadow: 0 0 15px var(--neon);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
@@ -231,49 +187,40 @@
 
     <div id="landing-page">
         <div class="cyber-logo">DRONEX</div>
-        <button id="btn-enter" class="btn-cyber" style="font-size: 1.2rem; padding: 15px 40px;">
-            <i class="fab fa-google"></i> SİSTEME SIZ
-        </button>
+        <button id="btn-enter" class="btn-cyber" style="font-size: 1.2rem; margin-top:30px;"><i
+                class="fab fa-google"></i> SİSTEME SIZ</button>
     </div>
 
     <div id="main-content" style="display:none;">
         <header class="header-main">
-            <div class="header-logo">DRONEX SOCIAL</div>
+            <div style="font-family:'Orbitron'; color:var(--neon); font-size:1.5rem;">DRONEX</div>
             <div id="kurucu-tag"></div>
         </header>
 
-        <div id="admin-anons"
-            style="display:none; background: var(--neon); color: #000; padding: 10px; font-weight: bold; text-align: center;">
+        <div id="admin-anons">
             <marquee id="anons-text"></marquee>
         </div>
 
         <div id="home" class="page active">
-            <div class="hat-30-mega">
-                <h1>HAT 30</h1>
-                <p>YAKINDA</p>
-                <div style="margin-top: 30px; font-size: 0.9rem; color: #555;">DroneX Network System v4.0</div>
+            <div
+                style="height: 50vh; display: flex; flex-direction: column; justify-content: center; align-items: center; border: 2px solid var(--neon); margin: 20px; border-radius: 30px; background: rgba(188, 19, 254, 0.05);">
+                <h1 style="font-family:'Orbitron'; font-size:4rem;">HAT 30</h1>
+                <p style="letter-spacing:10px; color:var(--neon);">YAKINDA</p>
             </div>
         </div>
 
-        <div id="shorts" class="page">
-            <h2
-                style="font-family: 'Orbitron'; border-left: 4px solid var(--neon); padding-left: 15px; margin-bottom: 30px;">
-                SHORTS</h2>
-            <div
-                style="height: 50vh; display:flex; flex-direction:column; justify-content:center; align-items:center; background:#0a0a0a; border-radius:20px; border: 1px solid #222;">
-                <i class="fas fa-video-slash fa-3x" style="color:#222;"></i>
-                <p style="color:#444; margin-top:20px;">Video yükleme sistemi kapalı.</p>
-            </div>
+        <div id="messages" class="page">
+            <h2 style="font-family:'Orbitron'; color:var(--neon); margin-bottom:20px;">MESAJLAR</h2>
+            <p style="text-align:center; color:#333; margin-top:50px;">Gelen kutun boş.</p>
         </div>
 
         <div id="chat" class="page">
-            <h2 style="font-family: 'Orbitron'; margin-bottom: 20px; color: var(--neon);">GLOBAL CHAT</h2>
+            <h2 style="font-family:'Orbitron'; color:var(--neon); margin-bottom:20px;">GLOBAL CHAT</h2>
             <div id="chat-window"
-                style="height: 50vh; overflow-y: auto; background: rgba(0,0,0,0.5); padding: 20px; border-radius: 15px;">
-                <div style="color:var(--neon); margin-bottom:10px;"><b>Sistem:</b> DroneX sohbetine hoş geldin.</div>
+                style="height:50vh; overflow-y:auto; background:rgba(0,0,0,0.5); padding:20px; border-radius:15px; border:1px solid #222;">
             </div>
             <div style="display:flex; gap:10px; margin-top:20px;">
-                <input id="chat-msg" type="text" placeholder="Mesajını gönder..."
+                <input id="chat-msg" type="text" placeholder="Mesaj yaz..."
                     style="flex:1; background:#111; border:1px solid #333; color:#fff; padding:15px; border-radius:10px;">
                 <button onclick="sendChat()" class="btn-cyber"><i class="fas fa-paper-plane"></i></button>
             </div>
@@ -281,55 +228,59 @@
 
         <div id="profile" class="page">
             <div style="text-align: center; background: rgba(255,255,255,0.02); padding: 40px; border-radius: 30px;">
-                <div class="pfp-circle">
-                    <img id="u-photo" src="" style="width:100%; height:100%; display:none;">
-                    <i id="u-icon" class="fas fa-user-astronaut fa-4x" style="margin-top:35px; color:var(--neon);"></i>
+                <div
+                    style="width: 140px; height: 140px; border-radius: 50%; border: 4px solid var(--neon); margin: 0 auto 20px; position: relative; overflow: hidden; box-shadow: 0 0 25px var(--neon);">
+                    <img id="u-photo" src="" style="width:100%; height:100%; display:none; object-fit:cover;">
+                    <i id="u-icon" class="fas fa-user-astronaut fa-4x" style="margin-top:30px; color:var(--neon);"></i>
                 </div>
-                <h1 id="u-display-name" style="font-family: 'Orbitron';">DroneX User</h1>
-                <p style="color:var(--neon); letter-spacing: 2px;">DOĞRULANMIŞ KULLANICI</p>
+                <h1 id="u-display-name" style="font-family: 'Orbitron';">User</h1>
 
-                <div style="margin-top:30px; display:flex; justify-content:center; gap:20px;">
+                <div style="display:flex; justify-content:center; gap:30px; margin:20px 0;">
+                    <div><b>1.2K</b><br><small style="color:#666;">TAKİPÇİ</small></div>
+                    <div><b>450</b><br><small style="color:#666;">TAKİP</small></div>
+                </div>
+
+                <div style="display:flex; flex-direction:column; gap:10px; max-width:250px; margin:0 auto;">
                     <button class="btn-cyber" onclick="editProfile()">İSMİ DÜZENLE</button>
-                    <button class="btn-cyber" style="border-color:#555; color:#555;">FOTOĞRAF SEÇ</button>
+                    <button class="btn-cyber" onclick="document.getElementById('file-input').click()"
+                        style="border-color:#555; color:#555;">FOTOĞRAF SEÇ</button>
+                    <input type="file" id="file-input" style="display:none" accept="image/*"
+                        onchange="previewImage(this)">
+
+                    <button class="btn-cyber btn-logout" onclick="safeLogout()"><i class="fas fa-sign-out-alt"></i>
+                        GÜVENLİ ÇIKIŞ</button>
                 </div>
             </div>
         </div>
 
         <div id="admin" class="page">
             <h1 style="color:var(--admin-gold); font-family:'Orbitron'; margin-bottom:30px;">🛡️ KURUCU PANELİ</h1>
-
             <div
-                style="background:rgba(255,204,0,0.05); border:1px solid var(--admin-gold); padding:20px; border-radius:15px; margin-bottom:20px;">
-                <h3>SİSTEM ANONSU</h3>
-                <input id="anons-input" type="text" placeholder="Global mesaj..."
-                    style="width:100%; background:#000; border:1px solid #444; color:#fff; padding:10px; margin-top:10px;">
+                style="background:rgba(255,204,0,0.05); border:1px solid var(--admin-gold); padding:20px; border-radius:15px;">
+                <h3>DEV GLOBAL ANONS</h3>
+                <input id="anons-input" type="text" placeholder="Mesaj..."
+                    style="width:100%; background:#000; border:1px solid #444; color:#fff; padding:15px; margin-top:10px;">
                 <button onclick="publishAnons()" class="btn-cyber"
                     style="border-color:var(--admin-gold); color:var(--admin-gold); margin-top:10px; width:100%;">YAYINLA</button>
-            </div>
-
-            <div
-                style="background:rgba(255,0,85,0.05); border:1px solid var(--danger); padding:20px; border-radius:15px;">
-                <h3>SİSTEM BAN SİSTEMİ</h3>
-                <input type="text" placeholder="Kullanıcı ID veya E-posta..."
-                    style="width:100%; background:#000; border:1px solid #444; color:#fff; padding:10px; margin-top:10px;">
-                <button onclick="banUser()" class="btn-cyber btn-danger" style="margin-top:10px; width:100%;">ERİŞİMİ
-                    KALDIR (BAN)</button>
+                <button onclick="deleteAnons()" class="btn-cyber"
+                    style="border-color:var(--danger); color:var(--danger); margin-top:10px; width:100%;">ANONSU
+                    SİL</button>
             </div>
         </div>
 
         <nav class="nav-dock">
             <div class="nav-link active" onclick="tabTo('home')"><i class="fas fa-home"></i></div>
-            <div class="nav-link" onclick="tabTo('shorts')"><i class="fas fa-bolt"></i></div>
-            <div class="nav-link" onclick="tabTo('chat')"><i class="fas fa-comment-alt"></i></div>
+            <div class="nav-link" onclick="tabTo('messages')"><i class="fas fa-envelope"></i></div>
+            <div class="nav-link" onclick="tabTo('chat')"><i class="fas fa-globe"></i></div>
             <div class="nav-link" onclick="tabTo('profile')"><i class="fas fa-user"></i></div>
             <div id="admin-link" class="nav-link" style="display:none;" onclick="tabTo('admin')"><i
-                    class="fas fa-shield-halved"></i></div>
+                    class="fas fa-crown"></i></div>
         </nav>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, onAuthStateChanged, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getAuth, onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAutPInq2BBsOnKlZS2A6M9XTEq9MuhgRY",
@@ -344,36 +295,41 @@
         const auth = getAuth(app);
         const provider = new GoogleAuthProvider();
 
-        // GİRİŞ
-        document.getElementById('btn-enter').onclick = () => {
-            signInWithPopup(auth, provider).catch(e => alert("Giriş başarısız!"));
-        };
+        document.getElementById('btn-enter').onclick = () => signInWithPopup(auth, provider);
 
-        // OTURUM
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                document.getElementById('landing-page').style.transform = 'scale(0.8) opacity(0)';
+                document.getElementById('landing-page').style.opacity = '0';
                 setTimeout(() => {
                     document.getElementById('landing-page').style.display = 'none';
                     document.getElementById('main-content').style.display = 'block';
                 }, 800);
-
                 document.getElementById('u-display-name').innerText = user.displayName;
                 if (user.photoURL) {
                     document.getElementById('u-photo').src = user.photoURL;
                     document.getElementById('u-photo').style.display = 'block';
                     document.getElementById('u-icon').style.display = 'none';
                 }
-
-                // Sadece Adil için Admin Tabı
                 if (user.email === "adilerkamtek2011@gmail.com") {
                     document.getElementById('admin-link').style.display = 'block';
                     document.getElementById('kurucu-tag').innerHTML = '<span style="color:var(--admin-gold); font-weight:bold; border:1px solid var(--admin-gold); padding:5px 10px; border-radius:5px; font-size:0.7rem;">KURUCU</span>';
                 }
+            } else {
+                document.getElementById('main-content').style.display = 'none';
+                document.getElementById('landing-page').style.display = 'flex';
+                document.getElementById('landing-page').style.opacity = '1';
             }
         });
 
-        // TAB SİSTEMİ
+        // GÜVENLİ ÇIKIŞ FONKSİYONU
+        window.safeLogout = function () {
+            signOut(auth).then(() => {
+                console.log("Sistemden çıkış yapıldı.");
+            }).catch((error) => {
+                alert("Çıkış yapılırken hata oluştu.");
+            });
+        };
+
         window.tabTo = function (id) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
@@ -381,36 +337,40 @@
             event.currentTarget.classList.add('active');
         };
 
-        // PROFİL DÜZENLEME
-        window.editProfile = function () {
-            const name = prompt("Yeni İsminiz:");
-            if (name) {
-                document.getElementById('u-display-name').innerText = name;
-                alert("İsim yerel olarak güncellendi! (Veritabanı yakında)");
-            }
-        };
-
-        // ADMİN ANONSU
         window.publishAnons = function () {
             const msg = document.getElementById('anons-input').value;
             if (msg) {
                 document.getElementById('admin-anons').style.display = 'block';
-                document.getElementById('anons-text').innerText = "📢 KURUCU: " + msg;
+                document.getElementById('anons-text').innerText = "📢 " + msg;
             }
         };
 
-        // BAN SİSTEMİ (TEMSİLİ)
-        window.banUser = function () {
-            const target = prompt("Banlamak istediğiniz kişinin adı?");
-            if (target) alert(target + " sistemden süresiz olarak uzaklaştırıldı.");
+        window.deleteAnons = function () {
+            document.getElementById('admin-anons').style.display = 'none';
         };
 
-        // CHAT
+        window.previewImage = function (input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('u-photo').src = e.target.result;
+                    document.getElementById('u-photo').style.display = 'block';
+                    document.getElementById('u-icon').style.display = 'none';
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        };
+
+        window.editProfile = function () {
+            const name = prompt("Yeni isminiz?");
+            if (name) document.getElementById('u-display-name').innerText = name;
+        };
+
         window.sendChat = function () {
             const inp = document.getElementById('chat-msg');
             if (inp.value) {
                 const win = document.getElementById('chat-window');
-                win.innerHTML += `<div><b>Siz:</b> ${inp.value}</div>`;
+                win.innerHTML += `<div style="margin-bottom:10px;"><b>Siz:</b> ${inp.value}</div>`;
                 inp.value = "";
                 win.scrollTop = win.scrollHeight;
             }
