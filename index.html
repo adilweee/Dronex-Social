@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DroneX Social | V8 👑</title>
+    <title>DroneX Social | V9 Real-Time 👑</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Orbitron:wght@400;900&family=Rajdhani:wght@300;600;700&display=swap');
@@ -42,7 +42,6 @@
             justify-content: center;
             align-items: center;
             background: #000;
-            transition: 0.8s;
         }
 
         .header-main {
@@ -105,7 +104,6 @@
             padding: 2px 5px;
             border-radius: 4px;
             margin-right: 5px;
-            vertical-align: middle;
         }
 
         .admin-author {
@@ -183,7 +181,6 @@
             color: #555;
             font-size: 1.3rem;
             cursor: pointer;
-            transition: 0.3s;
         }
 
         .nav-link.active {
@@ -232,14 +229,7 @@
 
         <div id="videos" class="page">
             <h2 style="font-family:'Orbitron'; color:var(--neon); margin-bottom:20px;">VİDEOLAR</h2>
-            <div
-                style="height:50vh; display:flex; flex-direction:column; justify-content:center; align-items:center; background:rgba(255,255,255,0.02); border-radius:20px; border:1px dashed #333;">
-                <i class="fas fa-video-slash fa-4x" style="color:#222;"></i>
-                <p style="color:#444; margin-top:15px;">Henüz paylaşılan video bulunmuyor.</p>
-                <button class="btn-cyber"
-                    style="margin-top:20px; border-color:#222; color:#222; cursor:not-allowed;">VİDEO YÜKLE
-                    (KAPALI)</button>
-            </div>
+            <p style="color:#444; text-align:center;">Henüz video bulunmuyor.</p>
         </div>
 
         <div id="chat" class="page">
@@ -248,43 +238,25 @@
                 style="height:50vh; overflow-y:auto; border:1px solid #222; padding:15px; border-radius:15px; background:rgba(0,0,0,0.3);">
             </div>
             <div style="display:flex; gap:10px; margin-top:15px;">
-                <input id="chat-input" type="text" placeholder="Bir şeyler yaz..."
+                <input id="chat-input" type="text" placeholder="Mesaj..."
                     style="flex:1; background:#0a0a0a; color:#fff; border:1px solid #333; padding:15px; border-radius:10px;">
                 <button onclick="sendMsg()" class="btn-cyber"><i class="fas fa-paper-plane"></i></button>
             </div>
         </div>
 
         <div id="dm" class="page">
-            <h2 style="font-family:'Orbitron'; color:var(--neon); margin-bottom:20px;">DREONEX MESSENGER</h2>
-            <div
-                style="background:rgba(255,255,255,0.03); padding:20px; border-radius:15px; display:flex; align-items:center; gap:15px; cursor:pointer;">
-                <div style="width:50px; height:50px; background:var(--neon); border-radius:50%;"></div>
-                <div><b>DroneX Destek</b><br><small style="color:#555;">Sisteme hoş geldin Adil!</small></div>
-            </div>
-        </div>
-
-        <div id="user-view" class="page">
-            <button onclick="tabTo('chat')" class="btn-cyber">GERİ</button>
-            <div class="profile-card" style="margin-top:20px;">
-                <div class="pfp-wrap"><img id="v-pfp" src="https://via.placeholder.com/150"></div>
-                <h2 id="v-name" style="font-family:'Orbitron';">Kullanıcı</h2>
-                <div style="display:flex; justify-content:center; gap:30px; margin:20px 0;">
-                    <div><b id="v-fol">0</b><br><small>TAKİPÇİ</small></div>
-                    <div><b>0</b><br><small>TAKİP</small></div>
-                </div>
-                <button class="btn-cyber" id="fol-btn" onclick="folToggle()">TAKİP ET</button>
-                <button class="btn-cyber" onclick="tabTo('dm')">MESAJ AT</button>
-                <button class="btn-cyber btn-danger" onclick="blockConfirm()">ENGELLE</button>
-                <hr style="border:0; border-top:1px solid #222; margin:20px 0;">
-                <h4>VİDEOLAR</h4>
-                <p style="color:#222;">Video yok.</p>
-            </div>
+            <h2 style="font-family:'Orbitron'; color:var(--neon); margin-bottom:20px;">MESSENGER</h2>
+            <p style="color:#333; text-align:center;">Özel mesajlar yakında...</p>
         </div>
 
         <div id="profile" class="page">
             <div class="profile-card">
                 <div class="pfp-wrap"><img id="my-img" src=""></div>
                 <h2 id="my-name" style="font-family:'Orbitron';">Yükleniyor</h2>
+                <div style="display:flex; justify-content:center; gap:30px; margin:20px 0;">
+                    <div><b id="my-fol-count">142</b><br><small>TAKİPÇİ</small></div>
+                    <div><b>89</b><br><small>TAKİP</small></div>
+                </div>
                 <button class="btn-cyber" onclick="changeName()">İSİM DEĞİŞTİR</button>
                 <button class="btn-cyber" onclick="document.getElementById('img-up').click()">FOTOĞRAF SEÇ</button>
                 <input type="file" id="img-up" style="display:none" onchange="previewImg(this)">
@@ -293,23 +265,12 @@
         </div>
 
         <div id="admin" class="page">
-            <h2 style="color:var(--admin-gold); font-family:'Orbitron'; margin-bottom:20px;">🛡️ ADMIN MERKEZİ</h2>
-            <div
-                style="background:rgba(255,255,255,0.05); padding:20px; border-radius:15px; border:1px solid var(--admin-gold);">
-                <input id="anons-val" type="text" placeholder="Anons metni..."
-                    style="width:100%; background:#000; color:#fff; border:1px solid #333; padding:10px;">
-                <button onclick="pushAnons()" class="btn-cyber"
-                    style="width:100%; color:var(--admin-gold); border-color:var(--admin-gold); margin-top:10px;">YAYINLA</button>
-                <button onclick="killAnons()" class="btn-cyber btn-danger" style="width:100%; margin-top:5px;">ANONSU
-                    SİL</button>
-                <hr style="margin:20px 0; border-color:#333;">
-                <input id="ban-user" type="text" placeholder="Banlanacak isim..."
-                    style="width:100%; background:#000; color:#fff; border:1px solid #333; padding:10px;">
-                <button onclick="banAdmin('ban')" class="btn-cyber btn-danger"
-                    style="width:100%; margin-top:10px;">SİSTEMDEN BANLA</button>
-                <button onclick="banAdmin('unban')" class="btn-cyber"
-                    style="width:100%; margin-top:5px; color:#fff; border-color:#fff;">BAN KALDIR</button>
-            </div>
+            <h2 style="color:var(--admin-gold); font-family:'Orbitron';">🛡️ ADMIN</h2>
+            <input id="anons-val" type="text" placeholder="Anons..."
+                style="width:100%; background:#000; color:#fff; border:1px solid #333; padding:10px; margin-top:10px;">
+            <button onclick="pushAnons()" class="btn-cyber"
+                style="width:100%; border-color:var(--admin-gold); color:var(--admin-gold);">YAYINLA</button>
+            <button onclick="killAnons()" class="btn-cyber btn-danger" style="width:100%;">SİSİMDEN SİL</button>
         </div>
 
         <nav class="nav-dock">
@@ -326,6 +287,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, doc, setDoc, getDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAutPInq2BBsOnKlZS2A6M9XTEq9MuhgRY",
@@ -338,94 +300,114 @@
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
+        const db = getFirestore(app);
         const provider = new GoogleAuthProvider();
-
+        const MASTER = "adilerkamtek2011@gmail.com";
         let me = null;
-        const MASTER_EMAIL = "adilerkamtek2011@gmail.com";
 
         document.getElementById('btn-enter').onclick = () => signInWithPopup(auth, provider);
 
-        onAuthStateChanged(auth, (u) => {
+        onAuthStateChanged(auth, async (u) => {
             if (u) {
                 me = u;
                 document.getElementById('landing-page').style.display = 'none';
                 document.getElementById('main-content').style.display = 'block';
-                document.getElementById('my-name').innerText = u.displayName;
-                document.getElementById('my-img').src = u.photoURL || 'https://via.placeholder.com/150';
 
-                if (u.email === MASTER_EMAIL) {
+                // Kullanıcı ismini Firestore'dan çek (Kalıcı olması için)
+                const userDoc = await getDoc(doc(db, "users", u.uid));
+                const customName = userDoc.exists() ? userDoc.data().name : u.displayName;
+                document.getElementById('my-name').innerText = customName;
+                document.getElementById('my-img').src = u.photoURL;
+
+                if (u.email === MASTER) {
                     document.getElementById('admin-tab').style.display = 'block';
                     document.getElementById('kurucu-badge').innerHTML = '<span style="color:var(--admin-gold); border:1px solid var(--admin-gold); padding:5px 10px; font-weight:bold; font-size:0.7rem;">KURUCU</span>';
                 }
+                loadMessages();
+                loadAnons();
             } else {
                 document.getElementById('main-content').style.display = 'none';
                 document.getElementById('landing-page').style.display = 'flex';
             }
         });
 
+        // MESAJLARI GERÇEK ZAMANLI YÜKLE
+        function loadMessages() {
+            const q = query(collection(db, "messages"), orderBy("createdAt", "asc"));
+            onSnapshot(q, (snapshot) => {
+                const flow = document.getElementById('chat-flow');
+                flow.innerHTML = "";
+                snapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const isAdm = data.email === MASTER;
+                    flow.innerHTML += `
+                        <div class="msg-box" id="${doc.id}">
+                            ${isAdm ? '<span class="admin-tag">KURUCU</span>' : ''}
+                            <span class="author-name ${isAdm ? 'admin-author' : ''}">${data.author}:</span>
+                            <p>${data.text}</p>
+                            ${(data.uid === me.uid || me.email === MASTER) ? `<i class="fas fa-trash del-msg" onclick="deleteMsg('${doc.id}')"></i>` : ''}
+                        </div>`;
+                });
+                flow.scrollTop = flow.scrollHeight;
+            });
+        }
+
+        window.sendMsg = async () => {
+            const inp = document.getElementById('chat-input');
+            const currentName = document.getElementById('my-name').innerText;
+            if (inp.value) {
+                await addDoc(collection(db, "messages"), {
+                    text: inp.value,
+                    author: currentName,
+                    email: me.email,
+                    uid: me.uid,
+                    createdAt: Date.now()
+                });
+                inp.value = "";
+            }
+        };
+
+        window.deleteMsg = async (id) => {
+            if (confirm("Silmek istiyor musun?")) await deleteDoc(doc(db, "messages", id));
+        };
+
+        window.changeName = async () => {
+            const n = prompt("Yeni isim:");
+            if (n) {
+                await setDoc(doc(db, "users", me.uid), { name: n }, { merge: true });
+                document.getElementById('my-name').innerText = n;
+            }
+        };
+
+        // ANONSLARI GERÇEK ZAMANLI YÜKLE
+        function loadAnons() {
+            onSnapshot(doc(db, "system", "anons"), (doc) => {
+                const data = doc.data();
+                const bar = document.getElementById('admin-anons');
+                if (data && data.active) {
+                    bar.style.display = 'block';
+                    document.getElementById('anons-text').innerText = "📢 " + data.text;
+                } else {
+                    bar.style.display = 'none';
+                }
+            });
+        }
+
+        window.pushAnons = async () => {
+            const v = document.getElementById('anons-val').value;
+            await setDoc(doc(db, "system", "anons"), { text: v, active: true });
+        };
+
+        window.killAnons = async () => {
+            await setDoc(doc(db, "system", "anons"), { active: false });
+        };
+
         window.tabTo = (id) => {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
             document.getElementById(id).classList.add('active');
         };
 
-        window.sendMsg = () => {
-            const inp = document.getElementById('chat-input');
-            if (!inp.value) return;
-            const flow = document.getElementById('chat-flow');
-            const isAdmin = me.email === MASTER_EMAIL;
-            const id = "m-" + Date.now();
-
-            flow.innerHTML += `
-                <div class="msg-box" id="${id}">
-                    ${isAdmin ? '<span class="admin-tag">KURUCU</span>' : ''}
-                    <span class="author-name ${isAdmin ? 'admin-author' : ''}" onclick="inspectUser('${me.displayName}', '${me.photoURL}')">${me.displayName}:</span>
-                    <p>${inp.value}</p>
-                    <i class="fas fa-trash del-msg" onclick="confirmDel('${id}')"></i>
-                </div>
-            `;
-            inp.value = ""; flow.scrollTop = flow.scrollHeight;
-        };
-
-        window.inspectUser = (n, p) => {
-            document.getElementById('v-name').innerText = n;
-            document.getElementById('v-pfp').src = p || 'https://via.placeholder.com/150';
-            document.getElementById('v-fol').innerText = "142";
-            tabTo('user-view');
-        };
-
-        window.folToggle = () => {
-            const b = document.getElementById('fol-btn');
-            b.innerText = b.innerText === "TAKİP ET" ? "TAKİPTESİN" : "TAKİP ET";
-            b.style.background = b.innerText === "TAKİPTESİN" ? "var(--neon)" : "transparent";
-            b.style.color = b.innerText === "TAKİPTESİN" ? "#000" : "var(--neon)";
-        };
-
-        window.blockConfirm = () => {
-            if (confirm("Bu kullanıcıyı engellemek istediğine emin misin? Onaylarsan mesajları artık senin ekranında görünmeyecektir.")) {
-                alert("Engellendi."); tabTo('chat');
-            }
-        };
-
-        window.pushAnons = () => {
-            const v = document.getElementById('anons-val').value;
-            if (v) { document.getElementById('admin-anons').style.display = 'block'; document.getElementById('anons-text').innerText = "📢 " + v; }
-        };
-
-        window.killAnons = () => document.getElementById('admin-anons').style.display = 'none';
-
-        window.changeName = () => { const n = prompt("Yeni isim:"); if (n) document.getElementById('my-name').innerText = n; };
-
-        window.previewImg = (i) => {
-            if (i.files && i.files[0]) {
-                const r = new FileReader();
-                r.onload = (e) => document.getElementById('my-img').src = e.target.result;
-                r.readAsDataURL(i.files[0]);
-            }
-        };
-
-        window.banAdmin = (m) => alert(m === 'ban' ? "Kullanıcı yasaklandı!" : "Yasaka kaldırıldı.");
-        window.confirmDel = (id) => { if (confirm("Silmek istiyor musun?")) document.getElementById(id).remove(); };
+        window.previewImg = (i) => { if (i.files && i.files[0]) { const r = new FileReader(); r.onload = (e) => document.getElementById('my-img').src = e.target.result; r.readAsDataURL(i.files[0]); } };
         window.logout = () => signOut(auth);
     </script>
 </body>
