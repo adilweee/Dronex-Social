@@ -679,7 +679,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, doc, setDoc, getDoc, deleteDoc, serverTimestamp, where, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, doc, setDoc, getDoc, deleteDoc, serverTimestamp, where, updateDoc, increment, limit } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         // CONFIGURATION
         const firebaseConfig = {
@@ -991,7 +991,17 @@
         document.getElementById('dm-action-btn').onclick = window.startDmFromProfile;
         document.getElementById('global-chat-input').onkeypress = (e) => { if (e.key === 'Enter') ChatEngine.send(); };
 
+        // ... Mevcut kodun sonu (Event Bindings falan bittiği yer) ...
         window.deleteGlobalMsg = async (id) => { if (confirm("Mesajı sil?")) await deleteDoc(doc(db, "messages", id)); };
+
+        // --- BURAYA EKLE (İşte burası!) ---
+        setTimeout(() => {
+            const loader = document.getElementById('loading-overlay');
+            if (loader) {
+                loader.style.opacity = '0';
+                setTimeout(() => loader.style.display = 'none', 800);
+            }
+        }, 2000);
 
     </script>
 </body>
