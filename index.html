@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DroneX Social | V9 Real-Time 👑</title>
+    <title>DroneX Social | V12 Master 👑</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Orbitron:wght@400;900&family=Rajdhani:wght@300;600;700&display=swap');
@@ -31,19 +31,7 @@
             background: radial-gradient(circle at 50% 50%, #120026 0%, #020202 100%);
         }
 
-        /* --- UI ELEMENTS --- */
-        #landing-page {
-            height: 100vh;
-            position: fixed;
-            width: 100%;
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: #000;
-        }
-
+        /* --- HEADER & ANONS --- */
         .header-main {
             padding: 20px;
             background: rgba(0, 0, 0, 0.95);
@@ -82,44 +70,61 @@
         }
 
         /* --- CHAT STYLES --- */
+        #chat-flow {
+            height: 55vh;
+            overflow-y: auto;
+            border: 1px solid #222;
+            padding: 15px;
+            border-radius: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
         .msg-box {
             background: rgba(255, 255, 255, 0.05);
             padding: 12px;
             border-radius: 12px;
-            margin-bottom: 10px;
             position: relative;
             border-left: 3px solid var(--neon);
+            width: fit-content;
+            max-width: 85%;
         }
 
         .author-name {
             color: var(--neon);
             font-weight: bold;
             cursor: pointer;
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+            display: block;
         }
 
         .admin-tag {
             color: var(--admin-gold);
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             border: 1px solid var(--admin-gold);
-            padding: 2px 5px;
+            padding: 1px 4px;
             border-radius: 4px;
             margin-right: 5px;
         }
 
         .admin-author {
             color: var(--admin-gold) !important;
-            text-shadow: 0 0 10px var(--admin-gold);
+            text-shadow: 0 0 8px var(--admin-gold);
         }
 
         .del-msg {
             position: absolute;
-            right: 10px;
+            right: -25px;
             top: 10px;
             color: var(--danger);
             cursor: pointer;
+            opacity: 0.6;
         }
 
-        /* --- PROFILE & CARDS --- */
+        /* --- PROFILE --- */
         .profile-card {
             text-align: center;
             background: rgba(255, 255, 255, 0.02);
@@ -135,6 +140,7 @@
             border: 3px solid var(--neon);
             margin: 0 auto 15px;
             overflow: hidden;
+            box-shadow: 0 0 15px var(--neon);
         }
 
         .pfp-wrap img {
@@ -162,7 +168,7 @@
             box-shadow: 0 0 15px var(--neon);
         }
 
-        /* --- NAV DOCK --- */
+        /* --- NAV DOCK & MOR RENK FIX --- */
         .nav-dock {
             position: fixed;
             bottom: 20px;
@@ -181,11 +187,13 @@
             color: #555;
             font-size: 1.3rem;
             cursor: pointer;
+            transition: 0.3s;
         }
 
         .nav-link.active {
-            color: var(--neon);
+            color: var(--neon) !important;
             transform: scale(1.2);
+            text-shadow: 0 0 10px var(--neon);
         }
 
         @keyframes fadeInUp {
@@ -204,14 +212,15 @@
 
 <body>
 
-    <div id="landing-page">
+    <div id="landing-page"
+        style="height: 100vh; position: fixed; width: 100%; z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; background: #000;">
         <h1 style="font-family:'Syncopate'; font-size:3.5rem; color:var(--neon);">DRONEX</h1>
-        <button id="btn-enter" class="btn-cyber" style="margin-top:30px;">GOOGLE GİRİŞ</button>
+        <button id="btn-enter" class="btn-cyber" style="margin-top:30px;">GOOGLE GİRİŞ YAP</button>
     </div>
 
     <div id="main-content" style="display:none;">
         <header class="header-main">
-            <div style="font-family:'Orbitron'; color:var(--neon); font-size:1.4rem;">DRONEX</div>
+            <div style="font-family:'Orbitron'; color:var(--neon); font-size:1.4rem; font-weight: 900;">DRONEX</div>
             <div id="kurucu-badge"></div>
         </header>
 
@@ -223,30 +232,30 @@
             <div
                 style="height:45vh; display:flex; flex-direction:column; justify-content:center; align-items:center; border:2px solid var(--neon); border-radius:30px; background:rgba(188,19,254,0.05);">
                 <h1 style="font-family:'Orbitron'; font-size:4rem;">HAT 30</h1>
-                <p style="letter-spacing:10px; color:var(--neon);">YAKINDA</p>
+                <p style="letter-spacing:10px; color:var(--neon);">YAKINDA SİZLERLE</p>
             </div>
         </div>
 
         <div id="videos" class="page">
             <h2 style="font-family:'Orbitron'; color:var(--neon); margin-bottom:20px;">VİDEOLAR</h2>
-            <p style="color:#444; text-align:center;">Henüz video bulunmuyor.</p>
+            <div style="text-align:center; padding:50px; background:rgba(255,255,255,0.01); border-radius:20px;">
+                <p style="color:#444;">Paylaşılan video bulunmuyor.</p>
+            </div>
         </div>
 
         <div id="chat" class="page">
             <h2 style="font-family:'Orbitron'; color:var(--neon); margin-bottom:20px;">GLOBAL CHAT</h2>
-            <div id="chat-flow"
-                style="height:50vh; overflow-y:auto; border:1px solid #222; padding:15px; border-radius:15px; background:rgba(0,0,0,0.3);">
-            </div>
+            <div id="chat-flow"></div>
             <div style="display:flex; gap:10px; margin-top:15px;">
-                <input id="chat-input" type="text" placeholder="Mesaj..."
+                <input id="chat-input" type="text" placeholder="Bir şeyler yaz..."
                     style="flex:1; background:#0a0a0a; color:#fff; border:1px solid #333; padding:15px; border-radius:10px;">
                 <button onclick="sendMsg()" class="btn-cyber"><i class="fas fa-paper-plane"></i></button>
             </div>
         </div>
 
         <div id="dm" class="page">
-            <h2 style="font-family:'Orbitron'; color:var(--neon); margin-bottom:20px;">MESSENGER</h2>
-            <p style="color:#333; text-align:center;">Özel mesajlar yakında...</p>
+            <h2 style="font-family:'Orbitron'; color:var(--neon); margin-bottom:20px;">DRONEX DM</h2>
+            <p style="color:#333; text-align:center; margin-top: 50px;">Özel mesaj kutusu yakında...</p>
         </div>
 
         <div id="profile" class="page">
@@ -260,26 +269,37 @@
                 <button class="btn-cyber" onclick="changeName()">İSİM DEĞİŞTİR</button>
                 <button class="btn-cyber" onclick="document.getElementById('img-up').click()">FOTOĞRAF SEÇ</button>
                 <input type="file" id="img-up" style="display:none" onchange="previewImg(this)">
-                <button class="btn-cyber btn-danger" onclick="logout()" style="margin-top:20px;">ÇIKIŞ YAP</button>
+                <button class="btn-cyber btn-danger" onclick="logout()"
+                    style="margin-top:20px; border-color: #ff0055; color: #ff0055;">GÜVENLİ ÇIKIŞ</button>
             </div>
         </div>
 
         <div id="admin" class="page">
-            <h2 style="color:var(--admin-gold); font-family:'Orbitron';">🛡️ ADMIN</h2>
-            <input id="anons-val" type="text" placeholder="Anons..."
-                style="width:100%; background:#000; color:#fff; border:1px solid #333; padding:10px; margin-top:10px;">
-            <button onclick="pushAnons()" class="btn-cyber"
-                style="width:100%; border-color:var(--admin-gold); color:var(--admin-gold);">YAYINLA</button>
-            <button onclick="killAnons()" class="btn-cyber btn-danger" style="width:100%;">SİSİMDEN SİL</button>
+            <h2 style="color:var(--admin-gold); font-family:'Orbitron';">🛡️ KURUCU PANELİ</h2>
+            <div
+                style="background:rgba(255,204,0,0.05); padding:20px; border-radius:15px; border:1px solid var(--admin-gold); margin-top:20px;">
+                <input id="anons-val" type="text" placeholder="Yeni duyuru metni..."
+                    style="width:100%; background:#000; color:#fff; border:1px solid #333; padding:12px;">
+                <button onclick="pushAnons()" class="btn-cyber"
+                    style="width:100%; color:var(--admin-gold); border-color:var(--admin-gold); margin-top:10px;">ANONSU
+                    YAYINLA</button>
+                <button onclick="killAnons()" class="btn-cyber"
+                    style="width:100%; color:#ff0055; border-color:#ff0055; margin-top:5px;">SİSTEMDEN SİL</button>
+                <hr style="margin:20px 0; border-color:#333;">
+                <input id="ban-user" type="text" placeholder="Banlanacak kullanıcı..."
+                    style="width:100%; background:#000; color:#fff; border:1px solid #333; padding:12px;">
+                <button onclick="alert('Kullanıcı yasaklandı!')" class="btn-cyber"
+                    style="width:100%; color:#ff0055; border-color:#ff0055; margin-top:10px;">SİSTEMDEN BANLA</button>
+            </div>
         </div>
 
         <nav class="nav-dock">
-            <div class="nav-link active" onclick="tabTo('home')"><i class="fas fa-home"></i></div>
-            <div class="nav-link" onclick="tabTo('videos')"><i class="fas fa-camera-retro"></i></div>
-            <div class="nav-link" onclick="tabTo('chat')"><i class="fas fa-globe"></i></div>
-            <div class="nav-link" onclick="tabTo('dm')"><i class="fas fa-envelope"></i></div>
-            <div class="nav-link" onclick="tabTo('profile')"><i class="fas fa-user"></i></div>
-            <div id="admin-tab" class="nav-link" style="display:none;" onclick="tabTo('admin')"><i
+            <div class="nav-link active" onclick="tabTo('home', this)"><i class="fas fa-home"></i></div>
+            <div class="nav-link" onclick="tabTo('videos', this)"><i class="fas fa-camera-retro"></i></div>
+            <div class="nav-link" onclick="tabTo('chat', this)"><i class="fas fa-globe"></i></div>
+            <div class="nav-link" onclick="tabTo('dm', this)"><i class="fas fa-envelope"></i></div>
+            <div class="nav-link" onclick="tabTo('profile', this)"><i class="fas fa-user"></i></div>
+            <div id="admin-tab" class="nav-link" style="display:none;" onclick="tabTo('admin', this)"><i
                     class="fas fa-crown"></i></div>
         </nav>
     </div>
@@ -287,7 +307,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, doc, setDoc, getDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, doc, setDoc, getDoc, deleteDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAutPInq2BBsOnKlZS2A6M9XTEq9MuhgRY",
@@ -313,10 +333,9 @@
                 document.getElementById('landing-page').style.display = 'none';
                 document.getElementById('main-content').style.display = 'block';
 
-                // Kullanıcı ismini Firestore'dan çek (Kalıcı olması için)
                 const userDoc = await getDoc(doc(db, "users", u.uid));
-                const customName = userDoc.exists() ? userDoc.data().name : u.displayName;
-                document.getElementById('my-name').innerText = customName;
+                const currentName = userDoc.exists() ? userDoc.data().name : u.displayName;
+                document.getElementById('my-name').innerText = currentName;
                 document.getElementById('my-img').src = u.photoURL;
 
                 if (u.email === MASTER) {
@@ -331,21 +350,21 @@
             }
         });
 
-        // MESAJLARI GERÇEK ZAMANLI YÜKLE
         function loadMessages() {
+            // "orderBy" kısmını serverTimestamp ile daha stabil hale getirdik
             const q = query(collection(db, "messages"), orderBy("createdAt", "asc"));
             onSnapshot(q, (snapshot) => {
                 const flow = document.getElementById('chat-flow');
                 flow.innerHTML = "";
                 snapshot.forEach((doc) => {
-                    const data = doc.data();
-                    const isAdm = data.email === MASTER;
+                    const d = doc.data();
+                    const isAdm = d.email === MASTER;
                     flow.innerHTML += `
-                        <div class="msg-box" id="${doc.id}">
+                        <div class="msg-box">
                             ${isAdm ? '<span class="admin-tag">KURUCU</span>' : ''}
-                            <span class="author-name ${isAdm ? 'admin-author' : ''}">${data.author}:</span>
-                            <p>${data.text}</p>
-                            ${(data.uid === me.uid || me.email === MASTER) ? `<i class="fas fa-trash del-msg" onclick="deleteMsg('${doc.id}')"></i>` : ''}
+                            <span class="author-name ${isAdm ? 'admin-author' : ''}">${d.author}:</span>
+                            <p>${d.text}</p>
+                            ${(d.uid === me.uid || me.email === MASTER) ? `<i class="fas fa-trash del-msg" onclick="deleteMsg('${doc.id}')"></i>` : ''}
                         </div>`;
                 });
                 flow.scrollTop = flow.scrollHeight;
@@ -354,58 +373,51 @@
 
         window.sendMsg = async () => {
             const inp = document.getElementById('chat-input');
-            const currentName = document.getElementById('my-name').innerText;
-            if (inp.value) {
+            const myName = document.getElementById('my-name').innerText;
+            if (inp.value.trim() !== "") {
                 await addDoc(collection(db, "messages"), {
                     text: inp.value,
-                    author: currentName,
+                    author: myName,
                     email: me.email,
                     uid: me.uid,
-                    createdAt: Date.now()
+                    createdAt: serverTimestamp() // Gerçek zaman damgası
                 });
                 inp.value = "";
             }
         };
 
-        window.deleteMsg = async (id) => {
-            if (confirm("Silmek istiyor musun?")) await deleteDoc(doc(db, "messages", id));
+        window.deleteMsg = async (id) => { if (confirm("Bu mesajı silmek istiyor musun?")) await deleteDoc(doc(db, "messages", id)); };
+
+        window.tabTo = (id, el) => {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            el.classList.add('active'); // MOR RENK BURADA AKTİF OLUYOR
         };
 
         window.changeName = async () => {
-            const n = prompt("Yeni isim:");
+            const n = prompt("Yeni kullanıcı adın:");
             if (n) {
                 await setDoc(doc(db, "users", me.uid), { name: n }, { merge: true });
                 document.getElementById('my-name').innerText = n;
             }
         };
 
-        // ANONSLARI GERÇEK ZAMANLI YÜKLE
         function loadAnons() {
             onSnapshot(doc(db, "system", "anons"), (doc) => {
-                const data = doc.data();
+                const d = doc.data();
                 const bar = document.getElementById('admin-anons');
-                if (data && data.active) {
-                    bar.style.display = 'block';
-                    document.getElementById('anons-text').innerText = "📢 " + data.text;
-                } else {
-                    bar.style.display = 'none';
-                }
+                if (d && d.active) { bar.style.display = 'block'; document.getElementById('anons-text').innerText = "📢 " + d.text; }
+                else { bar.style.display = 'none'; }
             });
         }
 
         window.pushAnons = async () => {
             const v = document.getElementById('anons-val').value;
-            await setDoc(doc(db, "system", "anons"), { text: v, active: true });
+            if (v) await setDoc(doc(db, "system", "anons"), { text: v, active: true });
         };
 
-        window.killAnons = async () => {
-            await setDoc(doc(db, "system", "anons"), { active: false });
-        };
-
-        window.tabTo = (id) => {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-        };
+        window.killAnons = async () => await setDoc(doc(db, "system", "anons"), { active: false });
 
         window.previewImg = (i) => { if (i.files && i.files[0]) { const r = new FileReader(); r.onload = (e) => document.getElementById('my-img').src = e.target.result; r.readAsDataURL(i.files[0]); } };
         window.logout = () => signOut(auth);
