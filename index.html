@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DroneX Social | V6 Engine 👑</title>
+    <title>DroneX Social | V8 👑</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Orbitron:wght@400;900&family=Rajdhani:wght@300;600;700&display=swap');
@@ -28,77 +28,109 @@
             color: #fff;
             font-family: 'Rajdhani', sans-serif;
             overflow-x: hidden;
+            background: radial-gradient(circle at 50% 50%, #120026 0%, #020202 100%);
         }
 
-        /* --- UI COMPONENTS --- */
-        .page {
-            display: none;
-            padding: 20px;
-            max-width: 800px;
-            margin: 0 auto;
-            min-height: 85vh;
-            padding-bottom: 100px;
-        }
-
-        .page.active {
-            display: block;
-            animation: fadeInUp 0.4s ease;
+        /* --- UI ELEMENTS --- */
+        #landing-page {
+            height: 100vh;
+            position: fixed;
+            width: 100%;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: #000;
+            transition: 0.8s;
         }
 
         .header-main {
             padding: 20px;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.95);
             border-bottom: 1px solid var(--neon);
             position: sticky;
             top: 0;
             z-index: 1000;
             display: flex;
             justify-content: space-between;
+            align-items: center;
         }
 
-        .btn-cyber {
-            background: transparent;
-            border: 1px solid var(--neon);
-            color: var(--neon);
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-family: 'Orbitron';
-            font-size: 0.7rem;
-            transition: 0.3s;
-        }
-
-        .btn-cyber:hover {
+        #admin-anons {
+            display: none;
             background: var(--neon);
-            color: #000;
+            color: #fff;
+            padding: 15px;
+            font-weight: 900;
+            text-align: center;
+            font-size: 1.2rem;
+            box-shadow: 0 0 25px var(--neon);
         }
 
-        /* --- CHAT & MESSAGES --- */
-        .msg-container {
+        .page {
+            display: none;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            min-height: 85vh;
+            padding-bottom: 120px;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        /* --- CHAT STYLES --- */
+        .msg-box {
             background: rgba(255, 255, 255, 0.05);
-            padding: 10px;
-            border-radius: 10px;
+            padding: 12px;
+            border-radius: 12px;
             margin-bottom: 10px;
             position: relative;
+            border-left: 3px solid var(--neon);
         }
 
-        .msg-author {
+        .author-name {
             color: var(--neon);
-            cursor: pointer;
             font-weight: bold;
+            cursor: pointer;
         }
 
-        .delete-btn {
+        .admin-tag {
+            color: var(--admin-gold);
+            font-size: 0.7rem;
+            border: 1px solid var(--admin-gold);
+            padding: 2px 5px;
+            border-radius: 4px;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+
+        .admin-author {
+            color: var(--admin-gold) !important;
+            text-shadow: 0 0 10px var(--admin-gold);
+        }
+
+        .del-msg {
             position: absolute;
             right: 10px;
             top: 10px;
             color: var(--danger);
             cursor: pointer;
-            font-size: 0.8rem;
         }
 
-        /* --- PROFILE VIEW --- */
-        .pfp-big {
+        /* --- PROFILE & CARDS --- */
+        .profile-card {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 35px;
+            border-radius: 30px;
+            border: 1px solid #222;
+        }
+
+        .pfp-wrap {
             width: 120px;
             height: 120px;
             border-radius: 50%;
@@ -107,13 +139,29 @@
             overflow: hidden;
         }
 
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            text-align: center;
-            margin: 20px 0;
-            border-top: 1px solid #222;
-            padding-top: 10px;
+        .pfp-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .btn-cyber {
+            background: transparent;
+            border: 1px solid var(--neon);
+            color: var(--neon);
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Orbitron';
+            font-size: 0.8rem;
+            transition: 0.3s;
+            margin: 5px;
+        }
+
+        .btn-cyber:hover {
+            background: var(--neon);
+            color: #000;
+            box-shadow: 0 0 15px var(--neon);
         }
 
         /* --- NAV DOCK --- */
@@ -122,9 +170,9 @@
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(10, 10, 10, 0.9);
-            padding: 10px 25px;
-            border-radius: 40px;
+            background: rgba(10, 10, 10, 0.95);
+            padding: 12px 25px;
+            border-radius: 50px;
             display: flex;
             gap: 20px;
             border: 1px solid #333;
@@ -135,10 +183,12 @@
             color: #555;
             font-size: 1.3rem;
             cursor: pointer;
+            transition: 0.3s;
         }
 
         .nav-link.active {
             color: var(--neon);
+            transform: scale(1.2);
         }
 
         @keyframes fadeInUp {
@@ -157,94 +207,118 @@
 
 <body>
 
-    <div id="landing-page"
-        style="height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; background:#000;">
-        <h1 style="font-family:'Syncopate'; font-size:3rem; color:var(--neon);">DRONEX</h1>
-        <button id="btn-enter" class="btn-cyber" style="margin-top:20px; font-size:1rem;">GOOGLE İLE GİRİŞ</button>
+    <div id="landing-page">
+        <h1 style="font-family:'Syncopate'; font-size:3.5rem; color:var(--neon);">DRONEX</h1>
+        <button id="btn-enter" class="btn-cyber" style="margin-top:30px;">GOOGLE GİRİŞ</button>
     </div>
 
     <div id="main-content" style="display:none;">
         <header class="header-main">
-            <div style="font-family:'Orbitron'; color:var(--neon);">DRONEX SOCIAL</div>
+            <div style="font-family:'Orbitron'; color:var(--neon); font-size:1.4rem;">DRONEX</div>
             <div id="kurucu-badge"></div>
         </header>
 
+        <div id="admin-anons">
+            <marquee id="anons-text"></marquee>
+        </div>
+
+        <div id="home" class="page active">
+            <div
+                style="height:45vh; display:flex; flex-direction:column; justify-content:center; align-items:center; border:2px solid var(--neon); border-radius:30px; background:rgba(188,19,254,0.05);">
+                <h1 style="font-family:'Orbitron'; font-size:4rem;">HAT 30</h1>
+                <p style="letter-spacing:10px; color:var(--neon);">YAKINDA</p>
+            </div>
+        </div>
+
+        <div id="videos" class="page">
+            <h2 style="font-family:'Orbitron'; color:var(--neon); margin-bottom:20px;">VİDEOLAR</h2>
+            <div
+                style="height:50vh; display:flex; flex-direction:column; justify-content:center; align-items:center; background:rgba(255,255,255,0.02); border-radius:20px; border:1px dashed #333;">
+                <i class="fas fa-video-slash fa-4x" style="color:#222;"></i>
+                <p style="color:#444; margin-top:15px;">Henüz paylaşılan video bulunmuyor.</p>
+                <button class="btn-cyber"
+                    style="margin-top:20px; border-color:#222; color:#222; cursor:not-allowed;">VİDEO YÜKLE
+                    (KAPALI)</button>
+            </div>
+        </div>
+
         <div id="chat" class="page">
-            <h2 style="color:var(--neon); margin-bottom:15px;">GLOBAL CHAT</h2>
-            <div id="chat-window"
-                style="height:55vh; overflow-y:auto; border:1px solid #222; padding:15px; border-radius:15px;"></div>
+            <h2 style="font-family:'Orbitron'; color:var(--neon); margin-bottom:20px;">GLOBAL CHAT</h2>
+            <div id="chat-flow"
+                style="height:50vh; overflow-y:auto; border:1px solid #222; padding:15px; border-radius:15px; background:rgba(0,0,0,0.3);">
+            </div>
             <div style="display:flex; gap:10px; margin-top:15px;">
-                <input id="chat-input" type="text" placeholder="Mesajını yaz..."
-                    style="flex:1; background:#111; color:#fff; border:1px solid #333; padding:12px; border-radius:8px;">
-                <button onclick="sendMessage()" class="btn-cyber"><i class="fas fa-paper-plane"></i></button>
+                <input id="chat-input" type="text" placeholder="Bir şeyler yaz..."
+                    style="flex:1; background:#0a0a0a; color:#fff; border:1px solid #333; padding:15px; border-radius:10px;">
+                <button onclick="sendMsg()" class="btn-cyber"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+
+        <div id="dm" class="page">
+            <h2 style="font-family:'Orbitron'; color:var(--neon); margin-bottom:20px;">DREONEX MESSENGER</h2>
+            <div
+                style="background:rgba(255,255,255,0.03); padding:20px; border-radius:15px; display:flex; align-items:center; gap:15px; cursor:pointer;">
+                <div style="width:50px; height:50px; background:var(--neon); border-radius:50%;"></div>
+                <div><b>DroneX Destek</b><br><small style="color:#555;">Sisteme hoş geldin Adil!</small></div>
             </div>
         </div>
 
         <div id="user-view" class="page">
-            <button onclick="tabTo('chat')" class="btn-cyber" style="margin-bottom:20px;"><i
-                    class="fas fa-arrow-left"></i> GERİ</button>
-            <div style="text-align:center; background:rgba(255,255,255,0.03); padding:30px; border-radius:20px;">
-                <div class="pfp-big"><i class="fas fa-user-circle fa-5x" style="margin-top:20px;"></i></div>
-                <h2 id="view-name">Kullanıcı Adı</h2>
-                <div class="stats-grid">
-                    <div><b id="view-followers">0</b><br><small>TAKİPÇİ</small></div>
-                    <div><b id="view-following">0</b><br><small>TAKİP</small></div>
+            <button onclick="tabTo('chat')" class="btn-cyber">GERİ</button>
+            <div class="profile-card" style="margin-top:20px;">
+                <div class="pfp-wrap"><img id="v-pfp" src="https://via.placeholder.com/150"></div>
+                <h2 id="v-name" style="font-family:'Orbitron';">Kullanıcı</h2>
+                <div style="display:flex; justify-content:center; gap:30px; margin:20px 0;">
+                    <div><b id="v-fol">0</b><br><small>TAKİPÇİ</small></div>
+                    <div><b>0</b><br><small>TAKİP</small></div>
                 </div>
-                <div style="display:flex; gap:10px; justify-content:center; margin-bottom:20px;">
-                    <button id="follow-btn" class="btn-cyber" onclick="toggleFollow()">TAKİP ET</button>
-                    <button class="btn-cyber" onclick="tabTo('messages')">MESAJ AT</button>
-                    <button class="btn-cyber" style="border-color:var(--danger); color:var(--danger);"
-                        onclick="blockUser()">ENGELLE</button>
-                </div>
+                <button class="btn-cyber" id="fol-btn" onclick="folToggle()">TAKİP ET</button>
+                <button class="btn-cyber" onclick="tabTo('dm')">MESAJ AT</button>
+                <button class="btn-cyber btn-danger" onclick="blockConfirm()">ENGELLE</button>
                 <hr style="border:0; border-top:1px solid #222; margin:20px 0;">
                 <h4>VİDEOLAR</h4>
-                <p style="color:#444; margin-top:10px;">Henüz video yüklenmedi.</p>
+                <p style="color:#222;">Video yok.</p>
             </div>
         </div>
 
         <div id="profile" class="page">
-            <div style="text-align:center;">
-                <div class="pfp-big"><i class="fas fa-user-astronaut fa-5x"
-                        style="margin-top:20px; color:var(--neon);"></i></div>
-                <h2 id="my-name">Yükleniyor...</h2>
-                <div class="stats-grid">
-                    <div><b>128</b><br><small>TAKİPÇİ</small></div>
-                    <div><b>64</b><br><small>TAKİP</small></div>
-                </div>
-                <button class="btn-cyber" onclick="tabTo('blocked-list')">ENGELLENENLER</button>
-                <button class="btn-cyber" style="border-color:var(--danger); color:var(--danger); margin-top:10px;"
-                    onclick="logout()">ÇIKIŞ YAP</button>
-            </div>
-        </div>
-
-        <div id="blocked-list" class="page">
-            <button onclick="tabTo('profile')" class="btn-cyber"><i class="fas fa-arrow-left"></i> GERİ</button>
-            <h2 style="margin-top:20px;">Engellenen Kişiler</h2>
-            <div id="blocked-users-container" style="margin-top:20px;">
-                <p style="color:#333;">Henüz kimseyi engellemedin.</p>
+            <div class="profile-card">
+                <div class="pfp-wrap"><img id="my-img" src=""></div>
+                <h2 id="my-name" style="font-family:'Orbitron';">Yükleniyor</h2>
+                <button class="btn-cyber" onclick="changeName()">İSİM DEĞİŞTİR</button>
+                <button class="btn-cyber" onclick="document.getElementById('img-up').click()">FOTOĞRAF SEÇ</button>
+                <input type="file" id="img-up" style="display:none" onchange="previewImg(this)">
+                <button class="btn-cyber btn-danger" onclick="logout()" style="margin-top:20px;">ÇIKIŞ YAP</button>
             </div>
         </div>
 
         <div id="admin" class="page">
-            <h2 style="color:var(--admin-gold); margin-bottom:20px;">🛡️ KURUCU KONTROLÜ</h2>
+            <h2 style="color:var(--admin-gold); font-family:'Orbitron'; margin-bottom:20px;">🛡️ ADMIN MERKEZİ</h2>
             <div
                 style="background:rgba(255,255,255,0.05); padding:20px; border-radius:15px; border:1px solid var(--admin-gold);">
-                <h4>BAN SİSTEMİ</h4>
-                <input id="ban-target" type="text" placeholder="Kullanıcı İsmi..."
-                    style="width:100%; padding:10px; margin:10px 0; background:#000; color:#fff; border:1px solid #333;">
-                <div style="display:flex; gap:10px;">
-                    <button onclick="adminAction('ban')" class="btn-cyber"
-                        style="flex:1; border-color:var(--danger); color:var(--danger);">ERİŞİMİ KES (BAN)</button>
-                    <button onclick="adminAction('unban')" class="btn-cyber"
-                        style="flex:1; border-color:var(--neon); color:var(--neon);">BAN KALDIR</button>
-                </div>
+                <input id="anons-val" type="text" placeholder="Anons metni..."
+                    style="width:100%; background:#000; color:#fff; border:1px solid #333; padding:10px;">
+                <button onclick="pushAnons()" class="btn-cyber"
+                    style="width:100%; color:var(--admin-gold); border-color:var(--admin-gold); margin-top:10px;">YAYINLA</button>
+                <button onclick="killAnons()" class="btn-cyber btn-danger" style="width:100%; margin-top:5px;">ANONSU
+                    SİL</button>
+                <hr style="margin:20px 0; border-color:#333;">
+                <input id="ban-user" type="text" placeholder="Banlanacak isim..."
+                    style="width:100%; background:#000; color:#fff; border:1px solid #333; padding:10px;">
+                <button onclick="banAdmin('ban')" class="btn-cyber btn-danger"
+                    style="width:100%; margin-top:10px;">SİSTEMDEN BANLA</button>
+                <button onclick="banAdmin('unban')" class="btn-cyber"
+                    style="width:100%; margin-top:5px; color:#fff; border-color:#fff;">BAN KALDIR</button>
             </div>
         </div>
 
         <nav class="nav-dock">
-            <div class="nav-link active" onclick="tabTo('chat')"><i class="fas fa-globe"></i></div>
+            <div class="nav-link active" onclick="tabTo('home')"><i class="fas fa-home"></i></div>
+            <div class="nav-link" onclick="tabTo('videos')"><i class="fas fa-camera-retro"></i></div>
+            <div class="nav-link" onclick="tabTo('chat')"><i class="fas fa-globe"></i></div>
+            <div class="nav-link" onclick="tabTo('dm')"><i class="fas fa-envelope"></i></div>
             <div class="nav-link" onclick="tabTo('profile')"><i class="fas fa-user"></i></div>
-            <div id="admin-link" class="nav-link" style="display:none;" onclick="tabTo('admin')"><i
+            <div id="admin-tab" class="nav-link" style="display:none;" onclick="tabTo('admin')"><i
                     class="fas fa-crown"></i></div>
         </nav>
     </div>
@@ -266,102 +340,93 @@
         const auth = getAuth(app);
         const provider = new GoogleAuthProvider();
 
-        let currentUser = null;
-        const ADMIN_MAIL = "adilerkamtek2011@gmail.com";
+        let me = null;
+        const MASTER_EMAIL = "adilerkamtek2011@gmail.com";
 
         document.getElementById('btn-enter').onclick = () => signInWithPopup(auth, provider);
 
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                currentUser = user;
+        onAuthStateChanged(auth, (u) => {
+            if (u) {
+                me = u;
                 document.getElementById('landing-page').style.display = 'none';
                 document.getElementById('main-content').style.display = 'block';
-                document.getElementById('my-name').innerText = user.displayName;
-                if (user.email === ADMIN_MAIL) {
-                    document.getElementById('admin-link').style.display = 'block';
-                    document.getElementById('kurucu-badge').innerHTML = '<span style="color:var(--admin-gold); font-weight:bold; border:1px solid var(--admin-gold); padding:4px 10px; border-radius:5px; font-size:0.6rem;">KURUCU</span>';
+                document.getElementById('my-name').innerText = u.displayName;
+                document.getElementById('my-img').src = u.photoURL || 'https://via.placeholder.com/150';
+
+                if (u.email === MASTER_EMAIL) {
+                    document.getElementById('admin-tab').style.display = 'block';
+                    document.getElementById('kurucu-badge').innerHTML = '<span style="color:var(--admin-gold); border:1px solid var(--admin-gold); padding:5px 10px; font-weight:bold; font-size:0.7rem;">KURUCU</span>';
                 }
             } else {
-                document.getElementById('landing-page').style.display = 'flex';
                 document.getElementById('main-content').style.display = 'none';
+                document.getElementById('landing-page').style.display = 'flex';
             }
         });
 
-        // TAB SİSTEMİ
-        window.tabTo = function (id) {
+        window.tabTo = (id) => {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
             document.getElementById(id).classList.add('active');
-            // Nav link aktifliği (ID'ye göre)
         };
 
-        // KULLANICI PROFİLİNE GİT
-        window.openUserProfile = function (name) {
-            document.getElementById('view-name').innerText = name;
-            // Gerçek takipçi mantığı için burada Firestore'dan veri çekilmeli
-            document.getElementById('view-followers').innerText = Math.floor(Math.random() * 500); // Test için
+        window.sendMsg = () => {
+            const inp = document.getElementById('chat-input');
+            if (!inp.value) return;
+            const flow = document.getElementById('chat-flow');
+            const isAdmin = me.email === MASTER_EMAIL;
+            const id = "m-" + Date.now();
+
+            flow.innerHTML += `
+                <div class="msg-box" id="${id}">
+                    ${isAdmin ? '<span class="admin-tag">KURUCU</span>' : ''}
+                    <span class="author-name ${isAdmin ? 'admin-author' : ''}" onclick="inspectUser('${me.displayName}', '${me.photoURL}')">${me.displayName}:</span>
+                    <p>${inp.value}</p>
+                    <i class="fas fa-trash del-msg" onclick="confirmDel('${id}')"></i>
+                </div>
+            `;
+            inp.value = ""; flow.scrollTop = flow.scrollHeight;
+        };
+
+        window.inspectUser = (n, p) => {
+            document.getElementById('v-name').innerText = n;
+            document.getElementById('v-pfp').src = p || 'https://via.placeholder.com/150';
+            document.getElementById('v-fol').innerText = "142";
             tabTo('user-view');
         };
 
-        // MESAJ GÖNDERME (LOKAL TEST)
-        window.sendMessage = function () {
-            const input = document.getElementById('chat-input');
-            const win = document.getElementById('chat-window');
-            if (input.value) {
-                const msgId = "msg-" + Date.now();
-                win.innerHTML += `
-                    <div class="msg-container" id="${msgId}">
-                        <span class="msg-author" onclick="openUserProfile('${currentUser.displayName}')">${currentUser.displayName}:</span>
-                        <p>${input.value}</p>
-                        <i class="fas fa-trash delete-btn" onclick="deleteMessage('${msgId}')"></i>
-                    </div>
-                `;
-                input.value = "";
-                win.scrollTop = win.scrollHeight;
+        window.folToggle = () => {
+            const b = document.getElementById('fol-btn');
+            b.innerText = b.innerText === "TAKİP ET" ? "TAKİPTESİN" : "TAKİP ET";
+            b.style.background = b.innerText === "TAKİPTESİN" ? "var(--neon)" : "transparent";
+            b.style.color = b.innerText === "TAKİPTESİN" ? "#000" : "var(--neon)";
+        };
+
+        window.blockConfirm = () => {
+            if (confirm("Bu kullanıcıyı engellemek istediğine emin misin? Onaylarsan mesajları artık senin ekranında görünmeyecektir.")) {
+                alert("Engellendi."); tabTo('chat');
             }
         };
 
-        // MESAJ SİLME
-        window.deleteMessage = function (id) {
-            const msg = document.getElementById(id);
-            if (confirm("Bu mesajı silmek istiyor musun?")) {
-                msg.remove();
+        window.pushAnons = () => {
+            const v = document.getElementById('anons-val').value;
+            if (v) { document.getElementById('admin-anons').style.display = 'block'; document.getElementById('anons-text').innerText = "📢 " + v; }
+        };
+
+        window.killAnons = () => document.getElementById('admin-anons').style.display = 'none';
+
+        window.changeName = () => { const n = prompt("Yeni isim:"); if (n) document.getElementById('my-name').innerText = n; };
+
+        window.previewImg = (i) => {
+            if (i.files && i.files[0]) {
+                const r = new FileReader();
+                r.onload = (e) => document.getElementById('my-img').src = e.target.result;
+                r.readAsDataURL(i.files[0]);
             }
         };
 
-        // ENGELLEME SİSTEMİ
-        window.blockUser = function () {
-            const name = document.getElementById('view-name').innerText;
-            if (confirm(`${name} isimli kullanıcıyı engellemek istediğine emin misin? \n\nOnaylarsan bu kişinin mesajlarını ve videolarını görmeyeceksin.`)) {
-                alert(name + " engellendi.");
-                tabTo('chat');
-            }
-        };
-
-        // ADMIN İŞLEMLERİ
-        window.adminAction = function (type) {
-            const target = document.getElementById('ban-target').value;
-            if (!target) return alert("Bir isim girin.");
-            if (type === 'ban') {
-                alert(target + " sistemden banlandı. Giriş yetkisi alındı.");
-            } else {
-                alert(target + " banı açıldı. Tekrar giriş yapabilir.");
-            }
-        };
-
+        window.banAdmin = (m) => alert(m === 'ban' ? "Kullanıcı yasaklandı!" : "Yasaka kaldırıldı.");
+        window.confirmDel = (id) => { if (confirm("Silmek istiyor musun?")) document.getElementById(id).remove(); };
         window.logout = () => signOut(auth);
-        window.toggleFollow = () => {
-            const btn = document.getElementById('follow-btn');
-            if (btn.innerText === "TAKİP ET") {
-                btn.innerText = "TAKİPTESİN";
-                btn.style.background = "var(--neon)";
-                btn.style.color = "#000";
-            } else {
-                btn.innerText = "TAKİP ET";
-                btn.style.background = "transparent";
-                btn.style.color = "var(--neon)";
-            }
-        };
     </script>
 </body>
 
