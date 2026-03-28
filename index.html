@@ -4,399 +4,328 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DroneX Social | The Future 👑</title>
+    <title>DroneX Social | Cyber 👑</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Orbitron:wght@400;900&family=Rajdhani:wght@300;600;700&display=swap');
 
         :root {
-            --neon-purple: #bc13fe;
-            --deep-purple: #1e0035;
-            --dark-bg: #050505;
-            --glass: rgba(255, 255, 255, 0.05);
+            --neon: #bc13fe;
+            --dark: #020202;
+            --card-bg: rgba(20, 20, 20, 0.8);
             --admin-gold: #ffcc00;
+            --danger: #ff0055;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            outline: none;
         }
 
         body {
-            background-color: var(--dark-bg);
+            background: var(--dark);
             color: #fff;
             font-family: 'Rajdhani', sans-serif;
             overflow-x: hidden;
-            background-image: radial-gradient(circle at 50% 50%, #1a0033 0%, #050505 100%);
+            background: radial-gradient(circle at 50% 50%, #120026 0%, #020202 100%);
         }
 
-        /* --- GİRİŞ SAYFASI (LANDING) --- */
+        /* --- LANDING / GİRİŞ --- */
         #landing-page {
             height: 100vh;
+            position: fixed;
+            width: 100%;
+            z-index: 9999;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80');
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=2070');
             background-size: cover;
-            background-position: center;
-            z-index: 9999;
-            position: fixed;
-            width: 100%;
-            transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+            transition: 1s cubic-bezier(0.85, 0, 0.15, 1);
         }
 
-        .hero-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 5rem;
-            letter-spacing: 10px;
-            color: #fff;
-            text-shadow: 0 0 20px var(--neon-purple), 0 0 40px var(--neon-purple);
-            margin-bottom: 10px;
-            animation: float 3s ease-in-out infinite;
+        .cyber-logo {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(to right, #fff 20%, var(--neon) 40%, var(--neon) 60%, #fff 80%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 3s linear infinite;
+            letter-spacing: 15px;
+            margin-bottom: 20px;
         }
 
-        .hero-subtitle {
-            font-size: 1.5rem;
-            color: var(--neon-purple);
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            margin-bottom: 40px;
+        @keyframes shine {
+            to {
+                background-position: 200% center;
+            }
         }
 
-        .login-card {
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            padding: 40px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        .btn-login {
-            background: linear-gradient(45deg, var(--neon-purple), #7a00cc);
-            color: #fff;
-            padding: 15px 40px;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 1.2rem;
-            cursor: pointer;
-            border: none;
-            transition: 0.4s;
-            text-transform: uppercase;
-            box-shadow: 0 0 20px var(--neon-purple);
-        }
-
-        .btn-login:hover {
-            transform: scale(1.1) rotate(2deg);
-            box-shadow: 0 0 40px var(--neon-purple);
-        }
-
-        /* --- ANA ARAYÜZ --- */
-        #app-shell {
-            display: none;
-            padding-bottom: 100px;
-        }
-
-        .top-bar {
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
+        /* --- ANA NAVBAR --- */
+        .header-main {
+            padding: 25px;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(20px);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 2px solid var(--neon-purple);
+            border-bottom: 1px solid rgba(188, 19, 254, 0.3);
             position: sticky;
             top: 0;
             z-index: 1000;
         }
 
-        .brand {
+        .header-logo {
             font-family: 'Orbitron';
-            color: var(--neon-purple);
+            font-weight: 900;
             font-size: 1.8rem;
+            color: var(--neon);
+            text-shadow: 0 0 15px var(--neon);
         }
 
-        /* --- HAT 30 BANNER --- */
-        .hat-30 {
-            background: rgba(188, 19, 254, 0.1);
-            border: 1px solid var(--neon-purple);
-            margin: 20px;
-            padding: 15px;
-            text-align: center;
-            border-radius: 10px;
-            font-weight: bold;
-            color: var(--neon-purple);
-            animation: pulse 2s infinite;
-        }
-
-        /* --- PAGES --- */
-        .page {
-            display: none;
-            padding: 20px;
-            max-width: 600px;
-            margin: 0 auto;
-            min-height: 80vh;
-        }
-
-        .page.active {
-            display: block;
-            animation: slideIn 0.5s ease;
-        }
-
-        /* --- CARDS --- */
-        .card {
-            background: var(--card);
-            border: 1px solid #333;
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 20px;
-            transition: 0.3s;
-        }
-
-        .card:hover {
-            border-color: var(--neon-purple);
-        }
-
-        /* --- TAB NAVIGATION --- */
-        .tab-bar {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            background: rgba(5, 5, 5, 0.95);
-            display: flex;
-            justify-content: space-around;
-            padding: 20px 0;
-            border-top: 1px solid #222;
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-        }
-
-        .tab-item {
-            color: #555;
-            font-size: 1.4rem;
-            cursor: pointer;
-            transition: 0.3s;
-            text-align: center;
-        }
-
-        .tab-item.active {
-            color: var(--neon-purple);
-            transform: translateY(-5px);
-            text-shadow: 0 0 10px var(--neon-purple);
-        }
-
-        .tab-item span {
-            display: block;
-            font-size: 0.7rem;
-            margin-top: 5px;
-            font-weight: bold;
-        }
-
-        /* --- ADMIN PANEL --- */
-        .admin-box {
-            background: linear-gradient(135deg, #1a0033, #000);
-            border: 2px solid var(--admin-gold) !important;
-            box-shadow: 0 0 20px rgba(255, 204, 0, 0.2);
-        }
-
-        .admin-btn {
-            background: var(--admin-gold);
-            color: #000;
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 10px;
-            font-weight: bold;
-            margin-top: 10px;
-            cursor: pointer;
-        }
-
-        /* --- SHORTS --- */
-        .shorts-view {
-            height: 70vh;
+        /* --- HAT 30 DEV BANNER --- */
+        .hat-30-mega {
+            height: 60vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background: #000;
+            text-align: center;
+            border: 2px solid var(--neon);
+            margin: 20px;
             border-radius: 30px;
-            border: 2px solid #222;
+            background: rgba(188, 19, 254, 0.05);
+            box-shadow: inset 0 0 50px rgba(188, 19, 254, 0.2);
+            animation: glow-border 2s infinite alternate;
         }
 
-        /* --- ANIMATIONS --- */
-        @keyframes float {
+        .hat-30-mega h1 {
+            font-family: 'Orbitron';
+            font-size: 5rem;
+            margin-bottom: 10px;
+        }
 
-            0%,
-            100% {
-                transform: translateY(0);
+        .hat-30-mega p {
+            font-size: 1.5rem;
+            letter-spacing: 10px;
+            color: var(--neon);
+        }
+
+        @keyframes glow-border {
+            from {
+                border-color: #333;
             }
 
-            50% {
-                transform: translateY(-15px);
+            to {
+                border-color: var(--neon);
+                box-shadow: 0 0 30px var(--neon);
             }
         }
 
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 5px var(--neon-purple);
-            }
-
-            50% {
-                box-shadow: 0 0 20px var(--neon-purple);
-            }
-
-            100% {
-                box-shadow: 0 0 5px var(--neon-purple);
-            }
+        /* --- TABLAR --- */
+        .page {
+            display: none;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            min-height: 85vh;
         }
 
-        @keyframes slideIn {
+        .page.active {
+            display: block;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateX(30px);
+                transform: translateY(30px);
             }
 
             to {
                 opacity: 1;
-                transform: translateX(0);
+                transform: translateY(0);
             }
         }
 
-        /* SCROLLBAR */
-        ::-webkit-scrollbar {
-            width: 5px;
+        /* --- NAVİGASYON --- */
+        .nav-dock {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(10, 10, 10, 0.9);
+            padding: 10px 30px;
+            border-radius: 40px;
+            display: flex;
+            gap: 30px;
+            border: 1px solid #333;
+            backdrop-filter: blur(15px);
+            z-index: 1001;
         }
 
-        ::-webkit-scrollbar-thumb {
-            background: var(--neon-purple);
-            border-radius: 10px;
+        .nav-link {
+            color: #666;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: 0.4s;
+        }
+
+        .nav-link.active {
+            color: var(--neon);
+            transform: scale(1.3);
+            text-shadow: 0 0 15px var(--neon);
+        }
+
+        /* --- BUTONLAR --- */
+        .btn-cyber {
+            background: transparent;
+            border: 1px solid var(--neon);
+            color: var(--neon);
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Orbitron';
+            transition: 0.3s;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        .btn-cyber:hover {
+            background: var(--neon);
+            color: #000;
+            box-shadow: 0 0 20px var(--neon);
+        }
+
+        .btn-danger {
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        .btn-danger:hover {
+            background: var(--danger);
+            color: #fff;
+            box-shadow: 0 0 20px var(--danger);
+        }
+
+        /* --- PROFİL --- */
+        .pfp-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid var(--neon);
+            margin: 0 auto 20px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 30px var(--neon);
         }
     </style>
 </head>
 
 <body>
 
-    <section id="landing-page">
-        <h1 class="hero-title">DRONEX</h1>
-        <p class="hero-subtitle">The Social Revolution</p>
-        <div class="login-card">
-            <p style="margin-bottom: 20px; color: #ccc;">Sisteme erişmek için kimliğini doğrula.</p>
-            <button id="main-login-btn" class="btn-login"><i class="fab fa-google"></i> Google ile Başlat</button>
-        </div>
-        <p style="margin-top: 50px; font-size: 0.8rem; color: #555;">© 2026 DroneX Labs. All rights reserved.</p>
-    </section>
+    <div id="landing-page">
+        <div class="cyber-logo">DRONEX</div>
+        <button id="btn-enter" class="btn-cyber" style="font-size: 1.2rem; padding: 15px 40px;">
+            <i class="fab fa-google"></i> SİSTEME SIZ
+        </button>
+    </div>
 
-    <main id="app-shell">
-        <header class="top-bar">
-            <div class="brand">DroneX 👑</div>
-            <div id="admin-badge-area"></div>
+    <div id="main-content" style="display:none;">
+        <header class="header-main">
+            <div class="header-logo">DRONEX SOCIAL</div>
+            <div id="kurucu-tag"></div>
         </header>
 
-        <div id="global-alert"
-            style="display:none; background: var(--neon-purple); color: #fff; padding: 10px; text-align: center; font-weight: bold;">
-            <marquee id="marquee-anons">YÜKLENİYOR...</marquee>
+        <div id="admin-anons"
+            style="display:none; background: var(--neon); color: #000; padding: 10px; font-weight: bold; text-align: center;">
+            <marquee id="anons-text"></marquee>
         </div>
 
-        <div id="page-home" class="page active">
-            <div class="hat-30"><i class="fas fa-bolt"></i> HAT 30 YAKINDA! ÖN KAYITLAR BAŞLADI.</div>
+        <div id="home" class="page active">
+            <div class="hat-30-mega">
+                <h1>HAT 30</h1>
+                <p>YAKINDA</p>
+                <div style="margin-top: 30px; font-size: 0.9rem; color: #555;">DroneX Network System v4.0</div>
+            </div>
+        </div>
 
-            <div class="card">
-                <h3 style="color: var(--neon-purple); margin-bottom: 15px;">Akış</h3>
-                <div id="posts-container">
-                    <div class="card" style="background: rgba(255,255,255,0.02);">
-                        <b style="color: var(--neon-purple);">Adil 👑</b> <span
-                            style="font-size: 0.7rem; color: #555;">KURUCU</span>
-                        <p style="margin-top: 10px;">DroneX Social V4 yayında! Tüm admin özellikleri ve yeni neon tema
-                            aktif edildi. 🚀</p>
-                    </div>
+        <div id="shorts" class="page">
+            <h2
+                style="font-family: 'Orbitron'; border-left: 4px solid var(--neon); padding-left: 15px; margin-bottom: 30px;">
+                SHORTS</h2>
+            <div
+                style="height: 50vh; display:flex; flex-direction:column; justify-content:center; align-items:center; background:#0a0a0a; border-radius:20px; border: 1px solid #222;">
+                <i class="fas fa-video-slash fa-3x" style="color:#222;"></i>
+                <p style="color:#444; margin-top:20px;">Video yükleme sistemi kapalı.</p>
+            </div>
+        </div>
+
+        <div id="chat" class="page">
+            <h2 style="font-family: 'Orbitron'; margin-bottom: 20px; color: var(--neon);">GLOBAL CHAT</h2>
+            <div id="chat-window"
+                style="height: 50vh; overflow-y: auto; background: rgba(0,0,0,0.5); padding: 20px; border-radius: 15px;">
+                <div style="color:var(--neon); margin-bottom:10px;"><b>Sistem:</b> DroneX sohbetine hoş geldin.</div>
+            </div>
+            <div style="display:flex; gap:10px; margin-top:20px;">
+                <input id="chat-msg" type="text" placeholder="Mesajını gönder..."
+                    style="flex:1; background:#111; border:1px solid #333; color:#fff; padding:15px; border-radius:10px;">
+                <button onclick="sendChat()" class="btn-cyber"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+
+        <div id="profile" class="page">
+            <div style="text-align: center; background: rgba(255,255,255,0.02); padding: 40px; border-radius: 30px;">
+                <div class="pfp-circle">
+                    <img id="u-photo" src="" style="width:100%; height:100%; display:none;">
+                    <i id="u-icon" class="fas fa-user-astronaut fa-4x" style="margin-top:35px; color:var(--neon);"></i>
+                </div>
+                <h1 id="u-display-name" style="font-family: 'Orbitron';">DroneX User</h1>
+                <p style="color:var(--neon); letter-spacing: 2px;">DOĞRULANMIŞ KULLANICI</p>
+
+                <div style="margin-top:30px; display:flex; justify-content:center; gap:20px;">
+                    <button class="btn-cyber" onclick="editProfile()">İSMİ DÜZENLE</button>
+                    <button class="btn-cyber" style="border-color:#555; color:#555;">FOTOĞRAF SEÇ</button>
                 </div>
             </div>
         </div>
 
-        <div id="page-shorts" class="page">
-            <h2 style="margin-bottom: 20px;"><i class="fas fa-play-circle"></i> DroneX Shorts</h2>
-            <div class="shorts-view">
-                <i class="fas fa-video-slash fa-4x" style="color: #222;"></i>
-                <p style="margin-top: 20px; color: #444;">Henüz video yüklenmedi.</p>
-                <button class="admin-btn"
-                    style="width: auto; padding: 10px 30px; margin-top: 20px; background: transparent; border: 1px solid #333; color: #555;">Video
-                    Yükle</button>
+        <div id="admin" class="page">
+            <h1 style="color:var(--admin-gold); font-family:'Orbitron'; margin-bottom:30px;">🛡️ KURUCU PANELİ</h1>
+
+            <div
+                style="background:rgba(255,204,0,0.05); border:1px solid var(--admin-gold); padding:20px; border-radius:15px; margin-bottom:20px;">
+                <h3>SİSTEM ANONSU</h3>
+                <input id="anons-input" type="text" placeholder="Global mesaj..."
+                    style="width:100%; background:#000; border:1px solid #444; color:#fff; padding:10px; margin-top:10px;">
+                <button onclick="publishAnons()" class="btn-cyber"
+                    style="border-color:var(--admin-gold); color:var(--admin-gold); margin-top:10px; width:100%;">YAYINLA</button>
+            </div>
+
+            <div
+                style="background:rgba(255,0,85,0.05); border:1px solid var(--danger); padding:20px; border-radius:15px;">
+                <h3>SİSTEM BAN SİSTEMİ</h3>
+                <input type="text" placeholder="Kullanıcı ID veya E-posta..."
+                    style="width:100%; background:#000; border:1px solid #444; color:#fff; padding:10px; margin-top:10px;">
+                <button onclick="banUser()" class="btn-cyber btn-danger" style="margin-top:10px; width:100%;">ERİŞİMİ
+                    KALDIR (BAN)</button>
             </div>
         </div>
 
-        <div id="page-chat" class="page">
-            <h2 style="margin-bottom: 20px; color: var(--neon-purple);"><i class="fas fa-globe"></i> Global Chat</h2>
-            <div id="chat-box"
-                style="height: 50vh; overflow-y: auto; background: rgba(0,0,0,0.3); border-radius: 15px; padding: 15px; border: 1px solid #222;">
-            </div>
-            <div style="margin-top: 20px; display: flex; gap: 10px;">
-                <input id="msg-input" type="text" placeholder="Mesajını yaz..."
-                    style="flex:1; background: #111; border: 1px solid #333; color: #fff; padding: 15px; border-radius: 10px;">
-                <button onclick="sendMsg()" class="btn-login" style="padding: 10px 25px;"><i
-                        class="fas fa-paper-plane"></i></button>
-            </div>
-        </div>
-
-        <div id="page-profile" class="page">
-            <div class="card" style="text-align: center;">
-                <div id="profile-img"
-                    style="width: 120px; height: 120px; background: #222; border-radius: 50%; margin: 0 auto; border: 4px solid var(--neon-purple); box-shadow: 0 0 20px var(--neon-purple); display: flex; align-items: center; justify-content: center;">
-                    <i class="fas fa-user fa-3x"></i>
-                </div>
-                <h2 id="u-name" style="margin-top: 20px;">DroneX User</h2>
-                <p id="u-mail" style="color: #666;"></p>
-                <div style="display: flex; justify-content: space-around; margin-top: 30px;">
-                    <div><b>0</b><br>Takipçi</div>
-                    <div><b>0</b><br>Takip</div>
-                    <div><b>0</b><br>Post</div>
-                </div>
-                <button class="admin-btn" style="margin-top: 30px; background: #222; color: #fff;">Profili
-                    Düzenle</button>
-            </div>
-        </div>
-
-        <div id="page-admin" class="page">
-            <h2 style="color: var(--admin-gold); margin-bottom: 20px;"><i class="fas fa-crown"></i> Kurucu Kontrol
-                Paneli</h2>
-
-            <div class="card admin-box">
-                <h4>📢 Global Anons Geç</h4>
-                <input id="anons-text" type="text" placeholder="Anons mesajı..."
-                    style="width: 100%; padding: 12px; background: #000; border: 1px solid var(--admin-gold); color: #fff; margin-top: 10px; border-radius: 10px;">
-                <button onclick="triggerAnons()" class="admin-btn">YAYINLA</button>
-                <button onclick="document.getElementById('global-alert').style.display='none'" class="admin-btn"
-                    style="background:#444; color:#fff;">DURDUR</button>
-            </div>
-
-            <div class="card admin-box">
-                <h4>🎨 Sistem Renk Teması</h4>
-                <input type="color" id="theme-color"
-                    style="width: 100%; height: 50px; border: none; background: none; cursor: pointer;"
-                    onchange="changeSystemColor(this.value)">
-                <p style="font-size: 0.8rem; margin-top: 5px; color: #888;">Bu renk tüm kullanıcılarda anlık değişir.
-                </p>
-            </div>
-
-            <div class="card admin-box">
-                <h4>👤 Kullanıcı Yönetimi</h4>
-                <button class="admin-btn" style="background: #ff4444; color: #fff;">Sistem Banı At</button>
-                <button class="admin-btn" style="background: #444; color: #fff;">Tüm Chat'i Temizle</button>
-            </div>
-        </div>
-
-        <nav class="tab-bar">
-            <div class="tab-item active" onclick="navTo('home')"><i class="fas fa-home"></i><span>Home</span></div>
-            <div class="tab-item" onclick="navTo('shorts')"><i class="fas fa-bolt"></i><span>Shorts</span></div>
-            <div class="tab-item" onclick="navTo('chat')"><i class="fas fa-comment-dots"></i><span>Global</span></div>
-            <div class="tab-item" onclick="navTo('profile')"><i class="fas fa-user-astronaut"></i><span>Profil</span>
-            </div>
-            <div id="admin-tab" class="tab-item" style="display:none;" onclick="navTo('admin')"><i
-                    class="fas fa-shield-halved"></i><span>Admin</span></div>
+        <nav class="nav-dock">
+            <div class="nav-link active" onclick="tabTo('home')"><i class="fas fa-home"></i></div>
+            <div class="nav-link" onclick="tabTo('shorts')"><i class="fas fa-bolt"></i></div>
+            <div class="nav-link" onclick="tabTo('chat')"><i class="fas fa-comment-alt"></i></div>
+            <div class="nav-link" onclick="tabTo('profile')"><i class="fas fa-user"></i></div>
+            <div id="admin-link" class="nav-link" style="display:none;" onclick="tabTo('admin')"><i
+                    class="fas fa-shield-halved"></i></div>
         </nav>
-    </main>
+    </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -415,69 +344,77 @@
         const auth = getAuth(app);
         const provider = new GoogleAuthProvider();
 
-        // ELEMENTLER
-        const landing = document.getElementById('landing-page');
-        const shell = document.getElementById('app-shell');
-
-        // GİRİŞ FONKSİYONU
-        document.getElementById('main-login-btn').onclick = () => {
-            signInWithPopup(auth, provider).then(() => {
-                console.log("Welcome to DroneX");
-            }).catch(e => alert("Sistem Hatası: " + e.message));
+        // GİRİŞ
+        document.getElementById('btn-enter').onclick = () => {
+            signInWithPopup(auth, provider).catch(e => alert("Giriş başarısız!"));
         };
 
-        // OTURUM TAKİBİ
+        // OTURUM
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                landing.style.transform = 'translateY(-100%)';
+                document.getElementById('landing-page').style.transform = 'scale(0.8) opacity(0)';
                 setTimeout(() => {
-                    landing.style.display = 'none';
-                    shell.style.display = 'block';
+                    document.getElementById('landing-page').style.display = 'none';
+                    document.getElementById('main-content').style.display = 'block';
                 }, 800);
 
-                document.getElementById('u-name').innerText = user.displayName;
-                document.getElementById('u-mail').innerText = user.email;
+                document.getElementById('u-display-name').innerText = user.displayName;
+                if (user.photoURL) {
+                    document.getElementById('u-photo').src = user.photoURL;
+                    document.getElementById('u-photo').style.display = 'block';
+                    document.getElementById('u-icon').style.display = 'none';
+                }
 
-                // ADMİN KONTROLÜ
+                // Sadece Adil için Admin Tabı
                 if (user.email === "adilerkamtek2011@gmail.com") {
-                    document.getElementById('admin-tab').style.display = 'block';
-                    document.getElementById('admin-badge-area').innerHTML = '<span style="background:var(--admin-gold); color:#000; padding:5px 15px; border-radius:20px; font-weight:bold; font-size:0.7rem; box-shadow: 0 0 10px var(--admin-gold);">KURUCU</span>';
+                    document.getElementById('admin-link').style.display = 'block';
+                    document.getElementById('kurucu-tag').innerHTML = '<span style="color:var(--admin-gold); font-weight:bold; border:1px solid var(--admin-gold); padding:5px 10px; border-radius:5px; font-size:0.7rem;">KURUCU</span>';
                 }
             }
         });
 
-        // NAVİGASYON SİSTEMİ
-        window.navTo = function (pageId) {
+        // TAB SİSTEMİ
+        window.tabTo = function (id) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
-
-            document.getElementById('page-' + pageId).classList.add('active');
+            document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
             event.currentTarget.classList.add('active');
         };
 
-        // ADMİN FONKSİYONLARI
-        window.triggerAnons = function () {
-            const txt = document.getElementById('anons-text').value;
-            if (txt) {
-                document.getElementById('global-alert').style.display = 'block';
-                document.getElementById('marquee-anons').innerText = "📢 KURUCU MESAJI: " + txt;
+        // PROFİL DÜZENLEME
+        window.editProfile = function () {
+            const name = prompt("Yeni İsminiz:");
+            if (name) {
+                document.getElementById('u-display-name').innerText = name;
+                alert("İsim yerel olarak güncellendi! (Veritabanı yakında)");
             }
         };
 
-        window.changeSystemColor = function (color) {
-            document.documentElement.style.setProperty('--neon-purple', color);
-            alert("Sistem rengi güncellendi!");
+        // ADMİN ANONSU
+        window.publishAnons = function () {
+            const msg = document.getElementById('anons-input').value;
+            if (msg) {
+                document.getElementById('admin-anons').style.display = 'block';
+                document.getElementById('anons-text').innerText = "📢 KURUCU: " + msg;
+            }
         };
 
-        window.sendMsg = function () {
-            const inp = document.getElementById('msg-input');
+        // BAN SİSTEMİ (TEMSİLİ)
+        window.banUser = function () {
+            const target = prompt("Banlamak istediğiniz kişinin adı?");
+            if (target) alert(target + " sistemden süresiz olarak uzaklaştırıldı.");
+        };
+
+        // CHAT
+        window.sendChat = function () {
+            const inp = document.getElementById('chat-msg');
             if (inp.value) {
-                const chatBox = document.getElementById('chat-box');
-                chatBox.innerHTML += `<div class="card" style="margin-bottom:10px; border-left:3px solid var(--neon-purple);"><b>Sen:</b><br>${inp.value}</div>`;
+                const win = document.getElementById('chat-window');
+                win.innerHTML += `<div><b>Siz:</b> ${inp.value}</div>`;
                 inp.value = "";
-                chatBox.scrollTop = chatBox.scrollHeight;
+                win.scrollTop = win.scrollHeight;
             }
-        };
+        }
     </script>
 </body>
 
