@@ -3,37 +3,389 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>DroneX Test Sayfası</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>DroneX | Official</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        :root {
+            --insta-gradient: linear-gradient(45deg, #f093fb, #f5576c);
+            --bg: #000;
+            --card: #111;
+            --gold: #ffd700;
+        }
+
         body {
-            background-color: #000;
-            color: #ffcc00;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
-            font-family: sans-serif;
+            font-family: -apple-system, sans-serif;
+            background: var(--bg);
+            color: white;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .screen {
+            display: none !important;
             flex-direction: column;
+            height: 100vh;
+            overflow-y: auto;
+            padding-bottom: 100px;
+            box-sizing: border-box;
         }
 
-        h1 {
-            font-size: 50px;
-            border: 2px solid #ffcc00;
-            padding: 20px;
+        .active {
+            display: flex !important;
+        }
+
+        /* ANONS */
+        .announcement-bar {
+            background: var(--insta-gradient);
+            padding: 25px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.3rem;
+            border-bottom: 3px solid gold;
+            display: none;
+            position: relative;
+            z-index: 2000;
+        }
+
+        /* CHAT */
+        #chat-box,
+        #private-chat-box {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+        }
+
+        .msg-bubble {
+            background: #1e1e1e;
+            padding: 12px;
+            border-radius: 15px;
+            margin-bottom: 12px;
+            position: relative;
+            border-left: 3px solid #f5576c;
+        }
+
+        .msg-user {
+            font-weight: bold;
+            cursor: pointer;
+            color: #f5576c;
+            margin-bottom: 5px;
+        }
+
+        .admin-name {
+            color: var(--gold) !important;
+            font-weight: 900 !important;
+            text-shadow: 0 0 8px gold;
+        }
+
+        /* PROFİL */
+        .profile-pic {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: #222;
+            margin: 0 auto;
+            overflow: hidden;
+            border: 3px solid #f5576c;
+        }
+
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* NAV */
+        nav {
+            height: 70px;
+            border-top: 1px solid #222;
+            background: #000;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        nav i {
+            font-size: 1.6rem;
+            color: #555;
+            cursor: pointer;
+        }
+
+        .active-nav {
+            color: #f5576c;
+        }
+
+        .btn {
+            width: 90%;
+            max-width: 320px;
+            padding: 14px;
+            margin: 10px auto;
+            border-radius: 12px;
+            border: none;
+            display: block;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn-main {
+            background: var(--insta-gradient);
+            color: white;
+        }
+
+        input {
+            width: 85%;
+            padding: 12px;
+            margin: 10px auto;
+            display: block;
+            background: #111;
+            border: 1px solid #333;
+            color: white;
             border-radius: 10px;
-        }
-
-        p {
-            font-size: 20px;
-            color: #fff;
         }
     </style>
 </head>
 
-<body>
-    <h1>DRONEX SOCIAL 🚀</h1>
-    <p>Adil, eğer bu ekranı görüyorsan GitHub Pages canavarını yendik demektir!</p>
+<body id="main-body">
+
+    <div id="announcement" class="announcement-bar">
+        <span id="ann-text"></span>
+        <i class="fas fa-times" id="close-ann"
+            style="position:absolute; right:15px; top:15px; cursor:pointer; display:none;"
+            onclick="deleteAnnouncement()"></i>
+    </div>
+
+    <div id="auth-screen" class="screen active" style="justify-content:center; text-align:center;">
+        <h1
+            style="font-size: 4.5rem; margin: 0; background: var(--insta-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+            DroneX</h1>
+        <input type="email" id="email" placeholder="E-posta">
+        <input type="password" id="password" placeholder="Şifre">
+        <button class="btn btn-main" id="auth-btn">Giriş Yap / Kayıt Ol</button>
+    </div>
+
+    <div id="home-screen" class="screen">
+        <div
+            style="background: var(--insta-gradient); padding: 50px 20px; text-align: center; border-radius: 0 0 40px 40px;">
+            <h1 style="margin:0;">Hoş Geldin Pilot</h1>
+            <p>HAT30 Yakında!</p>
+        </div>
+        <div id="admin-panel" style="display:none; padding: 20px;">
+            <div
+                style="background:#111; border: 2px solid gold; border-radius: 20px; padding: 20px; text-align: center;">
+                <h3 style="color:gold;">🛡️ KURUCU PANELİ</h3>
+                <button class="btn btn-main" onclick="makeAnnouncement()">Büyük Anons Patlat</button>
+                <button class="btn" style="background:red; color:white;" onclick="deleteAnnouncement()">Anonsu
+                    Kaldır</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="chat-screen" class="screen">
+        <h3 style="padding:20px; border-bottom:1px solid #222; margin:0;">Global Sohbet 🌍</h3>
+        <div id="chat-box"></div>
+        <div style="padding: 15px; display:flex; background:#000; border-top:1px solid #222;">
+            <input type="text" id="chat-input" placeholder="Mesaj yaz..." style="flex:1; margin:0;">
+            <button onclick="sendMsg()"
+                style="background:none; border:none; color:#f5576c; font-size:1.8rem; padding-left:15px;"><i
+                    class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <div id="user-profile-screen" class="screen" style="text-align:center;">
+        <div class="profile-pic" id="u-pic" style="margin-top:40px;"></div>
+        <h2 id="u-name">...</h2>
+        <div style="margin: 20px 0; font-size: 1.2rem;">Takipçi: <span id="u-followers"
+                style="font-weight:bold; color:#f5576c;">0</span></div>
+        <button class="btn btn-main" id="follow-btn" onclick="toggleFollow()">Takip Et</button>
+        <button class="btn" style="background:#222; color:white;" onclick="openPrivateChat()">Özel Mesaj Gönder</button>
+        <div style="margin-top:30px; border-top:1px solid #222; padding:20px; color:#555;">
+            <i class="fas fa-video" style="font-size:2rem;"></i><br>Henüz Video Yok
+        </div>
+    </div>
+
+    <div id="private-chat-screen" class="screen">
+        <h3 id="dm-title" style="padding:20px; border-bottom:1px solid #222; margin:0; text-align:center;">Özel Sohbet
+        </h3>
+        <div id="private-chat-box"></div>
+        <div style="padding:15px; display:flex; background:#000; border-top:1px solid #222;">
+            <input type="text" id="private-input" placeholder="Sadece ikiniz..." style="flex:1; margin:0;">
+            <button onclick="sendPrivateMsg()"
+                style="background:none; border:none; color:#f5576c; font-size:1.8rem; padding-left:15px;"><i
+                    class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <div id="my-profile-screen" class="screen" style="text-align:center; padding-top:40px;">
+        <div class="profile-pic" id="my-pic"></div>
+        <h2 id="my-display-name">Pilot</h2>
+        <input type="text" id="edit-name" placeholder="Yeni Adın">
+        <p style="color:#666; font-size:0.8rem;">Profil Fotoğrafı Seç:</p>
+        <input type="file" id="file-input" accept="image/*">
+        <button class="btn btn-main" onclick="saveProfile()">Güncelle</button>
+        <button onclick="logout()" style="color:red; background:none; border:none; margin-top:20px;">Çıkış Yap</button>
+    </div>
+
+    <nav id="main-nav" style="display:none;">
+        <i class="fas fa-home active-nav" onclick="nav('home-screen', this)"></i>
+        <i class="fas fa-comment" onclick="nav('chat-screen', this)"></i>
+        <i class="fas fa-user-circle" onclick="nav('my-profile-screen', this)"></i>
+    </nav>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc, collection, addDoc, query, orderBy, onSnapshot, limit, deleteDoc, updateDoc, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = { apiKey: "AIzaSyAutPInq2BBsOnKlZS2A6M9XTEq9MuhgRY", authDomain: "tanitimsitesi-1ca45.firebaseapp.com", projectId: "tanitimsitesi-1ca45", storageBucket: "tanitimsitesi-1ca45.firebasestorage.app", messagingSenderId: "43485443013", appId: "1:43485443013:web:4dd13cf9d8101c2fef51ac" };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const ADMIN_GMAIL = "adilerkamtek2011@gmail.com";
+
+        let myData = { name: "Pilot", pic: "" };
+        let selectedUserId = "";
+
+        onAuthStateChanged(auth, user => {
+            if (user) {
+                if (user.email === ADMIN_GMAIL) {
+                    document.getElementById('main-body').classList.add('is-admin');
+                    document.getElementById('admin-panel').style.display = 'block';
+                    document.getElementById('close-ann').style.display = 'block';
+                }
+                document.getElementById('auth-screen').classList.remove('active');
+                document.getElementById('home-screen').classList.add('active');
+                document.getElementById('main-nav').style.display = 'flex';
+                loadMyInfo();
+                listenAnnouncements();
+                listenGlobalChat();
+            }
+        });
+
+        // PROFİL SİSTEMİ
+        async function loadMyInfo() {
+            const s = await getDoc(doc(db, "users", auth.currentUser.uid));
+            if (s.exists()) {
+                myData = s.data();
+                document.getElementById('my-display-name').innerText = myData.name;
+                if (myData.pic) document.getElementById('my-pic').innerHTML = `<img src="${myData.pic}">`;
+            }
+        }
+
+        window.saveProfile = async () => {
+            const file = document.getElementById('file-input').files[0];
+            const newName = document.getElementById('edit-name').value || myData.name;
+            if (file) {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = async () => {
+                    await setDoc(doc(db, "users", auth.currentUser.uid), { name: newName, pic: reader.result }, { merge: true });
+                    location.reload();
+                };
+            } else {
+                await setDoc(doc(db, "users", auth.currentUser.uid), { name: newName }, { merge: true });
+                location.reload();
+            }
+        };
+
+        // GLOBAL CHAT
+        function listenGlobalChat() {
+            onSnapshot(query(collection(db, "messages"), orderBy("time", "asc"), limit(50)), snap => {
+                const box = document.getElementById('chat-box'); box.innerHTML = "";
+                snap.forEach(d => {
+                    const data = d.data();
+                    const isAdmin = data.email === ADMIN_GMAIL;
+                    box.innerHTML += `
+                        <div class="msg-bubble">
+                            <div class="msg-user ${isAdmin ? 'admin-name' : ''}" onclick="viewUser('${data.uid}')">${data.user} ${isAdmin ? '👑' : ''}</div>
+                            <div>${data.text}</div>
+                            <div class="is-admin" style="display:none; position:absolute; right:10px; top:10px;"><i class="fas fa-trash" style="color:red" onclick="deleteMsg('${d.id}')"></i></div>
+                        </div>`;
+                });
+                box.scrollTop = box.scrollHeight;
+            });
+        }
+
+        window.sendMsg = async () => {
+            const val = document.getElementById('chat-input').value;
+            if (!val) return;
+            await addDoc(collection(db, "messages"), { text: val, user: myData.name, email: auth.currentUser.email, uid: auth.currentUser.uid, time: Date.now() });
+            document.getElementById('chat-input').value = "";
+        };
+
+        // KULLANICI GÖRÜNTÜLEME & TAKİP
+        window.viewUser = async (uid) => {
+            selectedUserId = uid;
+            const s = await getDoc(doc(db, "users", uid));
+            if (s.exists()) {
+                const d = s.data();
+                document.getElementById('u-name').innerText = d.name;
+                document.getElementById('u-followers').innerText = (d.followers || []).length;
+                document.getElementById('u-pic').innerHTML = d.pic ? `<img src="${d.pic}" style="width:100%; height:100%; object-fit:cover;">` : `<i class="fas fa-user" style="font-size:3rem; margin-top:20px;"></i>`;
+                nav('user-profile-screen');
+            }
+        };
+
+        window.toggleFollow = async () => {
+            const userRef = doc(db, "users", selectedUserId);
+            const s = await getDoc(userRef);
+            const f = s.data().followers || [];
+            if (f.includes(auth.currentUser.uid)) await updateDoc(userRef, { followers: arrayRemove(auth.currentUser.uid) });
+            else await updateDoc(userRef, { followers: arrayUnion(auth.currentUser.uid) });
+            viewUser(selectedUserId);
+        };
+
+        // ÖZEL MESAJ (DM)
+        window.openPrivateChat = () => {
+            const chatId = [auth.currentUser.uid, selectedUserId].sort().join("_");
+            nav('private-chat-screen');
+            onSnapshot(query(collection(db, "p_chats", chatId, "msgs"), orderBy("time", "asc")), snap => {
+                const box = document.getElementById('private-chat-box'); box.innerHTML = "";
+                snap.forEach(d => { box.innerHTML += `<div class="msg-bubble"><b>${d.data().user}:</b> ${d.data().text}</div>`; });
+                box.scrollTop = box.scrollHeight;
+            });
+        };
+
+        window.sendPrivateMsg = async () => {
+            const val = document.getElementById('private-input').value;
+            const chatId = [auth.currentUser.uid, selectedUserId].sort().join("_");
+            if (!val) return;
+            await addDoc(collection(db, "p_chats", chatId, "msgs"), { text: val, user: myData.name, time: Date.now() });
+            document.getElementById('private-input').value = "";
+        };
+
+        // ANONS SİSTEMİ
+        window.makeAnnouncement = async () => {
+            const txt = prompt("Büyük Anons Metni:");
+            if (txt) await setDoc(doc(db, "system", "announcement"), { text: txt });
+        };
+        window.deleteAnnouncement = async () => { await deleteDoc(doc(db, "system", "announcement")); };
+        function listenAnnouncements() {
+            onSnapshot(doc(db, "system", "announcement"), s => {
+                const bar = document.getElementById('announcement');
+                if (s.exists()) { document.getElementById('ann-text').innerText = "📢 " + s.data().text; bar.style.display = 'block'; }
+                else { bar.style.display = 'none'; }
+            });
+        }
+
+        // DİĞER
+        window.nav = (id, el) => {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            document.querySelectorAll('nav i').forEach(i => i.classList.remove('active-nav'));
+            if (el) el.classList.add('active-nav');
+        };
+        document.getElementById('auth-btn').onclick = async () => {
+            const e = document.getElementById('email').value, p = document.getElementById('password').value;
+            try { await signInWithEmailAndPassword(auth, e, p); } catch { await createUserWithEmailAndPassword(auth, e, p); }
+        };
+        window.deleteMsg = async (id) => { if (confirm("Silinsin mi?")) await deleteDoc(doc(db, "messages", id)); };
+        window.logout = () => signOut(auth);
+    </script>
 </body>
 
 </html>
