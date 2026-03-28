@@ -4,105 +4,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DroneX Social 👑 | Global Network</title>
+    <title>DroneX Social 👑 | Purple Edition</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --gold: #ffcc00;
+            --accent: #9d00ff;
+            /* Morumsu Ana Renk */
             --dark: #050505;
             --card: #121212;
             --text: #ffffff;
-            --admin-color: #ffcc00;
-            /* Bu değişkeni admin panelinden değiştireceğiz */
+            --admin-glow: #ff00ff;
         }
 
         body {
             background: var(--dark);
             color: var(--text);
-            font-family: 'Inter', sans-serif;
+            font-family: 'Segoe UI', sans-serif;
             margin: 0;
-            padding-bottom: 70px;
+            padding-bottom: 80px;
         }
 
-        /* ÜST BAR (NAV) */
+        /* ÜST NAV */
         .top-nav {
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.9);
             padding: 15px;
             position: sticky;
             top: 0;
             z-index: 100;
-            border-bottom: 1px solid #222;
+            border-bottom: 2px solid var(--accent);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 0 15px var(--accent);
         }
 
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: bold;
-            color: var(--gold);
+            color: var(--accent);
+            text-shadow: 0 0 10px var(--accent);
         }
 
-        .admin-badge {
-            background: var(--admin-color);
-            color: #000;
-            padding: 2px 8px;
-            border-radius: 5px;
-            font-size: 0.7rem;
-            font-weight: bold;
-            margin-left: 5px;
-        }
-
-        /* ANA SAYFA HAT 30 YAZISI */
-        .hat-30-banner {
-            background: linear-gradient(90deg, #000, #1a1a1a);
-            border: 1px dashed var(--gold);
+        /* GLOBAL ANONS (Sadece Admin Açınca Görünür) */
+        #global-anons-bar {
+            display: none;
+            background: var(--accent);
+            color: #fff;
             padding: 10px;
             text-align: center;
-            margin: 15px;
-            border-radius: 10px;
             font-weight: bold;
-            color: var(--gold);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0.5;
-            }
-
-            100% {
-                opacity: 1;
-            }
+            font-size: 0.9rem;
+            position: relative;
         }
 
         /* SAYFA YAPISI */
         .page {
             display: none;
             padding: 20px;
-            animation: fadeIn 0.3s ease;
+            animation: slideUp 0.4s ease;
         }
 
         .active {
             display: block;
         }
 
-        @keyframes fadeIn {
+        @keyframes slideUp {
             from {
+                transform: translateY(20px);
                 opacity: 0;
             }
 
             to {
+                transform: translateY(0);
                 opacity: 1;
             }
         }
 
-        /* ALT MENÜ */
+        /* ALT MENÜ (TABLAR) */
         .bottom-nav {
             background: #000;
             position: fixed;
@@ -110,156 +88,179 @@
             width: 100%;
             display: flex;
             justify-content: space-around;
-            padding: 15px 0;
-            border-top: 1px solid #222;
+            padding: 12px 0;
+            border-top: 1px solid #333;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
         }
 
         .nav-item {
-            color: #555;
-            font-size: 1.2rem;
+            color: #666;
+            font-size: 1.3rem;
             cursor: pointer;
             transition: 0.3s;
+            position: relative;
         }
 
         .nav-item.active-nav {
-            color: var(--gold);
+            color: var(--accent);
+            text-shadow: 0 0 10px var(--accent);
         }
 
-        /* SHORTS TASARIMI */
-        .shorts-container {
-            height: 80vh;
-            background: #000;
-            border-radius: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            border: 1px solid #333;
+        .nav-label {
+            font-size: 0.6rem;
+            display: block;
+            text-align: center;
         }
 
-        .no-video {
-            color: #444;
-            font-style: italic;
-        }
-
-        /* POST & MESAJLAR */
+        /* POST & CHAT KUTULARI */
         .post-card {
             background: var(--card);
             border-radius: 15px;
             padding: 15px;
             margin-bottom: 15px;
-            border-bottom: 2px solid #222;
+            border: 1px solid #222;
+            position: relative;
         }
 
-        .btn-action {
-            background: var(--gold);
-            color: #000;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 8px;
+        .hat-30 {
+            border: 1px dashed var(--accent);
+            color: var(--accent);
+            text-align: center;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 10px;
             font-weight: bold;
-            cursor: pointer;
         }
 
-        .btn-delete {
-            background: #ff4444;
+        /* CHAT SİSTEMİ */
+        #chat-content {
+            height: 60vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 10px;
+        }
+
+        .chat-msg {
+            background: #1a1a1a;
+            padding: 10px;
+            border-radius: 10px;
+            border-left: 3px solid var(--accent);
+        }
+
+        .chat-admin {
+            border-left: 3px solid var(--admin-glow);
+            background: rgba(157, 0, 255, 0.1);
+        }
+
+        /* BUTONLAR */
+        .btn-main {
+            background: var(--accent);
             color: #fff;
             border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: bold;
             cursor: pointer;
-            float: right;
-            font-size: 0.8rem;
+            width: 100%;
+            margin-top: 10px;
+            box-shadow: 0 0 10px var(--accent);
         }
 
-        /* ADMIN PANELİ */
-        .admin-panel {
-            background: #1a0000;
-            border: 1px solid #ff4444;
-            padding: 20px;
-            border-radius: 15px;
+        /* VİDEO YOK YAZISI */
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: #444;
         }
     </style>
 </head>
 
 <body>
 
+    <div id="global-anons-bar">📢 <span id="anons-text">Sistem Güncellendi!</span></div>
+
     <div class="top-nav">
-        <div class="logo">DroneX <span id="admin-indicator"></span></div>
-        <div id="user-header">
-            <span id="user-display" class="user-gold">Misafir 👑</span>
-        </div>
+        <div class="logo">DroneX <span id="kurucu-badge"></span></div>
+        <div id="user-display" style="font-size: 0.8rem; color: var(--accent);">Giriş Yapılmadı</div>
     </div>
 
     <div id="home" class="page active">
-        <div class="hat-30-banner">🚀 HAT 30 YAKINDA! SİSTEM HAZIRLANIYOR...</div>
-        <div id="global-anons" style="color: var(--gold); text-align: center; margin-bottom: 10px;"></div>
+        <div class="hat-30">🚀 HAT 30 YAKINDA! GELECEK BURADA...</div>
         <div class="post-card">
-            <textarea id="post-input" placeholder="Geleceğe bir mesaj bırak Adil..."
-                style="width:100%; background:#000; color:#fff; border:1px solid #333; border-radius:10px; padding:10px;"></textarea>
-            <button class="btn-action" style="margin-top:10px;">Paylaş</button>
+            <textarea id="post-input" rows="3" placeholder="Geleceğe bir not bırak..."
+                style="width:100%; background:transparent; color:#fff; border:none; outline:none;"></textarea>
+            <button class="btn-main">Paylaş</button>
         </div>
         <div id="feed">
             <div class="post-card">
-                <span style="color:var(--gold)">Adil 👑</span> <span class="admin-badge">KURUCU</span>
-                <p>DroneX Social'a hoş geldiniz. Bu sistemde her şey sizin elinizde.</p>
+                <b style="color:var(--accent)">Adil 👑</b>
+                <p>DroneX Social yeni mor temasıyla yayında! 🦾</p>
             </div>
         </div>
     </div>
 
     <div id="shorts" class="page">
-        <h3>DroneX Shorts</h3>
-        <div class="shorts-container">
-            <i class="fas fa-video-slash fa-3x" style="color:#222; margin-bottom:10px;"></i>
-            <p class="no-video">Henüz video yok. İlk videoyu sen yükle!</p>
+        <h3 style="color:var(--accent)">DroneX Shorts</h3>
+        <div class="empty-state">
+            <i class="fas fa-video-slash fa-4x"></i>
+            <p>Henüz video yok. DroneX topluluğu video bekliyor!</p>
         </div>
     </div>
 
-    <div id="messages" class="page">
-        <h3>Özel Mesajlar (DM)</h3>
-        <div class="post-card">Henüz mesajın yok. Takipçilerinle konuşmaya başla!</div>
+    <div id="global-chat" class="page">
+        <h3 style="color:var(--accent)">Global Sohbet</h3>
+        <div id="chat-content">
+            <div class="chat-msg chat-admin"><b>Adil 👑:</b> Selam millet, burası global sohbet!</div>
+        </div>
+        <div style="display: flex; gap: 10px; margin-top: 10px;">
+            <input id="chat-input" type="text" placeholder="Mesaj yaz..."
+                style="flex:1; background:#1a1a1a; border:1px solid #333; color:#fff; padding:10px; border-radius:10px;">
+            <button class="btn-main" style="width:auto; margin:0;">Gönder</button>
+        </div>
     </div>
 
     <div id="profile" class="page">
         <div style="text-align: center;">
-            <div
-                style="width:100px; height:100px; background:#333; border-radius:50%; margin: 0 auto; border: 3px solid var(--gold);">
+            <div id="pfp"
+                style="width:90px; height:90px; background:#222; border-radius:50%; margin:0 auto; border:2px solid var(--accent); display:flex; align-items:center; justify-content:center;">
+                <i class="fas fa-user fa-2x"></i>
             </div>
-            <h2 id="profile-name">Adil 👑</h2>
-            <button class="btn-action" onclick="changeName()">İsim Değiştir</button>
-            <div style="margin-top:20px; display:flex; justify-content: space-around;">
-                <span><b>0</b> Takipçi</span>
-                <span><b>0</b> Takip</span>
-            </div>
+            <h2 id="profile-name">Yükleniyor...</h2>
+            <button class="btn-main" style="width:auto; background:#222;"
+                onclick="document.getElementById('pfp-upload').click()">Fotoğraf Yükle</button>
+            <input type="file" id="pfp-upload" style="display:none">
         </div>
-        <h4 style="margin-top:30px;">Videolarım</h4>
-        <p class="no-video">Video bulunamadı.</p>
     </div>
 
     <div id="admin" class="page">
-        <div class="admin-panel">
-            <h3>🛡️ DroneX Admin Paneli</h3>
-            <p>Renk Kombinasyonu: <input type="color" id="colorPicker" onchange="updateTheme(this.value)"> </p>
-            <button class="btn-action" style="background:#ff4444; color:#fff;">Kullanıcı Banla</button>
-            <button class="btn-action" onclick="makeAnons()">Global Anons Geç</button>
-            <hr>
-            <h4>Moderatör Araçları</h4>
-            <button class="btn-delete" style="float:none;">Tüm Mesajları Temizle</button>
+        <div class="post-card" style="border: 2px solid var(--admin-glow);">
+            <h3 style="color:var(--admin-glow)">🛡️ Kurucu Paneli</h3>
+            <p>Global Anons Yayınla:</p>
+            <input id="anons-input" type="text" placeholder="Anons mesajı..."
+                style="width:100%; background:#000; color:#fff; padding:10px; border:1px solid #333;">
+            <button class="btn-main" onclick="publishAnons()">YAYINLA</button>
+            <button class="btn-main" style="background:#ff4444;" onclick="hideAnons()">ANONSU KALDIR</button>
         </div>
     </div>
 
     <div class="bottom-nav">
-        <div class="nav-item active-nav" onclick="showPage('home')"><i class="fas fa-home"></i></div>
-        <div class="nav-item" onclick="showPage('shorts')"><i class="fas fa-bolt"></i></div>
-        <div class="nav-item" onclick="showPage('messages')"><i class="fas fa-comment"></i></div>
-        <div class="nav-item" onclick="showPage('profile')"><i class="fas fa-user"></i></div>
-        <div id="admin-nav" class="nav-item" onclick="showPage('admin')" style="display:none;"><i
-                class="fas fa-shield-alt"></i></div>
+        <div class="nav-item active-nav" onclick="showPage('home')"><i class="fas fa-home"></i><span
+                class="nav-label">Ana Sayfa</span></div>
+        <div class="nav-item" onclick="showPage('shorts')"><i class="fas fa-bolt"></i><span
+                class="nav-label">Shorts</span></div>
+        <div class="nav-item" onclick="showPage('global-chat')"><i class="fas fa-globe"></i><span
+                class="nav-label">Global</span></div>
+        <div class="nav-item" onclick="showPage('profile')"><i class="fas fa-user"></i><span
+                class="nav-label">Profil</span></div>
+        <div id="admin-tab" class="nav-item" onclick="showPage('admin')" style="display:none;"><i
+                class="fas fa-crown"></i><span class="nav-label">Admin</span></div>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getAuth, onAuthStateChanged, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAutPInq2BBsOnKlZS2A6M9XTEq9MuhgRY",
@@ -272,8 +273,9 @@
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
 
-        // SAYFA GEÇİŞLERİ
+        // SAYFA YÖNETİMİ
         window.showPage = function (pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active-nav'));
@@ -281,36 +283,31 @@
             event.currentTarget.classList.add('active-nav');
         }
 
-        // TEMA GÜNCELLEME (ADMIN)
-        window.updateTheme = function (color) {
-            document.documentElement.style.setProperty('--gold', color);
-            document.documentElement.style.setProperty('--admin-color', color);
-            // Burada Firebase'e kaydedip herkeste değişmesini sağlayacağız
+        // ADMİN ANONSU
+        window.publishAnons = function () {
+            const txt = document.getElementById('anons-input').value;
+            if (txt) {
+                document.getElementById('anons-text').innerText = txt;
+                document.getElementById('global-anons-bar').style.display = 'block';
+            }
         }
+        window.hideAnons = function () { document.getElementById('global-anons-bar').style.display = 'none'; }
 
-        // KULLANICI KONTROLÜ
+        // OTURUM KONTROLÜ
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 document.getElementById('user-display').innerText = user.displayName;
                 document.getElementById('profile-name').innerText = user.displayName + " 👑";
 
-                // ADMİN KONTROLÜ (SENİN MAİLİN)
+                // KURUCU KONTROLÜ (SENİN MAİLİN)
                 if (user.email === "adilerkamtek2011@gmail.com") {
-                    document.getElementById('admin-nav').style.display = 'block';
-                    document.getElementById('admin-indicator').innerHTML = '<span class="admin-badge">KURUCU</span>';
+                    document.getElementById('admin-tab').style.display = 'block';
+                    document.getElementById('kurucu-badge').innerHTML = '<span style="background:var(--accent); color:#000; font-size:0.6rem; padding:2px 5px; border-radius:5px; margin-left:5px;">KURUCU</span>';
                 }
+            } else {
+                signInWithPopup(auth, provider);
             }
         });
-
-        window.makeAnons = function () {
-            const msg = prompt("Global Anons Mesajı:");
-            if (msg) document.getElementById('global-anons').innerText = "📢 " + msg;
-        }
-
-        window.changeName = function () {
-            const newName = prompt("Yeni İsminiz:");
-            if (newName) document.getElementById('profile-name').innerText = newName + " 👑";
-        }
     </script>
 </body>
 
