@@ -727,7 +727,13 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import {
+            getAuth,
+            signInWithEmailAndPassword,
+            createUserWithEmailAndPassword,
+            onAuthStateChanged,
+            signOut
+        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
         import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, doc, setDoc, getDoc, deleteDoc, serverTimestamp, where, updateDoc, increment, limit } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
@@ -889,21 +895,38 @@
         };
 
         window.UserSystem = {
-            login: async () => {
+            // Kayıt Olma Fonksiyonu (Yeni kullanıcılar için)
+            register: async (email, password) => {
                 try {
-                    await signInWithPopup(auth, provider);
+                    await createUserWithEmailAndPassword(auth, email, password);
+                    UI.showToast("DroneX Kaydı Başarılı!");
                 } catch (err) {
-                    UI.showToast("Giriş başarısız!");
+                    UI.showToast("Kayıt hatası: " + err.message);
                 }
             },
-            logout: () => signOut(auth),
-            editName: async () => {
-                const newName = prompt("Yeni Terminal İsmin:");
-                if (newName && newName.length > 2) {
-                    await updateDoc(doc(db, "users", CURRENT_USER.uid), { name: newName });
-                    UI.showToast("İsim güncellendi!");
+            // Giriş Yapma Fonksiyonu
+            login: async () => {
+                const email = prompt("E-posta Adresin:");
+                const password = prompt("Şifren:");
+
+                if (email && password) {
+                    try {
+                        await signInWithEmailAndPassword(auth, email, password);
+                        UI.showToast("Sisteme Bağlanıldı!");
+                    } catch (err) {
+                        UI.showToast("Hatalı giriş!");
+                    }
                 }
             },
+            logout: () => signOut(auth)
+        };
+        editName: async () => {
+            const newName = prompt("Yeni Terminal İsmin:");
+            if (newName && newName.length > 2) {
+                await updateDoc(doc(db, "users", CURRENT_USER.uid), { name: newName });
+                UI.showToast("İsim güncellendi!");
+            }
+        },
             updatePfp: (input) => {
                 if (input.files && input.files[0]) {
                     const reader = new FileReader();
