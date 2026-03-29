@@ -75,6 +75,7 @@
 
         ::-webkit-scrollbar {
             width: 6px;
+            height: 6px;
         }
 
         ::-webkit-scrollbar-thumb {
@@ -87,7 +88,8 @@
         }
 
         button,
-        input {
+        input,
+        textarea {
             border: none;
             font: inherit;
         }
@@ -126,6 +128,40 @@
             to {
                 transform: rotate(360deg);
             }
+        }
+
+        #global-reset-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 30000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(2, 6, 14, 0.52);
+            backdrop-filter: blur(16px);
+            padding: 24px;
+        }
+
+        .reset-box {
+            width: min(560px, 100%);
+            text-align: center;
+            padding: 40px 24px;
+            border-radius: 30px;
+            background: rgba(8, 12, 24, 0.86);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: var(--shadow);
+        }
+
+        .reset-box h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2.2rem, 7vw, 5rem);
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .reset-box p {
+            color: var(--text-dim);
+            font-size: 1.05rem;
         }
 
         #auth-gate {
@@ -326,7 +362,8 @@
             text-align: center;
         }
 
-        .input-cyber {
+        .input-cyber,
+        .color-field {
             width: 100%;
             background: transparent;
             color: var(--text);
@@ -413,6 +450,28 @@
             color: var(--text-dim);
             font-size: 0.82rem;
             border: 1px solid var(--line);
+        }
+
+        .header-online {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-dim);
+            font-size: 0.86rem;
+        }
+
+        .online-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 12px var(--accent);
+            flex-shrink: 0;
+        }
+
+        .offline-dot {
+            background: var(--text-soft);
+            box-shadow: none;
         }
 
         #system-marquee {
@@ -541,6 +600,11 @@
             color: var(--text-dim);
         }
 
+        .tiny {
+            font-size: 0.82rem;
+            color: var(--text-soft);
+        }
+
         .stat-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -585,7 +649,7 @@
         }
 
         #dm-chat-window {
-            height: 48vh;
+            height: 46vh;
             padding: 4px 4px 4px 0;
         }
 
@@ -672,7 +736,7 @@
 
         .dm-layout {
             display: grid;
-            grid-template-columns: 340px 1fr;
+            grid-template-columns: 360px 1fr;
             gap: 18px;
         }
 
@@ -693,11 +757,36 @@
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid var(--line);
             padding: 0 14px;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
         }
 
         .search-row i {
             color: var(--primary);
+        }
+
+        .new-dm-results {
+            display: none;
+            margin-bottom: 16px;
+            padding: 10px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--line);
+            max-height: 210px;
+            overflow-y: auto;
+        }
+
+        .new-dm-user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .new-dm-user:hover {
+            background: rgba(94, 231, 255, 0.07);
         }
 
         .recent-strip {
@@ -709,14 +798,15 @@
         }
 
         .recent-chip {
-            min-width: 86px;
+            min-width: 94px;
             padding: 12px 10px;
-            border-radius: 16px;
+            border-radius: 18px;
             text-align: center;
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid transparent;
             transition: var(--transition);
             cursor: pointer;
+            position: relative;
         }
 
         .recent-chip:hover,
@@ -726,8 +816,8 @@
         }
 
         .recent-chip img {
-            width: 44px;
-            height: 44px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid rgba(94, 231, 255, 0.32);
@@ -741,6 +831,26 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+        }
+
+        .unread-badge {
+            min-width: 22px;
+            height: 22px;
+            border-radius: 999px;
+            display: inline-grid;
+            place-items: center;
+            padding: 0 7px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #041018;
+            background: var(--accent);
+            box-shadow: 0 0 18px rgba(29, 242, 160, 0.35);
+        }
+
+        .recent-chip .unread-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
         }
 
         .dm-list {
@@ -778,6 +888,28 @@
             border: 2px solid rgba(94, 231, 255, 0.24);
             background: #0a0d16;
             flex-shrink: 0;
+        }
+
+        .dm-avatar-wrap {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .avatar-status {
+            position: absolute;
+            right: 2px;
+            bottom: 2px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 2px solid #09101d;
+            box-shadow: 0 0 14px rgba(29, 242, 160, 0.32);
+        }
+
+        .avatar-status.offline {
+            background: var(--text-soft);
+            box-shadow: none;
         }
 
         .dm-info {
@@ -836,6 +968,21 @@
         .conversation-header .dm-avatar {
             width: 48px;
             height: 48px;
+        }
+
+        .status-line {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            color: var(--text-soft);
+            font-size: 0.82rem;
+        }
+
+        .read-receipt {
+            font-size: 0.75rem;
+            color: var(--text-soft);
+            margin-top: 2px;
+            text-align: right;
         }
 
         .profile-header {
@@ -946,22 +1093,51 @@
             padding: 34px 20px;
         }
 
-        .tiny {
-            font-size: 0.82rem;
-            color: var(--text-soft);
+        .admin-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .helper-box {
+            padding: 14px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--line);
+            color: var(--text-dim);
+            margin-top: 12px;
+            line-height: 1.5;
+        }
+
+        .theme-preview-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .theme-dot {
+            height: 46px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .danger-note {
+            color: #ffc0d0;
+            font-size: 0.85rem;
+            margin-top: 8px;
         }
 
         @media (max-width: 980px) {
-            .auth-shell {
+
+            .auth-shell,
+            .dm-layout,
+            .admin-grid {
                 grid-template-columns: 1fr;
             }
 
             .auth-hero {
                 min-height: auto;
-            }
-
-            .dm-layout {
-                grid-template-columns: 1fr;
             }
         }
 
@@ -974,7 +1150,10 @@
                 padding: 20px;
             }
 
-            .hero-grid {
+            .hero-grid,
+            .stat-grid,
+            .profile-actions,
+            .theme-preview-row {
                 grid-template-columns: 1fr;
             }
 
@@ -990,14 +1169,6 @@
             .hero-card {
                 padding: 24px;
                 min-height: 260px;
-            }
-
-            .stat-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .profile-actions {
-                grid-template-columns: 1fr;
             }
 
             .nav-dock {
@@ -1018,6 +1189,14 @@
         <p style="font-family:'Orbitron',sans-serif; letter-spacing:4px; color:var(--primary);">DRONEX BAĞLANIYOR...</p>
     </div>
 
+    <div id="global-reset-overlay">
+        <div class="reset-box animate__animated animate__fadeIn">
+            <p style="font-family:'Orbitron',sans-serif; letter-spacing:2px; margin-bottom:12px;">SYSTEM RESET</p>
+            <h2 id="global-reset-counter">10</h2>
+            <p>Tüm kullanıcılarda sistem yeniden başlatılıyor. Lütfen bekleyin...</p>
+        </div>
+    </div>
+
     <section id="auth-gate">
         <div class="auth-shell animate__animated animate__fadeIn">
             <div class="auth-hero">
@@ -1026,10 +1205,8 @@
                     <h1 class="auth-logo">DRONEX</h1>
                     <div class="auth-copy">
                         <h2>Yeni nesil sosyal alanına giriş yap</h2>
-                        <p>
-                            Email ve şifre ile güvenli şekilde giriş yap, global sohbete katıl, son konuşmalarına tek
-                            dokunuşla dön ve özel mesajlarını kaldığın yerden devam ettir.
-                        </p>
+                        <p>Email ve şifre ile güvenli şekilde giriş yap, global sohbete katıl, son konuşmalarına tek
+                            dokunuşla dön ve özel mesajlarını kaldığın yerden devam ettir.</p>
                     </div>
 
                     <div class="hero-grid">
@@ -1048,7 +1225,7 @@
                     </div>
                 </div>
 
-                <div class="tiny">System Build: V15 Secure Messaging Layer</div>
+                <div class="tiny">System Build: V16 Live Sync Layer</div>
             </div>
 
             <div class="auth-panel">
@@ -1078,6 +1255,8 @@
                     </div>
 
                     <button id="login-btn" class="btn-main" style="width:100%; margin-top:10px;">Giriş Yap</button>
+                    <button id="forgot-password-btn" class="btn-secondary" style="width:100%; margin-top:10px;">Şifremi
+                        Unuttum</button>
                 </div>
 
                 <div id="register-card" class="auth-card">
@@ -1129,7 +1308,7 @@
         <header class="app-header">
             <div class="header-logo">
                 <span><b>DRONEX</b> SOCIAL</span>
-                <span class="header-chip">V15</span>
+                <span class="header-chip">V16</span>
             </div>
             <div id="admin-status-node"></div>
         </header>
@@ -1142,14 +1321,14 @@
             <div id="page-home" class="page active">
                 <div class="card-cyber hero-card">
                     <div>
-                        <span class="auth-pill">Online Core</span>
-                        <h1>HAT 30</h1>
-                        <p>Cyber iletişim sistemi aktif. Global sohbet, DM geçmişi ve profil sistemi senkronize durumda.
-                        </p>
+                        <h1>HAT 30 YAKINDA</h1>
+                        <p>Cyber iletişim sistemi aktif. Global sohbet, DM geçmişi, canlı tema, ban sistemi ve profil
+                            sistemi senkronize durumda.</p>
                         <div class="hero-badges">
                             <div class="hero-badge">Realtime Chat</div>
-                            <div class="hero-badge">Recent DMs</div>
+                            <div class="hero-badge">Instagram DM Style</div>
                             <div class="hero-badge">Profile XP</div>
+                            <div class="hero-badge">Live Theme Sync</div>
                         </div>
                     </div>
                 </div>
@@ -1158,10 +1337,8 @@
                     <div class="section-title">
                         <h4><i class="fas fa-bolt"></i> Son Aktiviteler</h4>
                     </div>
-                    <p class="muted">
-                        DroneX tasarımı güncellendi. Email/şifre giriş akışı aktive edildi. Özel mesaj kutusu son
-                        konuşmaları gösterecek şekilde güçlendirildi.
-                    </p>
+                    <p class="muted">DM kutusu son konuşulan kişiler mantığıyla güçlendirildi, şifre sıfırlama eklendi,
+                        canlı tema kontrolü ve global reset sistemi kuruldu.</p>
                 </div>
             </div>
 
@@ -1194,14 +1371,16 @@
                     <div class="dm-sidebar">
                         <div class="section-title">
                             <h2>Messenger</h2>
-                            <span class="tiny">Son konuşmalar</span>
+                            <span class="tiny">Instagram benzeri hızlı devam</span>
                         </div>
 
                         <div class="search-row">
                             <i class="fas fa-magnifying-glass"></i>
-                            <input id="dm-search-input" class="input-cyber" placeholder="Sohbet ara..." />
+                            <input id="dm-search-input" class="input-cyber"
+                                placeholder="Sohbet veya kullanıcı ara..." />
                         </div>
 
+                        <div id="new-dm-results" class="new-dm-results"></div>
                         <div id="recent-dm-strip" class="recent-strip"></div>
                         <div id="dm-inbox-render" class="dm-list"></div>
                     </div>
@@ -1212,19 +1391,26 @@
                                 <i class="fas fa-comments"
                                     style="font-size:2.3rem; color:var(--primary); margin-bottom:14px;"></i>
                                 <h3 style="font-family:'Orbitron',sans-serif; margin-bottom:8px;">Bir sohbet seç</h3>
-                                <p>Soldan son konuştuğun kişiyi seç ve konuşmaya kaldığın yerden devam et.</p>
+                                <p>Soldan son konuştuğun kişiyi seç veya arama çubuğundan yeni kullanıcı bularak direkt
+                                    mesaj başlat.</p>
                             </div>
                         </div>
 
                         <div id="dm-conversation-view" style="display:none;">
                             <div class="conversation-header">
-                                <img id="dm-target-pfp" src="" class="dm-avatar"
-                                    onclick="inspectUser(window.DM_TARGET_UID, 'dm')" />
+                                <div class="dm-avatar-wrap">
+                                    <img id="dm-target-pfp" src="" class="dm-avatar"
+                                        onclick="inspectUser(window.DM_TARGET_UID, 'dm')" />
+                                    <div id="dm-target-status-dot" class="avatar-status offline"></div>
+                                </div>
                                 <div style="flex:1; min-width:0;">
                                     <h3 id="dm-target-name"
                                         style="font-family:'Orbitron',sans-serif; font-size:1rem; cursor:pointer;"
                                         onclick="inspectUser(window.DM_TARGET_UID, 'dm')">Kullanıcı</h3>
-                                    <p class="tiny">Özel mesaj kanalı aktif</p>
+                                    <div id="dm-target-status" class="status-line">
+                                        <span class="online-dot offline-dot"></span>
+                                        <span>Durum yükleniyor...</span>
+                                    </div>
                                 </div>
                                 <button onclick="DMEngine.close()" class="btn-secondary"
                                     style="padding:0 18px;">Kapat</button>
@@ -1310,34 +1496,109 @@
                     <h2 style="color:var(--gold);"><i class="fas fa-crown"></i> Kurucu Merkezi</h2>
                 </div>
 
-                <div class="card-cyber">
-                    <h4 style="margin-bottom:14px; font-family:'Orbitron',sans-serif;">Anons Yönetimi</h4>
+                <div class="admin-grid">
+                    <div>
+                        <div class="card-cyber">
+                            <h4 style="margin-bottom:14px; font-family:'Orbitron',sans-serif;">Anons Yönetimi</h4>
+                            <div class="field-group">
+                                <div class="input-shell">
+                                    <i class="fas fa-bullhorn"></i>
+                                    <input id="admin-anons-input" class="input-cyber"
+                                        placeholder="Global anons metni..." />
+                                </div>
+                            </div>
+                            <button onclick="AdminEngine.sendAnons()" class="btn-main"
+                                style="width:100%;">Yayınla</button>
+                            <button onclick="AdminEngine.clearAnons()" class="btn-danger"
+                                style="width:100%; margin-top:8px;">Anonsu Durdur</button>
+                        </div>
 
-                    <div class="field-group">
-                        <div class="input-shell">
-                            <i class="fas fa-bullhorn"></i>
-                            <input id="admin-anons-input" class="input-cyber" placeholder="Global anons metni..." />
+                        <div class="card-cyber">
+                            <h4 style="margin-bottom:14px; font-family:'Orbitron',sans-serif;">Global Chat Yönetimi</h4>
+                            <button onclick="AdminEngine.clearGlobalChat()" class="btn-danger" style="width:100%;">Tüm
+                                Global Mesajları Temizle</button>
+                            <div class="helper-box">Mesajlar batch mantığıyla toplu silinir. Çok fazla mesaj olsa da
+                                daha stabil çalışır.</div>
+                        </div>
+
+                        <div class="card-cyber">
+                            <h4 style="margin-bottom:14px; font-family:'Orbitron',sans-serif;">Ban Sistemi</h4>
+                            <div class="field-group">
+                                <label class="field-label">Kullanıcı UID</label>
+                                <div class="input-shell">
+                                    <i class="fas fa-user-slash"></i>
+                                    <input id="ban-target-uid" class="input-cyber" placeholder="Kullanıcı UID" />
+                                </div>
+                            </div>
+                            <div class="field-group">
+                                <label class="field-label">Ban Sebebi</label>
+                                <div class="input-shell">
+                                    <i class="fas fa-circle-exclamation"></i>
+                                    <input id="ban-reason" class="input-cyber" placeholder="Sebep yaz..." />
+                                </div>
+                            </div>
+                            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                                <button onclick="AdminEngine.banUser()" class="btn-danger">Banla</button>
+                                <button onclick="AdminEngine.unbanUser()" class="btn-secondary">Banı Aç</button>
+                            </div>
                         </div>
                     </div>
 
-                    <button onclick="AdminEngine.sendAnons()" class="btn-main" style="width:100%;">Yayınla</button>
-                    <button onclick="AdminEngine.clearAnons()" class="btn-danger"
-                        style="width:100%; margin-top:8px;">Anonsu Durdur</button>
-                </div>
+                    <div>
+                        <div class="card-cyber">
+                            <h4 style="margin-bottom:14px; font-family:'Orbitron',sans-serif;">Canlı Tema Kontrolü</h4>
 
-                <div class="card-cyber">
-                    <h4 style="margin-bottom:14px; font-family:'Orbitron',sans-serif;">Ban Sistemi</h4>
+                            <div class="field-group">
+                                <label class="field-label">Primary</label>
+                                <div class="input-shell">
+                                    <i class="fas fa-palette"></i>
+                                    <input id="theme-primary" class="color-field" type="color" value="#5ee7ff" />
+                                </div>
+                            </div>
 
-                    <div class="field-group">
-                        <div class="input-shell">
-                            <i class="fas fa-user-slash"></i>
-                            <input id="ban-target-uid" class="input-cyber" placeholder="Kullanıcı UID" />
+                            <div class="field-group">
+                                <label class="field-label">Secondary</label>
+                                <div class="input-shell">
+                                    <i class="fas fa-fill-drip"></i>
+                                    <input id="theme-secondary" class="color-field" type="color" value="#7b61ff" />
+                                </div>
+                            </div>
+
+                            <div class="field-group">
+                                <label class="field-label">Accent</label>
+                                <div class="input-shell">
+                                    <i class="fas fa-wand-magic-sparkles"></i>
+                                    <input id="theme-accent" class="color-field" type="color" value="#1df2a0" />
+                                </div>
+                            </div>
+
+                            <div class="field-group">
+                                <label class="field-label">Danger</label>
+                                <div class="input-shell">
+                                    <i class="fas fa-triangle-exclamation"></i>
+                                    <input id="theme-danger" class="color-field" type="color" value="#ff4d7a" />
+                                </div>
+                            </div>
+
+                            <div class="theme-preview-row">
+                                <div id="preview-primary" class="theme-dot" style="background:#5ee7ff;"></div>
+                                <div id="preview-secondary" class="theme-dot" style="background:#7b61ff;"></div>
+                                <div id="preview-accent" class="theme-dot" style="background:#1df2a0;"></div>
+                                <div id="preview-danger" class="theme-dot" style="background:#ff4d7a;"></div>
+                            </div>
+
+                            <button onclick="AdminEngine.applyTheme()" class="btn-main"
+                                style="width:100%; margin-top:14px;">Temayı Herkese Uygula</button>
                         </div>
-                    </div>
 
-                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-                        <button onclick="AdminEngine.banUser()" class="btn-danger">Banla</button>
-                        <button onclick="AdminEngine.unbanUser()" class="btn-secondary">Banı Aç</button>
+                        <div class="card-cyber">
+                            <h4 style="margin-bottom:14px; font-family:'Orbitron',sans-serif;">Global Site Reset</h4>
+                            <button onclick="AdminEngine.triggerGlobalReset()" class="btn-danger" style="width:100%;">10
+                                Saniye Sonra Herkeste Reset Başlat</button>
+                            <div class="helper-box">Aktif kullanıcılar dahil herkesin ekranında blur arka planlı geri
+                                sayım açılır ve süre bitince sayfa yenilenir.</div>
+                            <div class="danger-note">Bu işlem bütün aktif kullanıcılara etki eder.</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1363,7 +1624,8 @@
             onAuthStateChanged,
             signOut,
             createUserWithEmailAndPassword,
-            signInWithEmailAndPassword
+            signInWithEmailAndPassword,
+            sendPasswordResetEmail
         } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
         import {
             getFirestore,
@@ -1380,7 +1642,10 @@
             where,
             updateDoc,
             increment,
-            limit
+            limit,
+            getDocs,
+            writeBatch,
+            arrayUnion
         } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
@@ -1397,17 +1662,33 @@
         const db = getFirestore(app);
 
         const MASTER_EMAIL = "adilerkamtek2011@gmail.com";
+        const DEFAULT_THEME = {
+            primary: "#5ee7ff",
+            secondary: "#7b61ff",
+            accent: "#1df2a0",
+            danger: "#ff4d7a"
+        };
 
         let CURRENT_USER = null;
+        let CURRENT_USER_DATA = null;
         let VIEWING_USER_ID = null;
         let ACTIVE_DM_ID = null;
         let VIEWED_FROM_PAGE = "chat";
         let DM_TARGET_UID = null;
         let DM_INBOX_CACHE = [];
+        let ALL_USERS_CACHE = [];
         let GLOBAL_UNSUB = null;
         let DM_OPEN_UNSUB = null;
         let DM_INBOX_UNSUB = null;
         let USER_DOC_UNSUB = null;
+        let THEME_UNSUB = null;
+        let ANONS_UNSUB = null;
+        let RESET_UNSUB = null;
+        let BAN_UNSUB = null;
+        let PRESENCE_TIMER = null;
+        let RESET_INTERVAL = null;
+        let LAST_RESET_KEY = null;
+        let LAST_DM_MESSAGES = [];
 
         window.DM_TARGET_UID = null;
 
@@ -1438,7 +1719,7 @@
                     toast.classList.remove("animate__fadeInRight");
                     toast.classList.add("animate__fadeOutRight");
                     setTimeout(() => toast.remove(), 450);
-                }, 2800);
+                }, 3200);
             },
 
             hideLoader() {
@@ -1455,6 +1736,19 @@
                 if (!loader) return;
                 loader.style.display = "flex";
                 loader.style.opacity = "1";
+            },
+
+            showResetOverlay(seconds) {
+                document.getElementById("global-reset-counter").innerText = seconds;
+                document.getElementById("global-reset-overlay").style.display = "flex";
+            },
+
+            updateResetOverlay(seconds) {
+                document.getElementById("global-reset-counter").innerText = seconds;
+            },
+
+            hideResetOverlay() {
+                document.getElementById("global-reset-overlay").style.display = "none";
             }
         };
 
@@ -1475,6 +1769,11 @@
             return Math.floor((xp || 0) / 100) + 1;
         }
 
+        function getCurrentPageId() {
+            const active = document.querySelector(".page.active");
+            return active ? active.id.replace("page-", "") : "home";
+        }
+
         function formatTime(ts) {
             const date = ts?.toDate ? ts.toDate() : ts instanceof Date ? ts : null;
             if (!date) return "";
@@ -1484,9 +1783,40 @@
             }).format(date);
         }
 
-        function getCurrentPageId() {
-            const active = document.querySelector(".page.active");
-            return active ? active.id.replace("page-", "") : "home";
+        function formatLastSeen(value) {
+            const date = value?.toDate ? value.toDate() : value ? new Date(value) : null;
+            if (!date) return "Gorulmedi";
+            const diff = Date.now() - date.getTime();
+            if (diff < 60000) return "Az once aktifti";
+            if (diff < 3600000) return `${Math.floor(diff / 60000)} dk once aktifti`;
+            if (diff < 86400000) return `${Math.floor(diff / 3600000)} saat once aktifti`;
+            return new Intl.DateTimeFormat("tr-TR", {
+                day: "2-digit",
+                month: "2-digit",
+                hour: "2-digit",
+                minute: "2-digit"
+            }).format(date);
+        }
+
+        function setThemeVars(theme = DEFAULT_THEME) {
+            const root = document.documentElement;
+            root.style.setProperty("--primary", theme.primary || DEFAULT_THEME.primary);
+            root.style.setProperty("--secondary", theme.secondary || DEFAULT_THEME.secondary);
+            root.style.setProperty("--accent", theme.accent || DEFAULT_THEME.accent);
+            root.style.setProperty("--danger", theme.danger || DEFAULT_THEME.danger);
+        }
+
+        function syncThemePreview() {
+            const primary = document.getElementById("theme-primary");
+            const secondary = document.getElementById("theme-secondary");
+            const accent = document.getElementById("theme-accent");
+            const danger = document.getElementById("theme-danger");
+            if (!primary || !secondary || !accent || !danger) return;
+
+            document.getElementById("preview-primary").style.background = primary.value;
+            document.getElementById("preview-secondary").style.background = secondary.value;
+            document.getElementById("preview-accent").style.background = accent.value;
+            document.getElementById("preview-danger").style.background = danger.value;
         }
 
         function switchAuthTab(mode = "login") {
@@ -1503,16 +1833,43 @@
 
             if (!snap.exists()) {
                 await setDoc(userRef, {
-                    name: fallbackName || user.email?.split("@")[0] || "Yeni Kullanıcı",
+                    name: fallbackName || user.email?.split("@")[0] || "Yeni Kullanici",
                     pfp: "",
                     email: user.email || "",
                     followers: 0,
                     following: 0,
                     xp: 0,
-                    createdAt: serverTimestamp()
+                    createdAt: serverTimestamp(),
+                    online: true,
+                    lastSeen: Date.now()
                 });
             } else if (fallbackName && !snap.data().name) {
                 await updateDoc(userRef, { name: fallbackName });
+            }
+        }
+
+        async function updatePresence(isOnline = true) {
+            if (!CURRENT_USER) return;
+            try {
+                await setDoc(doc(db, "users", CURRENT_USER.uid), {
+                    online: isOnline,
+                    lastSeen: Date.now()
+                }, { merge: true });
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        function startPresenceHeartbeat() {
+            if (PRESENCE_TIMER) clearInterval(PRESENCE_TIMER);
+            updatePresence(true);
+            PRESENCE_TIMER = setInterval(() => updatePresence(true), 25000);
+        }
+
+        function stopPresenceHeartbeat() {
+            if (PRESENCE_TIMER) {
+                clearInterval(PRESENCE_TIMER);
+                PRESENCE_TIMER = null;
             }
         }
 
@@ -1527,7 +1884,7 @@
 
             const uSnap = await getDoc(doc(db, "users", uid));
             if (!uSnap.exists()) {
-                UI.showToast("Profil bulunamadı.", "error");
+                UI.showToast("Profil bulunamadi.", "error");
                 return;
             }
 
@@ -1555,7 +1912,7 @@
             const followSnap = await getDoc(followRef);
             const isFollowing = followSnap.exists();
 
-            btn.innerText = isFollowing ? "Takipten Çık" : "Takip Et";
+            btn.innerText = isFollowing ? "Takipten Cik" : "Takip Et";
             btn.className = isFollowing ? "btn-main" : "btn-secondary";
         }
 
@@ -1564,10 +1921,8 @@
 
             const targetUserRef = doc(db, "users", VIEWING_USER_ID);
             const currentUserRef = doc(db, "users", CURRENT_USER.uid);
-
             const followerDocRef = doc(db, "users", VIEWING_USER_ID, "followersList", CURRENT_USER.uid);
             const followingDocRef = doc(db, "users", CURRENT_USER.uid, "followingList", VIEWING_USER_ID);
-
             const existing = await getDoc(followerDocRef);
 
             try {
@@ -1576,11 +1931,11 @@
                     await deleteDoc(followingDocRef);
                     await updateDoc(targetUserRef, { followers: increment(-1) });
                     await updateDoc(currentUserRef, { following: increment(-1) });
-                    UI.showToast("Takip bırakıldı.", "info");
+                    UI.showToast("Takip birakildi.", "info");
                 } else {
                     await setDoc(followerDocRef, {
                         uid: CURRENT_USER.uid,
-                        name: document.getElementById("my-display-name").innerText,
+                        name: CURRENT_USER_DATA?.name || "Kullanici",
                         timestamp: serverTimestamp()
                     });
                     await setDoc(followingDocRef, {
@@ -1589,7 +1944,7 @@
                     });
                     await updateDoc(targetUserRef, { followers: increment(1) });
                     await updateDoc(currentUserRef, { following: increment(1) });
-                    UI.showToast("Kullanıcı takip edildi.", "success");
+                    UI.showToast("Kullanici takip edildi.", "success");
                 }
 
                 const refreshedSnap = await getDoc(targetUserRef);
@@ -1602,7 +1957,7 @@
                 await updateFollowButton();
             } catch (err) {
                 console.error(err);
-                UI.showToast("Takip işlemi başarısız oldu.", "error");
+                UI.showToast("Takip islemi basarisiz oldu.", "error");
             }
         }
 
@@ -1625,18 +1980,18 @@
                 const password = document.getElementById("login-password").value.trim();
 
                 if (!email || !password) {
-                    UI.showToast("Email ve şifre girmen gerekiyor.", "error");
+                    UI.showToast("Email ve sifre girmen gerekiyor.", "error");
                     return;
                 }
 
                 try {
                     UI.showLoader();
                     await signInWithEmailAndPassword(auth, email, password);
-                    UI.showToast("Giriş başarılı.", "success");
+                    UI.showToast("Giris basarili.", "success");
                 } catch (err) {
                     console.error(err);
                     UI.hideLoader();
-                    UI.showToast("Giriş başarısız. Bilgileri kontrol et.", "error");
+                    UI.showToast("Giris basarisiz. Bilgileri kontrol et.", "error");
                 }
             },
 
@@ -1647,22 +2002,22 @@
                 const passwordRepeat = document.getElementById("register-password-repeat").value.trim();
 
                 if (!name || !email || !password || !passwordRepeat) {
-                    UI.showToast("Tüm alanları doldurman gerekiyor.", "error");
+                    UI.showToast("Tum alanlari doldurman gerekiyor.", "error");
                     return;
                 }
 
                 if (name.length < 3) {
-                    UI.showToast("İsim en az 3 karakter olmalı.", "error");
+                    UI.showToast("Isim en az 3 karakter olmali.", "error");
                     return;
                 }
 
                 if (password.length < 6) {
-                    UI.showToast("Şifre en az 6 karakter olmalı.", "error");
+                    UI.showToast("Sifre en az 6 karakter olmali.", "error");
                     return;
                 }
 
                 if (password !== passwordRepeat) {
-                    UI.showToast("Şifreler aynı değil.", "error");
+                    UI.showToast("Sifreler ayni degil.", "error");
                     return;
                 }
 
@@ -1670,11 +2025,27 @@
                     UI.showLoader();
                     const cred = await createUserWithEmailAndPassword(auth, email, password);
                     await ensureUserProfile(cred.user, name);
-                    UI.showToast("Kayıt başarılı.", "success");
+                    UI.showToast("Kayit basarili.", "success");
                 } catch (err) {
                     console.error(err);
                     UI.hideLoader();
-                    UI.showToast("Kayıt başarısız. Email kullanımda olabilir.", "error");
+                    UI.showToast("Kayit basarisiz. Email kullanimda olabilir.", "error");
+                }
+            },
+
+            async resetPassword() {
+                const email = prompt("Sifre sifirlama linki gonderilecek email adresini yaz:");
+                if (!email || !email.trim()) {
+                    UI.showToast("Email girmelisin.", "error");
+                    return;
+                }
+
+                try {
+                    await sendPasswordResetEmail(auth, email.trim());
+                    UI.showToast("Sifre sifirlama maili gonderildi. Gelmediyse spam klasorunu kontrol et.", "success");
+                } catch (err) {
+                    console.error(err);
+                    UI.showToast("Sifre sifirlama maili gonderilemedi.", "error");
                 }
             },
 
@@ -1683,18 +2054,18 @@
             },
 
             async editName() {
-                const newName = prompt("Yeni kullanıcı ismini gir:");
+                const newName = prompt("Yeni kullanici ismini gir:");
                 if (!newName || newName.trim().length < 3) {
-                    UI.showToast("İsim en az 3 karakter olmalı.", "error");
+                    UI.showToast("Isim en az 3 karakter olmali.", "error");
                     return;
                 }
 
                 try {
                     await updateDoc(doc(db, "users", CURRENT_USER.uid), { name: newName.trim() });
-                    UI.showToast("İsim güncellendi.", "success");
+                    UI.showToast("Isim guncellendi.", "success");
                 } catch (err) {
                     console.error(err);
-                    UI.showToast("İsim güncellenemedi.", "error");
+                    UI.showToast("Isim guncellenemedi.", "error");
                 }
             },
 
@@ -1705,10 +2076,10 @@
                         try {
                             document.getElementById("my-pfp").src = e.target.result;
                             await updateDoc(doc(db, "users", CURRENT_USER.uid), { pfp: e.target.result });
-                            UI.showToast("Profil fotoğrafı güncellendi.", "success");
+                            UI.showToast("Profil fotografi guncellendi.", "success");
                         } catch (err) {
                             console.error(err);
-                            UI.showToast("Profil fotoğrafı güncellenemedi.", "error");
+                            UI.showToast("Profil fotografi guncellenemedi.", "error");
                         }
                     };
                     reader.readAsDataURL(input.files[0]);
@@ -1716,29 +2087,124 @@
             }
         };
 
+        async function runBatchDelete(refDocs) {
+            const chunks = [];
+            for (let i = 0; i < refDocs.length; i += 400) {
+                chunks.push(refDocs.slice(i, i + 400));
+            }
+
+            for (const group of chunks) {
+                const batch = writeBatch(db);
+                group.forEach(item => batch.delete(item.ref));
+                await batch.commit();
+            }
+        }
+
         window.AdminEngine = {
             async sendAnons() {
                 const val = document.getElementById("admin-anons-input").value.trim();
                 if (!val) return;
+
                 await setDoc(doc(db, "system", "anons"), {
                     text: val,
                     active: true,
                     timestamp: serverTimestamp()
                 });
-                UI.showToast("Anons yayınlandı.", "success");
+
+                UI.showToast("Anons yayinlandi.", "success");
             },
 
             async clearAnons() {
                 await setDoc(doc(db, "system", "anons"), { active: false }, { merge: true });
-                UI.showToast("Anons kaldırıldı.", "info");
+                UI.showToast("Anons kaldirildi.", "info");
             },
 
-            banUser() {
-                UI.showToast("Yasaklama protokolü başlatıldı.", "info");
+            async applyTheme() {
+                const themeData = {
+                    primary: document.getElementById("theme-primary").value,
+                    secondary: document.getElementById("theme-secondary").value,
+                    accent: document.getElementById("theme-accent").value,
+                    danger: document.getElementById("theme-danger").value,
+                    updatedAt: serverTimestamp(),
+                    updatedBy: CURRENT_USER?.uid || null
+                };
+
+                await setDoc(doc(db, "system", "theme"), themeData, { merge: true });
+                UI.showToast("Tema tum kullanicilara uygulandi.", "success");
             },
 
-            unbanUser() {
-                UI.showToast("Yasak kaldırma başarılı.", "success");
+            async clearGlobalChat() {
+                const ok = confirm("Global chat tamamen temizlensin mi?");
+                if (!ok) return;
+
+                try {
+                    const snap = await getDocs(collection(db, "messages"));
+                    await runBatchDelete(snap.docs);
+                    UI.showToast("Global chat temizlendi.", "success");
+                } catch (err) {
+                    console.error(err);
+                    UI.showToast("Global chat temizlenemedi.", "error");
+                }
+            },
+
+            async triggerGlobalReset() {
+                const ok = confirm("10 saniye sonra tum kullanicilarda reset baslatilsin mi?");
+                if (!ok) return;
+
+                try {
+                    await setDoc(doc(db, "system", "reset"), {
+                        active: true,
+                        seconds: 10,
+                        startedAt: Date.now(),
+                        resetKey: String(Date.now()),
+                        by: CURRENT_USER?.uid || null
+                    }, { merge: true });
+
+                    UI.showToast("Global reset sayaci baslatildi.", "success");
+                } catch (err) {
+                    console.error(err);
+                    UI.showToast("Reset sistemi baslatilamadi.", "error");
+                }
+            },
+
+            async banUser() {
+                const uid = document.getElementById("ban-target-uid").value.trim();
+                const reason = document.getElementById("ban-reason").value.trim() || "Yonetici karari";
+
+                if (!uid) {
+                    UI.showToast("Ban icin UID gerekli.", "error");
+                    return;
+                }
+
+                try {
+                    await setDoc(doc(db, "bannedUsers", uid), {
+                        uid,
+                        reason,
+                        bannedAt: Date.now(),
+                        bannedBy: CURRENT_USER?.uid || null
+                    });
+
+                    UI.showToast("Kullanici banlandi.", "success");
+                } catch (err) {
+                    console.error(err);
+                    UI.showToast("Ban islemi basarisiz.", "error");
+                }
+            },
+
+            async unbanUser() {
+                const uid = document.getElementById("ban-target-uid").value.trim();
+                if (!uid) {
+                    UI.showToast("Ban acmak icin UID gerekli.", "error");
+                    return;
+                }
+
+                try {
+                    await deleteDoc(doc(db, "bannedUsers", uid));
+                    UI.showToast("Kullanicinin bani kaldirildi.", "success");
+                } catch (err) {
+                    console.error(err);
+                    UI.showToast("Ban acma islemi basarisiz.", "error");
+                }
             }
         };
 
@@ -1783,7 +2249,7 @@
             async send() {
                 const inp = document.getElementById("global-chat-input");
                 const text = inp.value.trim();
-                const myName = document.getElementById("my-display-name").innerText;
+                const myName = CURRENT_USER_DATA?.name || document.getElementById("my-display-name").innerText;
 
                 if (!text) return;
 
@@ -1800,13 +2266,46 @@
                     inp.value = "";
                 } catch (err) {
                     console.error(err);
-                    UI.showToast("Mesaj gönderilemedi.", "error");
+                    UI.showToast("Mesaj gonderilemedi.", "error");
                 }
             }
         };
 
+        async function createOrOpenDm(targetUid, targetData = null) {
+            if (!CURRENT_USER || !targetUid || targetUid === CURRENT_USER.uid) return;
+
+            const dmId = [CURRENT_USER.uid, targetUid].sort().join("_");
+            const target = targetData || (await getDoc(doc(db, "users", targetUid))).data();
+
+            await setDoc(doc(db, "dms", dmId), {
+                participants: [CURRENT_USER.uid, targetUid],
+                participantMeta: {
+                    [CURRENT_USER.uid]: {
+                        name: CURRENT_USER_DATA?.name || CURRENT_USER.email || "Ben",
+                        pfp: CURRENT_USER_DATA?.pfp || "",
+                        email: CURRENT_USER.email || ""
+                    },
+                    [targetUid]: {
+                        name: target?.name || "Bilinmeyen",
+                        pfp: target?.pfp || "",
+                        email: target?.email || ""
+                    }
+                },
+                lastText: "Sohbet baslatildi...",
+                lastUpdate: serverTimestamp(),
+                unreadCounts: {
+                    [CURRENT_USER.uid]: 0,
+                    [targetUid]: 0
+                }
+            }, { merge: true });
+
+            const dmBtn = document.querySelector('.nav-btn .fa-envelope')?.parentElement;
+            PageEngine.switch("dm", dmBtn);
+            DMEngine.open(dmId, target?.name || "Bilinmeyen", getSafePhoto(target?.pfp), targetUid, target);
+        }
+
         window.DMEngine = {
-            loadInbox() {
+            async loadInbox() {
                 if (!CURRENT_USER) return;
 
                 if (DM_INBOX_UNSUB) DM_INBOX_UNSUB();
@@ -1821,30 +2320,32 @@
                     const enriched = await Promise.all(snap.docs.map(async (d) => {
                         const data = d.data();
                         const otherId = data.participants.find(id => id !== CURRENT_USER.uid);
-
                         const otherSnap = await getDoc(doc(db, "users", otherId));
-                        const otherData = otherSnap.exists()
-                            ? otherSnap.data()
-                            : { name: "Bilinmeyen", pfp: "" };
+                        const otherData = otherSnap.exists() ? otherSnap.data() : { name: "Bilinmeyen", pfp: "", online: false };
+                        const unread = Number(data.unreadCounts?.[CURRENT_USER.uid] || 0);
 
                         return {
                             id: d.id,
                             otherId,
                             name: otherData.name || "Bilinmeyen",
                             pfp: getSafePhoto(otherData.pfp),
-                            lastText: data.lastText || "Sohbet başlatıldı...",
-                            lastUpdate: data.lastUpdate || null
+                            lastText: data.lastText || "Sohbet baslatildi...",
+                            lastUpdate: data.lastUpdate || null,
+                            unread,
+                            online: !!otherData.online,
+                            lastSeen: otherData.lastSeen || null
                         };
                     }));
 
                     DM_INBOX_CACHE = enriched;
-                    DMEngine.renderInbox();
+                    DMEngine.renderInbox(document.getElementById("dm-search-input")?.value || "");
                 });
             },
 
             renderInbox(filter = "") {
                 const list = document.getElementById("dm-inbox-render");
                 const strip = document.getElementById("recent-dm-strip");
+                const results = document.getElementById("new-dm-results");
 
                 const normalized = filter.trim().toLocaleLowerCase("tr");
                 const filtered = DM_INBOX_CACHE.filter(item =>
@@ -1855,27 +2356,46 @@
                 strip.innerHTML = "";
                 list.innerHTML = "";
 
+                const otherUserMatches = normalized
+                    ? ALL_USERS_CACHE.filter(user =>
+                        user.uid !== CURRENT_USER.uid &&
+                        user.name.toLocaleLowerCase("tr").includes(normalized)
+                    ).slice(0, 8)
+                    : [];
+
+                if (otherUserMatches.length) {
+                    results.style.display = "block";
+                    results.innerHTML = otherUserMatches.map(user => `
+                        <div class="new-dm-user" onclick="window.quickStartDm('${user.uid}')">
+                            <div class="dm-avatar-wrap">
+                                <img src="${getSafePhoto(user.pfp)}" class="dm-avatar" alt="${escapeHtml(user.name)}" />
+                                <div class="avatar-status ${user.online ? "" : "offline"}"></div>
+                            </div>
+                            <div style="min-width:0;">
+                                <div style="font-weight:700;">${escapeHtml(user.name)}</div>
+                                <div class="tiny">${user.online ? "Su an aktif" : formatLastSeen(user.lastSeen)}</div>
+                            </div>
+                        </div>
+                    `).join("");
+                } else {
+                    results.style.display = "none";
+                    results.innerHTML = "";
+                }
+
                 if (!filtered.length) {
-                    strip.innerHTML = `
-                        <div class="empty-state" style="width:100%; padding:16px 10px;">
-                            Son konuşma bulunamadı.
-                        </div>
-                    `;
-                    list.innerHTML = `
-                        <div class="empty-state">
-                            Henüz mesaj geçmişi yok.
-                        </div>
-                    `;
+                    strip.innerHTML = `<div class="empty-state" style="width:100%; padding:16px 10px;">Son konusma bulunamadi.</div>`;
+                    list.innerHTML = `<div class="empty-state">Henuz mesaj gecmisi yok.</div>`;
                     return;
                 }
 
-                filtered.slice(0, 6).forEach(item => {
+                filtered.slice(0, 8).forEach(item => {
                     const chip = document.createElement("div");
                     chip.className = `recent-chip ${ACTIVE_DM_ID === item.id ? "active" : ""}`;
                     chip.onclick = () => DMEngine.open(item.id, item.name, item.pfp, item.otherId);
                     chip.innerHTML = `
                         <img src="${item.pfp}" alt="${escapeHtml(item.name)}" />
                         <span>${escapeHtml(item.name)}</span>
+                        ${item.unread > 0 ? `<div class="unread-badge">${item.unread > 99 ? "99+" : item.unread}</div>` : ""}
                     `;
                     strip.appendChild(chip);
                 });
@@ -1885,21 +2405,25 @@
                     node.className = `dm-item ${ACTIVE_DM_ID === item.id ? "active" : ""}`;
                     node.onclick = () => DMEngine.open(item.id, item.name, item.pfp, item.otherId);
                     node.innerHTML = `
-                        <img src="${item.pfp}" class="dm-avatar" alt="${escapeHtml(item.name)}" />
+                        <div class="dm-avatar-wrap">
+                            <img src="${item.pfp}" class="dm-avatar" alt="${escapeHtml(item.name)}" />
+                            <div class="avatar-status ${item.online ? "" : "offline"}"></div>
+                        </div>
                         <div class="dm-info">
                             <div class="dm-topline">
                                 <h4>${escapeHtml(item.name)}</h4>
                                 <span class="dm-time">${formatTime(item.lastUpdate)}</span>
                             </div>
                             <p class="dm-last-msg">${escapeHtml(item.lastText)}</p>
+                            <div class="tiny">${item.online ? "Su an aktif" : formatLastSeen(item.lastSeen)}</div>
                         </div>
-                        <i class="fas fa-angle-right" style="color:var(--text-soft);"></i>
+                        ${item.unread > 0 ? `<div class="unread-badge">${item.unread > 99 ? "99+" : item.unread}</div>` : '<i class="fas fa-angle-right" style="color:var(--text-soft);"></i>'}
                     `;
                     list.appendChild(node);
                 });
             },
 
-            open(dmId, name, pfp, otherId) {
+            async open(dmId, name, pfp, otherId, cachedUserData = null) {
                 ACTIVE_DM_ID = dmId;
                 DM_TARGET_UID = otherId;
                 window.DM_TARGET_UID = otherId;
@@ -1909,58 +2433,122 @@
                 document.getElementById("dm-target-name").innerText = name;
                 document.getElementById("dm-target-pfp").src = getSafePhoto(pfp);
 
+                const profileData = cachedUserData || (await getDoc(doc(db, "users", otherId))).data() || {};
+                DMEngine.updateTargetPresence(profileData);
+
+                await setDoc(doc(db, "dms", dmId), {
+                    unreadCounts: {
+                        [CURRENT_USER.uid]: 0
+                    }
+                }, { merge: true });
+
                 DMEngine.renderInbox(document.getElementById("dm-search-input").value);
 
                 if (DM_OPEN_UNSUB) DM_OPEN_UNSUB();
 
                 const q = query(collection(db, "dms", dmId, "messages"), orderBy("createdAt", "asc"));
 
-                DM_OPEN_UNSUB = onSnapshot(q, (snap) => {
+                DM_OPEN_UNSUB = onSnapshot(q, async (snap) => {
                     const win = document.getElementById("dm-chat-window");
                     win.innerHTML = "";
+                    LAST_DM_MESSAGES = snap.docs;
 
-                    snap.forEach((mDoc) => {
+                    for (const mDoc of snap.docs) {
                         const m = mDoc.data();
                         const isMe = m.senderId === CURRENT_USER.uid;
+                        const readBy = Array.isArray(m.readBy) ? m.readBy : [];
+                        const seen = !isMe && !readBy.includes(CURRENT_USER.uid);
+
+                        if (seen) {
+                            try {
+                                await updateDoc(doc(db, "dms", dmId, "messages", mDoc.id), {
+                                    readBy: arrayUnion(CURRENT_USER.uid)
+                                });
+                            } catch (err) {
+                                console.error(err);
+                            }
+                        }
 
                         const row = document.createElement("div");
                         row.className = `message-wrapper ${isMe ? "me" : ""}`;
+
+                        let receipt = "";
+                        if (isMe) {
+                            const otherRead = readBy.includes(otherId);
+                            receipt = `<div class="read-receipt">${otherRead ? "Goruldu" : "Gonderildi"}</div>`;
+                        }
+
                         row.innerHTML = `
                             <div class="msg-info">
                                 <span>${isMe ? "Sen" : escapeHtml(name)}</span>
                                 <span>${formatTime(m.createdAt)}</span>
                             </div>
                             <div class="bubble">${escapeHtml(m.text || "")}</div>
+                            ${receipt}
                         `;
                         win.appendChild(row);
-                    });
+                    }
 
                     win.scrollTop = win.scrollHeight;
+                    await DMEngine.markConversationRead(dmId);
                 });
+            },
+
+            updateTargetPresence(userData) {
+                const dot = document.getElementById("dm-target-status-dot");
+                const status = document.getElementById("dm-target-status");
+                const online = !!userData?.online;
+                dot.className = `avatar-status ${online ? "" : "offline"}`;
+                status.innerHTML = `
+                    <span class="online-dot ${online ? "" : "offline-dot"}"></span>
+                    <span>${online ? "Su an aktif" : formatLastSeen(userData?.lastSeen)}</span>
+                `;
+            },
+
+            async markConversationRead(dmId) {
+                if (!CURRENT_USER || !dmId) return;
+                try {
+                    await setDoc(doc(db, "dms", dmId), {
+                        unreadCounts: {
+                            [CURRENT_USER.uid]: 0
+                        }
+                    }, { merge: true });
+                } catch (err) {
+                    console.error(err);
+                }
             },
 
             async send() {
                 const inp = document.getElementById("private-msg-input");
                 const text = inp.value.trim();
 
-                if (!text || !ACTIVE_DM_ID) return;
+                if (!text || !ACTIVE_DM_ID || !DM_TARGET_UID) return;
 
                 try {
                     await addDoc(collection(db, "dms", ACTIVE_DM_ID, "messages"), {
                         text,
                         senderId: CURRENT_USER.uid,
-                        createdAt: serverTimestamp()
+                        senderName: CURRENT_USER_DATA?.name || CURRENT_USER.email || "Sen",
+                        createdAt: serverTimestamp(),
+                        readBy: [CURRENT_USER.uid]
                     });
 
-                    await updateDoc(doc(db, "dms", ACTIVE_DM_ID), {
+                    const existing = DM_INBOX_CACHE.find(item => item.id === ACTIVE_DM_ID);
+                    const nextUnread = Number(existing?.unread || 0) + 1;
+
+                    await setDoc(doc(db, "dms", ACTIVE_DM_ID), {
                         lastText: text,
-                        lastUpdate: serverTimestamp()
-                    });
+                        lastUpdate: serverTimestamp(),
+                        unreadCounts: {
+                            [DM_TARGET_UID]: nextUnread,
+                            [CURRENT_USER.uid]: 0
+                        }
+                    }, { merge: true });
 
                     inp.value = "";
                 } catch (err) {
                     console.error(err);
-                    UI.showToast("Özel mesaj gönderilemedi.", "error");
+                    UI.showToast("Ozel mesaj gonderilemedi.", "error");
                 }
             },
 
@@ -1980,24 +2568,141 @@
             }
         };
 
+        function loadSystemAnons() {
+            if (ANONS_UNSUB) ANONS_UNSUB();
+
+            ANONS_UNSUB = onSnapshot(doc(db, "system", "anons"), (d) => {
+                const bar = document.getElementById("system-marquee");
+                if (d.exists() && d.data().active) {
+                    bar.style.display = "block";
+                    document.getElementById("marquee-content").innerText = "SYSTEM BROADCAST: " + (d.data().text || "");
+                } else {
+                    bar.style.display = "none";
+                }
+            });
+        }
+
+        function listenTheme() {
+            if (THEME_UNSUB) THEME_UNSUB();
+
+            THEME_UNSUB = onSnapshot(doc(db, "system", "theme"), (snap) => {
+                if (!snap.exists()) {
+                    setThemeVars(DEFAULT_THEME);
+                    return;
+                }
+
+                const data = snap.data();
+                setThemeVars({
+                    primary: data.primary || DEFAULT_THEME.primary,
+                    secondary: data.secondary || DEFAULT_THEME.secondary,
+                    accent: data.accent || DEFAULT_THEME.accent,
+                    danger: data.danger || DEFAULT_THEME.danger
+                });
+
+                if (CURRENT_USER && CURRENT_USER.email === MASTER_EMAIL) {
+                    if (data.primary) document.getElementById("theme-primary").value = data.primary;
+                    if (data.secondary) document.getElementById("theme-secondary").value = data.secondary;
+                    if (data.accent) document.getElementById("theme-accent").value = data.accent;
+                    if (data.danger) document.getElementById("theme-danger").value = data.danger;
+                    syncThemePreview();
+                }
+            });
+        }
+
+        function startResetCountdown(data) {
+            if (!data?.active || !data.resetKey) return;
+            if (LAST_RESET_KEY === data.resetKey) return;
+
+            LAST_RESET_KEY = data.resetKey;
+            const startedAt = Number(data.startedAt || Date.now());
+            const totalSeconds = Number(data.seconds || 10);
+
+            if (RESET_INTERVAL) clearInterval(RESET_INTERVAL);
+
+            const tick = async () => {
+                const elapsed = Math.floor((Date.now() - startedAt) / 1000);
+                const remaining = Math.max(0, totalSeconds - elapsed);
+
+                UI.showResetOverlay(remaining);
+                UI.updateResetOverlay(remaining);
+
+                if (remaining <= 0) {
+                    clearInterval(RESET_INTERVAL);
+                    RESET_INTERVAL = null;
+                    try {
+                        await setDoc(doc(db, "system", "reset"), { active: false }, { merge: true });
+                    } catch (err) {
+                        console.error(err);
+                    }
+                    location.reload();
+                }
+            };
+
+            tick();
+            RESET_INTERVAL = setInterval(tick, 1000);
+        }
+
+        function listenGlobalReset() {
+            if (RESET_UNSUB) RESET_UNSUB();
+
+            RESET_UNSUB = onSnapshot(doc(db, "system", "reset"), (snap) => {
+                if (!snap.exists()) {
+                    UI.hideResetOverlay();
+                    return;
+                }
+
+                const data = snap.data();
+                if (data.active) {
+                    startResetCountdown(data);
+                } else {
+                    if (RESET_INTERVAL) {
+                        clearInterval(RESET_INTERVAL);
+                        RESET_INTERVAL = null;
+                    }
+                    UI.hideResetOverlay();
+                }
+            });
+        }
+
+        function listenBanStatus() {
+            if (!CURRENT_USER) return;
+            if (BAN_UNSUB) BAN_UNSUB();
+
+            BAN_UNSUB = onSnapshot(doc(db, "bannedUsers", CURRENT_USER.uid), async (snap) => {
+                if (snap.exists()) {
+                    const reason = snap.data().reason || "Yonetici karari";
+                    UI.showToast(`Hesabin banlandi. Sebep: ${reason}`, "error");
+                    await updatePresence(false);
+                    setTimeout(() => signOut(auth), 1200);
+                }
+            });
+        }
+
+        async function loadUsersForSearch() {
+            try {
+                const snap = await getDocs(collection(db, "users"));
+                ALL_USERS_CACHE = snap.docs.map(d => ({
+                    uid: d.id,
+                    ...d.data()
+                }));
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        window.quickStartDm = async (uid) => {
+            const target = ALL_USERS_CACHE.find(item => item.uid === uid);
+            await createOrOpenDm(uid, target);
+        };
+
         window.inspectUser = async (uid, sourcePage = null) => {
             await openViewedProfile(uid, sourcePage);
         };
 
         window.startDmFromProfile = async () => {
             if (!VIEWING_USER_ID || !CURRENT_USER) return;
-
-            const dmId = [CURRENT_USER.uid, VIEWING_USER_ID].sort().join("_");
-
-            await setDoc(doc(db, "dms", dmId), {
-                participants: [CURRENT_USER.uid, VIEWING_USER_ID],
-                lastText: "Sohbet başlatıldı...",
-                lastUpdate: serverTimestamp()
-            }, { merge: true });
-
-            const dmBtn = document.querySelector('.nav-btn .fa-envelope')?.parentElement;
-            PageEngine.switch("dm", dmBtn);
-            DMEngine.open(dmId, document.getElementById("view-name").innerText, document.getElementById("view-pfp").src, VIEWING_USER_ID);
+            const target = ALL_USERS_CACHE.find(item => item.uid === VIEWING_USER_ID) || null;
+            await createOrOpenDm(VIEWING_USER_ID, target);
         };
 
         window.goBackFromViewedProfile = () => {
@@ -2015,17 +2720,17 @@
             PageEngine.switch(VIEWED_FROM_PAGE || "chat", btn);
         };
 
-        function loadSystemAnons() {
-            onSnapshot(doc(db, "system", "anons"), (d) => {
-                const bar = document.getElementById("system-marquee");
-                if (d.exists() && d.data().active) {
-                    bar.style.display = "block";
-                    document.getElementById("marquee-content").innerText = "SYSTEM BROADCAST: " + (d.data().text || "");
-                } else {
-                    bar.style.display = "none";
+        window.deleteGlobalMsg = async (id) => {
+            if (confirm("Mesaji silmek istiyor musun?")) {
+                try {
+                    await deleteDoc(doc(db, "messages", id));
+                    UI.showToast("Mesaj silindi.", "success");
+                } catch (err) {
+                    console.error(err);
+                    UI.showToast("Mesaj silinemedi.", "error");
                 }
-            });
-        }
+            }
+        };
 
         function bindEvents() {
             document.getElementById("tab-login").onclick = () => switchAuthTab("login");
@@ -2033,6 +2738,7 @@
 
             document.getElementById("login-btn").onclick = UserSystem.login;
             document.getElementById("register-btn").onclick = UserSystem.register;
+            document.getElementById("forgot-password-btn").onclick = UserSystem.resetPassword;
 
             document.getElementById("send-global-btn").onclick = ChatEngine.send;
             document.getElementById("send-private-btn").onclick = DMEngine.send;
@@ -2058,19 +2764,21 @@
             document.getElementById("dm-search-input").addEventListener("input", (e) => {
                 DMEngine.renderInbox(e.target.value);
             });
-        }
 
-        window.deleteGlobalMsg = async (id) => {
-            if (confirm("Mesajı silmek istiyor musun?")) {
-                try {
-                    await deleteDoc(doc(db, "messages", id));
-                    UI.showToast("Mesaj silindi.", "success");
-                } catch (err) {
-                    console.error(err);
-                    UI.showToast("Mesaj silinemedi.", "error");
-                }
-            }
-        };
+            ["theme-primary", "theme-secondary", "theme-accent", "theme-danger"].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.addEventListener("input", syncThemePreview);
+            });
+
+            document.addEventListener("visibilitychange", () => {
+                if (!CURRENT_USER) return;
+                updatePresence(!document.hidden);
+            });
+
+            window.addEventListener("beforeunload", () => {
+                if (CURRENT_USER) updatePresence(false);
+            });
+        }
 
         onAuthStateChanged(auth, async (user) => {
             try {
@@ -2081,6 +2789,7 @@
                     document.getElementById("app-shell").style.display = "block";
 
                     await ensureUserProfile(user);
+                    await loadUsersForSearch();
 
                     if (USER_DOC_UNSUB) USER_DOC_UNSUB();
 
@@ -2090,7 +2799,8 @@
                         const d = snap.data();
                         if (!d) return;
 
-                        document.getElementById("my-display-name").innerText = d.name || "İsimsiz";
+                        CURRENT_USER_DATA = d;
+                        document.getElementById("my-display-name").innerText = d.name || "Isimsiz";
                         document.getElementById("my-pfp").src = getSafePhoto(d.pfp);
                         document.getElementById("my-email-view").innerText = d.email || "";
                         document.getElementById("my-fol-count").innerText = d.followers || 0;
@@ -2101,30 +2811,47 @@
 
                     if (user.email === MASTER_EMAIL) {
                         document.getElementById("admin-nav-btn").style.display = "grid";
-                        document.getElementById("admin-status-node").innerHTML =
-                            '<span class="admin-badge" style="box-shadow:0 0 14px rgba(255,211,105,0.35);">ROOT ADMIN</span>';
+                        document.getElementById("admin-status-node").innerHTML = `
+                            <div class="header-online">
+                                <span class="online-dot"></span>
+                                <span class="admin-badge" style="box-shadow:0 0 14px rgba(255,211,105,0.35);">ROOT ADMIN</span>
+                            </div>
+                        `;
                     } else {
                         document.getElementById("admin-nav-btn").style.display = "none";
-                        document.getElementById("admin-status-node").innerHTML = "";
+                        document.getElementById("admin-status-node").innerHTML = `
+                            <div class="header-online">
+                                <span class="online-dot"></span>
+                                <span>Sistem aktif</span>
+                            </div>
+                        `;
                     }
 
+                    listenBanStatus();
+                    startPresenceHeartbeat();
                     ChatEngine.init();
                     DMEngine.loadInbox();
                     loadSystemAnons();
+                    listenTheme();
+                    listenGlobalReset();
                     UI.hideLoader();
-                    UI.showToast(`Hoş geldin, ${user.email}`, "success");
+                    UI.showToast(`Hos geldin, ${user.email}`, "success");
                 } else {
                     CURRENT_USER = null;
+                    CURRENT_USER_DATA = null;
+                    stopPresenceHeartbeat();
 
                     if (GLOBAL_UNSUB) GLOBAL_UNSUB();
                     if (DM_INBOX_UNSUB) DM_INBOX_UNSUB();
                     if (DM_OPEN_UNSUB) DM_OPEN_UNSUB();
                     if (USER_DOC_UNSUB) USER_DOC_UNSUB();
+                    if (BAN_UNSUB) BAN_UNSUB();
 
                     GLOBAL_UNSUB = null;
                     DM_INBOX_UNSUB = null;
                     DM_OPEN_UNSUB = null;
                     USER_DOC_UNSUB = null;
+                    BAN_UNSUB = null;
 
                     document.getElementById("app-shell").style.display = "none";
                     document.getElementById("auth-gate").style.display = "flex";
@@ -2133,11 +2860,14 @@
             } catch (err) {
                 console.error(err);
                 UI.hideLoader();
-                UI.showToast("Oturum yüklenirken hata oluştu.", "error");
+                UI.showToast("Oturum yuklenirken hata olustu.", "error");
             }
         });
 
         bindEvents();
+        listenTheme();
+        listenGlobalReset();
+        syncThemePreview();
 
         setTimeout(() => {
             UI.hideLoader();
