@@ -2304,6 +2304,14 @@
             DMEngine.open(dmId, target?.name || "Bilinmeyen", getSafePhoto(target?.pfp), targetUid, target);
         }
 
+        function getSortableTimestamp(value) {
+            if (!value) return 0;
+            if (typeof value.toMillis === "function") return value.toMillis();
+            if (typeof value.toDate === "function") return value.toDate().getTime();
+            const parsed = new Date(value).getTime();
+            return Number.isNaN(parsed) ? 0 : parsed;
+        }
+
         window.DMEngine = {
             async loadInbox() {
                 if (!CURRENT_USER) return;
@@ -2312,33 +2320,63 @@
 
                 const q = query(
                     collection(db, "dms"),
-                    where("participants", "array-contains", CURRENT_USER.uid),
-                    orderBy("lastUpdate", "desc")
+                    where("participants", "array-contains", CURRENT_USER.uid)
                 );
 
                 DM_INBOX_UNSUB = onSnapshot(q, async (snap) => {
-                    const enriched = await Promise.all(snap.docs.map(async (d) => {
-                        const data = d.data();
-                        const otherId = data.participants.find(id => id !== CURRENT_USER.uid);
-                        const otherSnap = await getDoc(doc(db, "users", otherId));
-                        const otherData = otherSnap.exists() ? otherSnap.data() : { name: "Bilinmeyen", pfp: "", online: false };
-                        const unread = Number(data.unreadCounts?.[CURRENT_USER.uid] || 0);
+                    try {
+                        const enriched = await Promise.all(snap.docs.map(async (d) => {
+                            const data = d.data();
+                            const otherId = data.participants?.find(id => id !== CURRENT_USER.uid);
+                            if (!otherId) return null;
 
-                        return {
-                            id: d.id,
-                            otherId,
-                            name: otherData.name || "Bilinmeyen",
-                            pfp: getSafePhoto(otherData.pfp),
-                            lastText: data.lastText || "Sohbet baslatildi...",
-                            lastUpdate: data.lastUpdate || null,
-                            unread,
-                            online: !!otherData.online,
-                            lastSeen: otherData.lastSeen || null
-                        };
-                    }));
+                            const cachedMeta = data.participantMeta?.[otherId] || {};
+                            let otherData = {
+                                name: cachedMeta.name || "Bilinmeyen",
+                                pfp: cachedMeta.pfp || "",
+                                email: cachedMeta.email || "",
+                                online: false,
+                                lastSeen: null
+                            };
 
-                    DM_INBOX_CACHE = enriched;
-                    DMEngine.renderInbox(document.getElementById("dm-search-input")?.value || "");
+                            try {
+                                const otherSnap = await getDoc(doc(db, "users", otherId));
+                                if (otherSnap.exists()) {
+                                    otherData = {
+                                        ...otherData,
+                                        ...otherSnap.data()
+                                    };
+                                }
+                            } catch (err) {
+                                console.error("DM kullanici verisi alinamadi:", err);
+                            }
+
+                            return {
+                                id: d.id,
+                                otherId,
+                                name: otherData.name || "Bilinmeyen",
+                                pfp: getSafePhoto(otherData.pfp),
+                                lastText: data.lastText || "Sohbet baslatildi...",
+                                lastUpdate: data.lastUpdate || data.createdAt || null,
+                                unread: Number(data.unreadCounts?.[CURRENT_USER.uid] || 0),
+                                recipientUnread: Number(data.unreadCounts?.[otherId] || 0),
+                                online: !!otherData.online,
+                                lastSeen: otherData.lastSeen || null
+                            };
+                        }));
+
+                        DM_INBOX_CACHE = enriched
+                            .filter(Boolean)
+                            .sort((a, b) => getSortableTimestamp(b.lastUpdate) - getSortableTimestamp(a.lastUpdate));
+
+                        DMEngine.renderInbox(document.getElementById("dm-search-input")?.value || "");
+                    } catch (err) {
+                        console.error("DM inbox yuklenemedi:", err);
+                        UI.showToast("DM listesi yuklenemedi.", "error");
+                    }
+                }, (err) => {
+                    console.error("DM inbox listener hatasi:", err);
+                    UI.showToast("DM kutusu dinlenemedi.", "error");
                 });
             },
 
@@ -2348,7 +2386,8 @@
                 const results = document.getElementById("new-dm-results");
 
                 const normalized = filter.trim().toLocaleLowerCase("tr");
-                const filtered = DM_INBOX_CACHE.filter(item =>
+                const sourceList = [...DM_INBOX_CACHE].sort((a, b) => getSortableTimestamp(b.lastUpdate) - getSortableTimestamp(a.lastUpdate));
+                const filtered = sourceList.filter(item =>
                     item.name.toLocaleLowerCase("tr").includes(normalized) ||
                     item.lastText.toLocaleLowerCase("tr").includes(normalized)
                 );
@@ -2382,9 +2421,15 @@
                     results.innerHTML = "";
                 }
 
+                if (!sourceList.length) {
+                    strip.innerHTML = `<div class="empty-state" style="width:100%; padding:16px 10px;">Henuz konusma baslamadi.</div>`;
+                    list.innerHTML = `<div class="empty-state">Ilk mesaji gonderdiginde sohbetlerin burada gorunecek.</div>`;
+                    return;
+                }
+
                 if (!filtered.length) {
-                    strip.innerHTML = `<div class="empty-state" style="width:100%; padding:16px 10px;">Son konusma bulunamadi.</div>`;
-                    list.innerHTML = `<div class="empty-state">Henuz mesaj gecmisi yok.</div>`;
+                    strip.innerHTML = `<div class="empty-state" style="width:100%; padding:16px 10px;">Aramana uygun sohbet bulunamadi.</div>`;
+                    list.innerHTML = `<div class="empty-state">Baska bir isim veya mesaj deneyebilirsin.</div>`;
                     return;
                 }
 
@@ -2534,7 +2579,7 @@
                     });
 
                     const existing = DM_INBOX_CACHE.find(item => item.id === ACTIVE_DM_ID);
-                    const nextUnread = Number(existing?.unread || 0) + 1;
+                    const nextUnread = Number(existing?.recipientUnread || 0) + 1;
 
                     await setDoc(doc(db, "dms", ACTIVE_DM_ID), {
                         lastText: text,
