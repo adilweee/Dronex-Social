@@ -1128,6 +1128,381 @@
             margin-top: 8px;
         }
 
+        .confirm-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 25000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: rgba(2, 8, 18, 0.72);
+            backdrop-filter: blur(14px);
+        }
+
+        .confirm-box {
+            width: min(460px, 100%);
+            padding: 28px;
+            border-radius: 26px;
+            background: rgba(8, 12, 24, 0.96);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: var(--shadow);
+        }
+
+        .confirm-box h3 {
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 10px;
+        }
+
+        .confirm-box p {
+            color: var(--text-dim);
+            line-height: 1.6;
+        }
+
+        .confirm-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .video-page-layout {
+            display: grid;
+            grid-template-columns: 360px minmax(0, 1fr);
+            gap: 18px;
+            align-items: start;
+        }
+
+        .video-upload-card {
+            position: sticky;
+            top: 92px;
+        }
+
+        .upload-note {
+            color: var(--text-soft);
+            font-size: 0.82rem;
+            margin-top: 8px;
+            line-height: 1.5;
+        }
+
+        .video-picker {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 14px 16px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px dashed rgba(94, 231, 255, 0.28);
+            margin-bottom: 12px;
+        }
+
+        .video-picker strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .video-picker span {
+            color: var(--text-dim);
+            font-size: 0.84rem;
+            line-height: 1.5;
+        }
+
+        .video-feed-shell {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .video-reels-feed {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .video-card {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 92px;
+            gap: 16px;
+            min-height: 78vh;
+        }
+
+        .video-player-shell {
+            position: relative;
+            overflow: hidden;
+            border-radius: 24px;
+            background: linear-gradient(180deg, rgba(13, 20, 40, 0.98), rgba(7, 10, 20, 0.98));
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .video-player {
+            width: 100%;
+            max-height: 56vh;
+            border-radius: 20px;
+            background: #03060d;
+            object-fit: cover;
+        }
+
+        .video-card-body {
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .video-meta-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .video-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+        }
+
+        .video-author img {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(94, 231, 255, 0.28);
+            background: #07111f;
+        }
+
+        .video-author button {
+            background: transparent;
+            color: var(--text);
+            text-align: left;
+        }
+
+        .video-author h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+        }
+
+        .video-chip-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .video-chip {
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text-dim);
+            font-size: 0.78rem;
+        }
+
+        .video-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.15rem;
+            line-height: 1.4;
+        }
+
+        .video-description {
+            color: var(--text-dim);
+            line-height: 1.7;
+            white-space: pre-wrap;
+        }
+
+        .video-action-rail {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            justify-content: flex-end;
+            align-items: stretch;
+        }
+
+        .video-action-btn,
+        .video-admin-delete {
+            min-height: 58px;
+            border-radius: 18px;
+            padding: 12px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text-dim);
+            transition: var(--transition);
+        }
+
+        .video-action-btn.active {
+            color: #07111f;
+            background: linear-gradient(135deg, var(--primary), #e7fdff);
+        }
+
+        .video-admin-delete {
+            color: var(--danger);
+            font-size: 0.76rem;
+            line-height: 1.4;
+            text-align: center;
+        }
+
+        .video-comments-panel {
+            margin-top: 6px;
+            padding: 16px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            display: none;
+        }
+
+        .video-comments-panel.open {
+            display: block;
+        }
+
+        .video-comments-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 240px;
+            overflow-y: auto;
+            margin-top: 14px;
+            padding-right: 4px;
+        }
+
+        .video-comment-item {
+            padding: 12px 14px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .video-comment-item strong {
+            color: var(--primary);
+            display: inline-block;
+            margin-bottom: 6px;
+        }
+
+        .video-inline-composer {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .video-inline-composer .input-cyber {
+            min-height: 48px;
+            padding: 0 16px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .profile-stat-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 22px 0;
+        }
+
+        .profile-stat-grid .stat-item.compact {
+            padding: 14px;
+        }
+
+        .profile-stat-grid .stat-item.wide {
+            grid-column: 1 / -1;
+        }
+
+        .my-videos-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+            margin-top: 16px;
+        }
+
+        .my-video-card {
+            padding: 14px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .my-video-thumb {
+            width: 100%;
+            border-radius: 16px;
+            max-height: 220px;
+            object-fit: cover;
+            background: #07111f;
+        }
+
+        .my-video-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin: 12px 0 10px;
+        }
+
+        .my-video-meta h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.88rem;
+            line-height: 1.4;
+        }
+
+        .my-video-stats {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            color: var(--text-dim);
+            font-size: 0.8rem;
+            margin-bottom: 12px;
+        }
+
+        .my-video-actions {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        @media (max-width: 980px) {
+            .video-page-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .video-upload-card {
+                position: static;
+            }
+
+            .video-card {
+                grid-template-columns: 1fr;
+                min-height: auto;
+            }
+
+            .video-action-rail {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .profile-stat-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .my-videos-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .video-inline-composer {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+
         @media (max-width: 980px) {
 
             .auth-shell,
@@ -1322,8 +1697,7 @@
                 <div class="card-cyber hero-card">
                     <div>
                         <h1>HAT 30 YAKINDA</h1>
-                        <p>Cyber iletişim sistemi aktif. Global sohbet, DM geçmişi, canlı tema, ban sistemi ve profil
-                            sistemi senkronize durumda.</p>
+                        <p>Hat30'la eglence hat safhada.</p>
                         <div class="hero-badges">
                             <div class="hero-badge">Realtime Chat</div>
                             <div class="hero-badge">Instagram DM Style</div>
@@ -1337,20 +1711,63 @@
                     <div class="section-title">
                         <h4><i class="fas fa-bolt"></i> Son Aktiviteler</h4>
                     </div>
-                    <p class="muted">DM kutusu son konuşulan kişiler mantığıyla güçlendirildi, şifre sıfırlama eklendi,
-                        canlı tema kontrolü ve global reset sistemi kuruldu.</p>
+                    <div class="helper-box">Video paylasimi aktif hale geldi. Kullanici videolari artik galeri secimi, video adi ve aciklama ile reels akisina dusuyor. Videolarda begenme, begenmeme, yorum yapma, profilde Videolarim alani ve adminlere ozel video silme kontrolu eklendi. DM kutusu, tema kontrolu ve global reset sistemi korunarak hafif performans iyilestirmeleri yapildi.</div>
                 </div>
             </div>
 
             <div id="page-videos" class="page">
-                <div class="card-cyber" style="text-align:center; padding:90px 20px;">
-                    <i class="fas fa-video-slash fa-4x" style="color:rgba(255,255,255,0.08); margin-bottom:18px;"></i>
-                    <h2 style="font-family:'Orbitron',sans-serif;">Sistem Çevrimdışı</h2>
-                    <p class="muted" style="margin-top:10px;">Video modülü şu anda bakım aşamasında.</p>
+                <div class="video-page-layout">
+                    <div class="card-cyber video-upload-card">
+                        <div class="section-title">
+                            <h3><i class="fas fa-circle-play"></i> Video Paylas</h3>
+                            <span class="tiny">Galeri secimi, baslik, aciklama</span>
+                        </div>
+
+                        <div class="video-picker">
+                            <div>
+                                <strong id="selected-video-name">Video secilmedi</strong>
+                                <span>Telefonundaki ya da bilgisayarindaki videolardan birini sec. Maksimum sure 3 dakika.</span>
+                            </div>
+                            <button id="pick-video-btn" class="btn-secondary" type="button">Video Sec</button>
+                        </div>
+
+                        <input id="video-file-input" type="file" hidden accept="video/*" />
+
+                        <div class="field-group">
+                            <label class="field-label">Video Adi</label>
+                            <div class="input-shell">
+                                <i class="fas fa-heading"></i>
+                                <input id="video-title-input" class="input-cyber" type="text" maxlength="80" placeholder="Videona bir isim ver" />
+                            </div>
+                        </div>
+
+                        <div class="field-group">
+                            <label class="field-label">Aciklama</label>
+                            <div class="input-shell" style="align-items:flex-start; padding:14px 16px; min-height:140px;">
+                                <i class="fas fa-align-left" style="margin-top:4px;"></i>
+                                <textarea id="video-description-input" class="input-cyber" rows="5" maxlength="280" placeholder="Videonda neler var?" style="resize:none; min-height:110px;"></textarea>
+                            </div>
+                        </div>
+
+                        <button id="publish-video-btn" class="btn-main" type="button" style="width:100%;">Videoyu Paylas</button>
+                        <p class="upload-note">Paylasim, silme ve yonetim islemlerinde onay sorulur. Reels akisi asagida kaydirarak devam eder.</p>
+                    </div>
+
+                    <div class="video-feed-shell">
+                        <div class="card-cyber">
+                            <div class="section-title">
+                                <h2>Hat30 Reels</h2>
+                                <span class="tiny">Like, dislike, yorum ve admin kontrolu aktif</span>
+                            </div>
+                            <p class="muted">Videolar reels mantigiyla yukaridan asagi kaydirilarak izlenir. Bir videoya dokunup sesini acabilir, yorum panelini genisletebilir ve tepkini bir tikla degistirebilirsin.</p>
+                        </div>
+
+                        <div id="video-reels-feed" class="video-reels-feed"></div>
+                    </div>
                 </div>
             </div>
 
-            <div id="page-chat" class="page">
+            <div id="page-chat" class="page">            <div id="page-chat" class="page">
                 <div class="card-cyber" style="padding:16px;">
                     <div class="section-title">
                         <h3>Global Chat</h3>
@@ -1466,32 +1883,35 @@
                         <div class="level-tag" id="my-lvl">LVL 1</div>
                     </div>
 
-                    <h2 id="my-display-name" style="font-family:'Orbitron',sans-serif; font-size:1.8rem;">Yükleniyor...
+                    <h2 id="my-display-name" style="font-family:'Orbitron',sans-serif; font-size:1.8rem;">Yukleniyor...
                     </h2>
                     <p id="my-email-view" class="muted" style="margin-top:6px;"></p>
 
-                    <div class="stat-grid">
-                        <div class="stat-item"><span class="stat-value" id="my-fol-count">0</span><span
-                                class="stat-label">Takipçi</span></div>
-                        <div class="stat-item"><span class="stat-value" id="my-following-count">0</span><span
-                                class="stat-label">Takip</span></div>
-                        <div class="stat-item"><span class="stat-value" id="my-xp-count">0</span><span
-                                class="stat-label">XP</span></div>
+                    <div class="profile-stat-grid">
+                        <div class="stat-item compact"><span class="stat-value" id="my-fol-count">0</span><span class="stat-label">Takipci</span></div>
+                        <div class="stat-item compact"><span class="stat-value" id="my-following-count">0</span><span class="stat-label">Takip</span></div>
+                        <div class="stat-item wide"><span class="stat-value" id="my-xp-count">0</span><span class="stat-label">XP</span></div>
                     </div>
 
                     <div class="profile-actions">
-                        <button onclick="UserSystem.editName()" class="btn-secondary">İsim Değiştir</button>
-                        <button onclick="document.getElementById('pfp-upload').click()" class="btn-secondary">Fotoğraf
-                            Seç</button>
+                        <button onclick="UserSystem.editName()" class="btn-secondary">Isim Degistir</button>
+                        <button onclick="document.getElementById('pfp-upload').click()" class="btn-secondary">Fotograf Sec</button>
                     </div>
 
                     <input type="file" id="pfp-upload" hidden accept="image/*" onchange="UserSystem.updatePfp(this)" />
-                    <button onclick="UserSystem.logout()" class="btn-danger"
-                        style="width:100%; margin-top:16px;">Sistemden Çık</button>
+                    <button onclick="UserSystem.logout()" class="btn-danger" style="width:100%; margin-top:16px;">Sistemden Cik</button>
+                </div>
+
+                <div class="card-cyber">
+                    <div class="section-title">
+                        <h3><i class="fas fa-film"></i> Videolarim</h3>
+                        <span class="tiny">Paylastigin videolari gor ve yonet</span>
+                    </div>
+                    <div id="my-videos-grid" class="my-videos-grid"></div>
                 </div>
             </div>
 
-            <div id="page-admin" class="page">
+            <div id="page-admin" class="page">            <div id="page-admin" class="page">
                 <div class="section-title">
                     <h2 style="color:var(--gold);"><i class="fas fa-crown"></i> Kurucu Merkezi</h2>
                 </div>
@@ -1617,6 +2037,17 @@
 
     <div id="toast-container"></div>
 
+    <div id="confirm-overlay" class="confirm-overlay">
+        <div class="confirm-box animate__animated animate__fadeInUp">
+            <h3 id="confirm-title">Onay Gerekli</h3>
+            <p id="confirm-message">Bu islemi yapmak istedigine emin misin?</p>
+            <div class="confirm-actions">
+                <button id="confirm-yes-btn" class="btn-main" type="button">Evet</button>
+                <button id="confirm-no-btn" class="btn-secondary" type="button">Hayir</button>
+            </div>
+        </div>
+    </div>
+
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import {
@@ -1647,6 +2078,13 @@
             writeBatch,
             arrayUnion
         } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import {
+            getStorage,
+            ref as storageRef,
+            uploadBytes,
+            getDownloadURL,
+            deleteObject
+        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAutPInq2BBsOnKlZS2A6M9XTEq9MuhgRY",
@@ -1660,6 +2098,7 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
+        const storage = getStorage(app);
 
         const MASTER_EMAIL = "adilerkamtek2011@gmail.com";
         const DEFAULT_THEME = {
@@ -1689,6 +2128,11 @@
         let RESET_INTERVAL = null;
         let LAST_RESET_KEY = null;
         let LAST_DM_MESSAGES = [];
+        let VIDEO_UNSUB = null;
+        let VIDEO_CACHE = [];
+        let VIDEO_REACTION_CACHE = {};
+        let VIDEO_COMMENT_STATE = {};
+        let CONFIRM_RESOLVER = null;
 
         window.DM_TARGET_UID = null;
 
@@ -1749,6 +2193,23 @@
 
             hideResetOverlay() {
                 document.getElementById("global-reset-overlay").style.display = "none";
+            },
+
+            confirm(message, title = "Onay Gerekli") {
+                return new Promise((resolve) => {
+                    CONFIRM_RESOLVER = resolve;
+                    document.getElementById("confirm-title").innerText = title;
+                    document.getElementById("confirm-message").innerText = message;
+                    document.getElementById("confirm-overlay").style.display = "flex";
+                });
+            },
+
+            resolveConfirm(result) {
+                document.getElementById("confirm-overlay").style.display = "none";
+                if (typeof CONFIRM_RESOLVER === "function") {
+                    CONFIRM_RESOLVER(result);
+                }
+                CONFIRM_RESOLVER = null;
             }
         };
 
@@ -1796,6 +2257,61 @@
                 hour: "2-digit",
                 minute: "2-digit"
             }).format(date);
+        }
+
+        function isAdmin() {
+            return CURRENT_USER?.email === MASTER_EMAIL;
+        }
+
+        function formatVideoDuration(totalSeconds = 0) {
+            const safe = Math.max(0, Math.floor(Number(totalSeconds) || 0));
+            const minutes = String(Math.floor(safe / 60)).padStart(2, "0");
+            const seconds = String(safe % 60).padStart(2, "0");
+            return `${minutes}:${seconds}`;
+        }
+
+        function formatDateLabel(value) {
+            const date = value?.toDate ? value.toDate() : value instanceof Date ? value : value ? new Date(value) : null;
+            if (!date) return "Simdi";
+            return new Intl.DateTimeFormat("tr-TR", {
+                day: "2-digit",
+                month: "2-digit",
+                hour: "2-digit",
+                minute: "2-digit"
+            }).format(date);
+        }
+
+        function safeFileSegment(name = "video") {
+            return String(name).toLowerCase().replace(/[^a-z0-9._-]+/g, "-").replace(/-+/g, "-").slice(0, 60) || "video";
+        }
+
+        function resetVideoComposer() {
+            const fileInput = document.getElementById("video-file-input");
+            const titleInput = document.getElementById("video-title-input");
+            const descriptionInput = document.getElementById("video-description-input");
+            const selectedName = document.getElementById("selected-video-name");
+            if (fileInput) fileInput.value = "";
+            if (titleInput) titleInput.value = "";
+            if (descriptionInput) descriptionInput.value = "";
+            if (selectedName) selectedName.innerText = "Video secilmedi";
+        }
+
+        async function readVideoDuration(file) {
+            return new Promise((resolve, reject) => {
+                const video = document.createElement("video");
+                const url = URL.createObjectURL(file);
+                video.preload = "metadata";
+                video.onloadedmetadata = () => {
+                    const duration = Number(video.duration || 0);
+                    URL.revokeObjectURL(url);
+                    resolve(duration);
+                };
+                video.onerror = () => {
+                    URL.revokeObjectURL(url);
+                    reject(new Error("Video metadata okunamadi"));
+                };
+                video.src = url;
+            });
         }
 
         function setThemeVars(theme = DEFAULT_THEME) {
@@ -1971,6 +2487,8 @@
                 if (el) el.classList.add("active");
 
                 if (pageId === "dm") DMEngine.loadInbox();
+                if (pageId === "videos") VideoEngine.renderFeed();
+                if (pageId === "profile") VideoEngine.renderProfileVideos();
             }
         };
 
@@ -2100,6 +2618,370 @@
             }
         }
 
+
+        async function deleteCollectionDocs(colRef) {
+            const snap = await getDocs(colRef);
+            if (!snap.empty) {
+                await runBatchDelete(snap.docs);
+            }
+        }
+
+        window.VideoEngine = {
+            init() {
+                if (!CURRENT_USER) return;
+                if (VIDEO_UNSUB) VIDEO_UNSUB();
+
+                const videoQuery = query(collection(db, "videos"), orderBy("createdAt", "desc"), limit(30));
+                VIDEO_UNSUB = onSnapshot(videoQuery, async (snap) => {
+                    try {
+                        const rows = await Promise.all(snap.docs.map(async (videoDoc) => {
+                            const data = videoDoc.data();
+                            let myReaction = null;
+                            if (CURRENT_USER) {
+                                try {
+                                    const reactionSnap = await getDoc(doc(db, "videos", videoDoc.id, "reactions", CURRENT_USER.uid));
+                                    myReaction = reactionSnap.exists() ? reactionSnap.data().type : null;
+                                } catch (err) {
+                                    console.error("Reaction read error:", err);
+                                }
+                            }
+
+                            VIDEO_REACTION_CACHE[videoDoc.id] = myReaction;
+                            return {
+                                id: videoDoc.id,
+                                ...data,
+                                myReaction
+                            };
+                        }));
+
+                        VIDEO_CACHE = rows;
+                        this.renderFeed();
+                        this.renderProfileVideos();
+                    } catch (err) {
+                        console.error(err);
+                        UI.showToast("Video akisi yuklenemedi.", "error");
+                    }
+                }, (err) => {
+                    console.error(err);
+                    UI.showToast("Video akisi dinlenemedi.", "error");
+                });
+            },
+
+            teardown() {
+                if (VIDEO_UNSUB) VIDEO_UNSUB();
+                VIDEO_UNSUB = null;
+                VIDEO_CACHE = [];
+                VIDEO_REACTION_CACHE = {};
+                VIDEO_COMMENT_STATE = {};
+                const feed = document.getElementById("video-reels-feed");
+                const grid = document.getElementById("my-videos-grid");
+                if (feed) feed.innerHTML = "";
+                if (grid) grid.innerHTML = "";
+            },
+            renderFeed() {
+                const feed = document.getElementById("video-reels-feed");
+                if (!feed) return;
+
+                if (!VIDEO_CACHE.length) {
+                    feed.innerHTML = '<div class="card-cyber empty-state">Henuz video yok. Ilk reels videosunu sen paylas.</div>';
+                    return;
+                }
+
+                feed.innerHTML = VIDEO_CACHE.map((video) => {
+                    const reaction = VIDEO_REACTION_CACHE[video.id];
+                    const commentsOpen = !!VIDEO_COMMENT_STATE[video.id]?.open;
+                    const adminDelete = isAdmin()
+                        ? '<button class="video-admin-delete" type="button" onclick="VideoEngine.requestDelete(\'' + video.id + '\', true)">Bu videoyu sil</button>'
+                        : "";
+
+                    return `
+                        <div class="card-cyber video-card">
+                            <div class="video-player-shell">
+                                <video class="video-player" src="${escapeHtml(video.videoUrl || "")}" controls playsinline preload="metadata"></video>
+                                <div class="video-card-body">
+                                    <div class="video-meta-top">
+                                        <div class="video-author">
+                                            <img src="${getSafePhoto(video.authorPfp)}" alt="${escapeHtml(video.authorName || "DroneX")}" />
+                                            <div style="min-width:0;">
+                                                <button type="button" onclick="window.inspectUser('${video.uid}', 'videos')">
+                                                    <h4>${escapeHtml(video.authorName || "Bilinmeyen")}</h4>
+                                                </button>
+                                                <div class="tiny">${escapeHtml(video.authorEmail ? video.authorEmail.replace(/(.{3}).*@/, "$1***@") : "Uye")}</div>
+                                            </div>
+                                        </div>
+                                        <div class="video-chip-row">
+                                            <span class="video-chip">${formatDateLabel(video.createdAt)}</span>
+                                            <span class="video-chip">Sure ${formatVideoDuration(video.duration || 0)}</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="video-title">${escapeHtml(video.title || "Adsiz video")}</div>
+                                        <p class="video-description">${escapeHtml(video.description || "Aciklama yok.")}</p>
+                                    </div>
+                                    <div id="video-comments-panel-${video.id}" class="video-comments-panel ${commentsOpen ? "open" : ""}">
+                                        <div class="video-inline-composer">
+                                            <input id="video-comment-input-${video.id}" class="input-cyber" placeholder="Bu video icin yorum yaz..." />
+                                            <button class="btn-main" type="button" onclick="VideoEngine.addComment('${video.id}')">Yorum Gonder</button>
+                                        </div>
+                                        <div id="video-comments-list-${video.id}" class="video-comments-list">${commentsOpen ? '<div class="tiny">Yorumlar yukleniyor...</div>' : ""}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="video-action-rail">
+                                ${adminDelete}
+                                <button class="video-action-btn ${reaction === "like" ? "active" : ""}" type="button" onclick="VideoEngine.react('${video.id}', 'like')">
+                                    <i class="fas fa-thumbs-up"></i>
+                                    <span>${Number(video.likes || 0)}</span>
+                                </button>
+                                <button class="video-action-btn ${reaction === "dislike" ? "active" : ""}" type="button" onclick="VideoEngine.react('${video.id}', 'dislike')">
+                                    <i class="fas fa-thumbs-down"></i>
+                                    <span>${Number(video.dislikes || 0)}</span>
+                                </button>
+                                <button class="video-action-btn ${commentsOpen ? "active" : ""}" type="button" onclick="VideoEngine.toggleComments('${video.id}')">
+                                    <i class="fas fa-comment-dots"></i>
+                                    <span>${Number(video.commentCount || 0)}</span>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                }).join("");
+
+                Object.keys(VIDEO_COMMENT_STATE).forEach((video_id) => {
+                    if (VIDEO_COMMENT_STATE[video_id]?.open) {
+                        this.loadComments(video_id);
+                    }
+                });
+            },
+
+            renderProfileVideos() {
+                const grid = document.getElementById("my-videos-grid");
+                if (!grid) return;
+                const mine = VIDEO_CACHE.filter(video => video.uid === CURRENT_USER?.uid);
+
+                if (!mine.length) {
+                    grid.innerHTML = '<div class="empty-state" style="grid-column:1 / -1;">Henuz paylastigin video yok. Video sekmesinden ilk videonu ekleyebilirsin.</div>';
+                    return;
+                }
+
+                grid.innerHTML = mine.map((video) => `
+                    <div class="my-video-card">
+                        <video class="my-video-thumb" src="${escapeHtml(video.videoUrl || "")}" controls playsinline preload="metadata"></video>
+                        <div class="my-video-meta">
+                            <h4>${escapeHtml(video.title || "Adsiz video")}</h4>
+                            <span class="tiny">${formatVideoDuration(video.duration || 0)}</span>
+                        </div>
+                        <div class="my-video-stats">
+                            <span><i class="fas fa-thumbs-up"></i> ${Number(video.likes || 0)}</span>
+                            <span><i class="fas fa-thumbs-down"></i> ${Number(video.dislikes || 0)}</span>
+                            <span><i class="fas fa-comment"></i> ${Number(video.commentCount || 0)}</span>
+                        </div>
+                        <div class="my-video-actions">
+                            <button class="btn-danger" type="button" onclick="VideoEngine.requestDelete('${video.id}', false)">Videoyu Sil</button>
+                        </div>
+                    </div>
+                `).join("");
+            },
+
+            async publish() {
+                if (!CURRENT_USER) return;
+                const fileInput = document.getElementById("video-file-input");
+                const titleInput = document.getElementById("video-title-input");
+                const descriptionInput = document.getElementById("video-description-input");
+                const file = fileInput?.files?.[0];
+                const title = titleInput?.value.trim() || "";
+                const description = descriptionInput?.value.trim() || "";
+
+                if (!file) {
+                    UI.showToast("Once bir video secmelisin.", "error");
+                    return;
+                }
+                if (!title || title.length < 3) {
+                    UI.showToast("Video adi en az 3 karakter olmali.", "error");
+                    return;
+                }
+                if (!description || description.length < 6) {
+                    UI.showToast("Aciklama en az 6 karakter olmali.", "error");
+                    return;
+                }
+
+                const okay = await UI.confirm("Bu videoyu reels akisinda paylasmak istedigine emin misin?", "Video Paylas");
+                if (!okay) return;
+
+                try {
+                    UI.showLoader();
+                    const duration = await readVideoDuration(file);
+                    if (duration > 180) {
+                        UI.hideLoader();
+                        UI.showToast("Videolar en fazla 3 dakika olabilir.", "error");
+                        return;
+                    }
+
+                    const videoId = doc(collection(db, "videos")).id;
+                    const storagePath = `videos/${CURRENT_USER.uid}/${videoId}-${safeFileSegment(file.name)}`;
+                    await uploadBytes(storageRef(storage, storagePath), file, { contentType: file.type || "video/mp4" });
+                    const videoUrl = await getDownloadURL(storageRef(storage, storagePath));
+
+                    await setDoc(doc(db, "videos", videoId), {
+                        uid: CURRENT_USER.uid,
+                        authorName: CURRENT_USER_DATA?.name || CURRENT_USER.email || "Kullanici",
+                        authorEmail: CURRENT_USER.email || "",
+                        authorPfp: CURRENT_USER_DATA?.pfp || "",
+                        title,
+                        description,
+                        videoUrl,
+                        storagePath,
+                        duration: Math.round(duration),
+                        likes: 0,
+                        dislikes: 0,
+                        commentCount: 0,
+                        createdAt: serverTimestamp()
+                    });
+
+                    await updateDoc(doc(db, "users", CURRENT_USER.uid), { xp: increment(20) });
+                    UI.hideLoader();
+                    resetVideoComposer();
+                    UI.showToast("Video paylasildi.", "success");
+                } catch (err) {
+                    console.error(err);
+                    UI.hideLoader();
+                    UI.showToast("Video paylasilamadi.", "error");
+                }
+            },
+
+            async react(videoId, type) {
+                if (!CURRENT_USER || !videoId) return;
+                const videoRef = doc(db, "videos", videoId);
+                const reactionRef = doc(db, "videos", videoId, "reactions", CURRENT_USER.uid);
+                try {
+                    const existing = await getDoc(reactionRef);
+                    const currentType = existing.exists() ? existing.data().type : null;
+                    const updates = {};
+
+                    if (currentType === type) {
+                        await deleteDoc(reactionRef);
+                        updates[type === "like" ? "likes" : "dislikes"] = increment(-1);
+                        VIDEO_REACTION_CACHE[videoId] = null;
+                    } else {
+                        await setDoc(reactionRef, { uid: CURRENT_USER.uid, type, updatedAt: Date.now() });
+                        if (currentType === "like") updates.likes = increment(-1);
+                        if (currentType === "dislike") updates.dislikes = increment(-1);
+                        updates[type === "like" ? "likes" : "dislikes"] = increment(1);
+                        VIDEO_REACTION_CACHE[videoId] = type;
+                    }
+
+                    await updateDoc(videoRef, updates);
+                    this.renderFeed();
+                    this.renderProfileVideos();
+                } catch (err) {
+                    console.error(err);
+                    UI.showToast("Video tepkisi guncellenemedi.", "error");
+                }
+            },
+
+            async toggleComments(videoId) {
+                const current = VIDEO_COMMENT_STATE[videoId]?.open;
+                VIDEO_COMMENT_STATE[videoId] = { open: !current };
+                this.renderFeed();
+                if (!current) {
+                    await this.loadComments(videoId);
+                }
+            },
+
+            async loadComments(videoId) {
+                const list = document.getElementById(`video-comments-list-${videoId}`);
+                if (!list) return;
+                list.innerHTML = '<div class="tiny">Yorumlar yukleniyor...</div>';
+
+                try {
+                    const snap = await getDocs(query(collection(db, "videos", videoId, "comments"), orderBy("createdAt", "asc"), limit(60)));
+                    if (snap.empty) {
+                        list.innerHTML = '<div class="tiny">Ilk yorumu sen birak.</div>';
+                        return;
+                    }
+
+                    list.innerHTML = snap.docs.map((commentDoc) => {
+                        const comment = commentDoc.data();
+                        return `
+                            <div class="video-comment-item">
+                                <strong>${escapeHtml(comment.authorName || "Kullanici")}</strong>
+                                <div>${escapeHtml(comment.text || "")}</div>
+                                <div class="tiny" style="margin-top:6px;">${formatDateLabel(comment.createdAt)}</div>
+                            </div>
+                        `;
+                    }).join("");
+                } catch (err) {
+                    console.error(err);
+                    list.innerHTML = '<div class="tiny">Yorumlar yuklenemedi.</div>';
+                }
+            },
+
+            async addComment(videoId) {
+                if (!CURRENT_USER || !videoId) return;
+                const input = document.getElementById(`video-comment-input-${videoId}`);
+                const value = input?.value.trim() || "";
+                if (!value) {
+                    UI.showToast("Yorum bos olamaz.", "error");
+                    return;
+                }
+
+                try {
+                    await addDoc(collection(db, "videos", videoId, "comments"), {
+                        uid: CURRENT_USER.uid,
+                        authorName: CURRENT_USER_DATA?.name || CURRENT_USER.email || "Kullanici",
+                        text: value,
+                        createdAt: serverTimestamp()
+                    });
+                    await updateDoc(doc(db, "videos", videoId), { commentCount: increment(1) });
+                    input.value = "";
+                    VIDEO_COMMENT_STATE[videoId] = { open: true };
+                    await this.loadComments(videoId);
+                } catch (err) {
+                    console.error(err);
+                    UI.showToast("Yorum gonderilemedi.", "error");
+                }
+            },
+
+            async requestDelete(videoId, adminMode = false) {
+                if (!CURRENT_USER || !videoId) return;
+                const snap = await getDoc(doc(db, "videos", videoId));
+                if (!snap.exists()) {
+                    UI.showToast("Video bulunamadi.", "error");
+                    return;
+                }
+
+                const video = snap.data();
+                const canDelete = video.uid === CURRENT_USER.uid || isAdmin();
+                if (!canDelete) {
+                    UI.showToast("Bu videoyu silme yetkin yok.", "error");
+                    return;
+                }
+
+                const title = adminMode && isAdmin() ? "Admin Video Sil" : "Videoyu Sil";
+                const message = adminMode && isAdmin() ? "Bu videoyu tum kullanicilar icin silmek istedigine emin misin?" : "Bu videoyu profilinden ve reels akisindan silmek istedigine emin misin?";
+                const approved = await UI.confirm(message, title);
+                if (!approved) return;
+
+                try {
+                    UI.showLoader();
+                    await deleteCollectionDocs(collection(db, "videos", videoId, "comments"));
+                    await deleteCollectionDocs(collection(db, "videos", videoId, "reactions"));
+                    if (video.storagePath) {
+                        try {
+                            await deleteObject(storageRef(storage, video.storagePath));
+                        } catch (storageErr) {
+                            console.error(storageErr);
+                        }
+                    }
+                    await deleteDoc(doc(db, "videos", videoId));
+                    UI.hideLoader();
+                    UI.showToast("Video silindi.", "success");
+                } catch (err) {
+                    console.error(err);
+                    UI.hideLoader();
+                    UI.showToast("Video silinemedi.", "error");
+                }
+            }
+        };
         window.AdminEngine = {
             async sendAnons() {
                 const val = document.getElementById("admin-anons-input").value.trim();
@@ -2789,6 +3671,18 @@
             document.getElementById("send-private-btn").onclick = DMEngine.send;
             document.getElementById("dm-action-btn").onclick = window.startDmFromProfile;
             document.getElementById("follow-action-btn").onclick = toggleFollowUser;
+            document.getElementById("pick-video-btn").onclick = () => document.getElementById("video-file-input").click();
+            document.getElementById("publish-video-btn").onclick = () => VideoEngine.publish();
+            document.getElementById("confirm-yes-btn").onclick = () => UI.resolveConfirm(true);
+            document.getElementById("confirm-no-btn").onclick = () => UI.resolveConfirm(false);
+            document.getElementById("confirm-overlay").addEventListener("click", (e) => {
+                if (e.target.id === "confirm-overlay") UI.resolveConfirm(false);
+            });
+
+            document.getElementById("video-file-input").addEventListener("change", (e) => {
+                const file = e.target.files?.[0];
+                document.getElementById("selected-video-name").innerText = file ? file.name : "Video secilmedi";
+            });
 
             document.getElementById("global-chat-input").addEventListener("keypress", (e) => {
                 if (e.key === "Enter") ChatEngine.send();
@@ -2876,6 +3770,7 @@
                     startPresenceHeartbeat();
                     ChatEngine.init();
                     DMEngine.loadInbox();
+                    VideoEngine.init();
                     loadSystemAnons();
                     listenTheme();
                     listenGlobalReset();
@@ -2897,6 +3792,7 @@
                     DM_OPEN_UNSUB = null;
                     USER_DOC_UNSUB = null;
                     BAN_UNSUB = null;
+                    VideoEngine.teardown();
 
                     document.getElementById("app-shell").style.display = "none";
                     document.getElementById("auth-gate").style.display = "flex";
