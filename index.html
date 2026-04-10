@@ -2098,7 +2098,7 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
-        const storage = getStorage(app);
+        const storage = getStorage(app, "gs://tanitimsitesi-1ca45.appspot.com");
 
         const MASTER_EMAIL = "adilerkamtek2011@gmail.com";
         const DEFAULT_THEME = {
@@ -2300,18 +2300,44 @@
             return new Promise((resolve, reject) => {
                 const video = document.createElement("video");
                 const url = URL.createObjectURL(file);
+                let settled = false;
+                const timeout = setTimeout(() => {
+                    if (settled) return;
+                    settled = true;
+                    URL.revokeObjectURL(url);
+                    reject(new Error("Video suresi okunurken zaman asimi oldu"));
+                }, 12000);
+
                 video.preload = "metadata";
                 video.onloadedmetadata = () => {
+                    if (settled) return;
+                    settled = true;
+                    clearTimeout(timeout);
                     const duration = Number(video.duration || 0);
                     URL.revokeObjectURL(url);
                     resolve(duration);
                 };
                 video.onerror = () => {
+                    if (settled) return;
+                    settled = true;
+                    clearTimeout(timeout);
                     URL.revokeObjectURL(url);
                     reject(new Error("Video metadata okunamadi"));
                 };
                 video.src = url;
             });
+        }
+
+        async function withTimeout(promise, ms, message) {
+            let timer = null;
+            const timeoutPromise = new Promise((_, reject) => {
+                timer = setTimeout(() => reject(new Error(message)), ms);
+            });
+            try {
+                return await Promise.race([promise, timeoutPromise]);
+            } finally {
+                if (timer) clearTimeout(timer);
+            }
         }
 
         function setThemeVars(theme = DEFAULT_THEME) {
@@ -2807,44 +2833,58 @@
                 const okay = await UI.confirm("Bu videoyu reels akisinda paylasmak istedigine emin misin?", "Video Paylas");
                 if (!okay) return;
 
+                UI.showLoader();
                 try {
-                    UI.showLoader();
                     const duration = await readVideoDuration(file);
                     if (duration > 180) {
-                        UI.hideLoader();
                         UI.showToast("Videolar en fazla 3 dakika olabilir.", "error");
                         return;
                     }
 
                     const videoId = doc(collection(db, "videos")).id;
                     const storagePath = `videos/${CURRENT_USER.uid}/${videoId}-${safeFileSegment(file.name)}`;
-                    await uploadBytes(storageRef(storage, storagePath), file, { contentType: file.type || "video/mp4" });
-                    const videoUrl = await getDownloadURL(storageRef(storage, storagePath));
+                    const uploadRef = storageRef(storage, storagePath);
 
-                    await setDoc(doc(db, "videos", videoId), {
-                        uid: CURRENT_USER.uid,
-                        authorName: CURRENT_USER_DATA?.name || CURRENT_USER.email || "Kullanici",
-                        authorEmail: CURRENT_USER.email || "",
-                        authorPfp: CURRENT_USER_DATA?.pfp || "",
-                        title,
-                        description,
-                        videoUrl,
-                        storagePath,
-                        duration: Math.round(duration),
-                        likes: 0,
-                        dislikes: 0,
-                        commentCount: 0,
-                        createdAt: serverTimestamp()
-                    });
+                    await withTimeout(
+                        uploadBytes(uploadRef, file, { contentType: file.type || "video/mp4" }),
+                        45000,
+                        "Video yukleme zaman asimina ugradi"
+                    );
+
+                    const videoUrl = await withTimeout(
+                        getDownloadURL(uploadRef),
+                        15000,
+                        "Video baglantisi alinamadi"
+                    );
+
+                    await withTimeout(
+                        setDoc(doc(db, "videos", videoId), {
+                            uid: CURRENT_USER.uid,
+                            authorName: CURRENT_USER_DATA?.name || CURRENT_USER.email || "Kullanici",
+                            authorEmail: CURRENT_USER.email || "",
+                            authorPfp: CURRENT_USER_DATA?.pfp || "",
+                            title,
+                            description,
+                            videoUrl,
+                            storagePath,
+                            duration: Math.round(duration),
+                            likes: 0,
+                            dislikes: 0,
+                            commentCount: 0,
+                            createdAt: serverTimestamp()
+                        }),
+                        15000,
+                        "Video kaydi veritabanina yazilamadi"
+                    );
 
                     await updateDoc(doc(db, "users", CURRENT_USER.uid), { xp: increment(20) });
-                    UI.hideLoader();
                     resetVideoComposer();
                     UI.showToast("Video paylasildi.", "success");
                 } catch (err) {
                     console.error(err);
+                    UI.showToast(err?.message || "Video paylasilamadi.", "error");
+                } finally {
                     UI.hideLoader();
-                    UI.showToast("Video paylasilamadi.", "error");
                 }
             },
 
