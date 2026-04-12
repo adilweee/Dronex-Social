@@ -2081,7 +2081,7 @@
         import {
             getStorage,
             ref as storageRef,
-            uploadBytes,
+            uploadBytesResumable,
             getDownloadURL,
             deleteObject
         } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
@@ -2098,7 +2098,7 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
-        const storage = getStorage(app, "gs://tanitimsitesi-1ca45.appspot.com");
+        const storage = getStorage(app, "gs://tanitimsitesi-1ca45.firebasestorage.app");
 
         const MASTER_EMAIL = "adilerkamtek2011@gmail.com";
         const DEFAULT_THEME = {
@@ -2168,16 +2168,20 @@
 
             hideLoader() {
                 const loader = document.getElementById("loading-overlay");
+                const statusText = document.getElementById("loading-status-text");
                 if (!loader) return;
+                if (statusText) statusText.innerText = "DRONEX BAGLANIYOR...";
                 loader.style.opacity = "0";
                 setTimeout(() => {
                     loader.style.display = "none";
                 }, 800);
             },
 
-            showLoader() {
+            showLoader(message = "DRONEX BAGLANIYOR...") {
                 const loader = document.getElementById("loading-overlay");
+                const statusText = document.getElementById("loading-status-text");
                 if (!loader) return;
+                if (statusText) statusText.innerText = message;
                 loader.style.display = "flex";
                 loader.style.opacity = "1";
             },
@@ -2338,6 +2342,38 @@
             } finally {
                 if (timer) clearTimeout(timer);
             }
+        }
+
+
+        async function uploadVideoWithProgress(uploadRef, file) {
+            return await new Promise((resolve, reject) => {
+                const task = uploadBytesResumable(uploadRef, file, { contentType: file.type || "video/mp4" });
+                let lastProgressAt = Date.now();
+                const watchdog = setInterval(() => {
+                    if (Date.now() - lastProgressAt > 25000) {
+                        clearInterval(watchdog);
+                        try { task.cancel(); } catch (err) { console.error(err); }
+                        reject(new Error("Video yukleme takildi veya internet cok yavas"));
+                    }
+                }, 4000);
+
+                task.on("state_changed", (snapshot) => {
+                    lastProgressAt = Date.now();
+                    const pct = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100) || 0;
+                    UI.showLoader(`VIDEO YUKLENIYOR %${pct}`);
+                }, (error) => {
+                    clearInterval(watchdog);
+                    reject(error);
+                }, async () => {
+                    clearInterval(watchdog);
+                    try {
+                        const url = await getDownloadURL(task.snapshot.ref);
+                        resolve(url);
+                    } catch (err) {
+                        reject(err);
+                    }
+                });
+            });
         }
 
         function setThemeVars(theme = DEFAULT_THEME) {
@@ -2833,7 +2869,7 @@
                 const okay = await UI.confirm("Bu videoyu reels akisinda paylasmak istedigine emin misin?", "Video Paylas");
                 if (!okay) return;
 
-                UI.showLoader();
+                UI.showLoader("VIDEO HAZIRLANIYOR...");
                 try {
                     const duration = await readVideoDuration(file);
                     if (duration > 180) {
@@ -2844,19 +2880,9 @@
                     const videoId = doc(collection(db, "videos")).id;
                     const storagePath = `videos/${CURRENT_USER.uid}/${videoId}-${safeFileSegment(file.name)}`;
                     const uploadRef = storageRef(storage, storagePath);
+                    const videoUrl = await uploadVideoWithProgress(uploadRef, file);
 
-                    await withTimeout(
-                        uploadBytes(uploadRef, file, { contentType: file.type || "video/mp4" }),
-                        45000,
-                        "Video yukleme zaman asimina ugradi"
-                    );
-
-                    const videoUrl = await withTimeout(
-                        getDownloadURL(uploadRef),
-                        15000,
-                        "Video baglantisi alinamadi"
-                    );
-
+                    UI.showLoader("VIDEO KAYDI OLUSTURULUYOR...");
                     await withTimeout(
                         setDoc(doc(db, "videos", videoId), {
                             uid: CURRENT_USER.uid,
