@@ -1711,7 +1711,10 @@
                     <div class="section-title">
                         <h4><i class="fas fa-bolt"></i> Son Aktiviteler</h4>
                     </div>
-                    <div class="helper-box">Video paylasimi aktif hale geldi. Kullanici videolari artik galeri secimi, video adi ve aciklama ile reels akisina dusuyor. Videolarda begenme, begenmeme, yorum yapma, profilde Videolarim alani ve adminlere ozel video silme kontrolu eklendi. DM kutusu, tema kontrolu ve global reset sistemi korunarak hafif performans iyilestirmeleri yapildi.</div>
+                    <div class="helper-box">Video paylasimi aktif hale geldi. Kullanici videolari artik galeri secimi,
+                        video adi ve aciklama ile reels akisina dusuyor. Videolarda begenme, begenmeme, yorum yapma,
+                        profilde Videolarim alani ve adminlere ozel video silme kontrolu eklendi. DM kutusu, tema
+                        kontrolu ve global reset sistemi korunarak hafif performans iyilestirmeleri yapildi.</div>
                 </div>
             </div>
 
@@ -1726,7 +1729,8 @@
                         <div class="video-picker">
                             <div>
                                 <strong id="selected-video-name">Video secilmedi</strong>
-                                <span>Telefonundaki ya da bilgisayarindaki videolardan birini sec. Maksimum sure 3 dakika.</span>
+                                <span>Telefonundaki ya da bilgisayarindaki videolardan birini sec. Maksimum sure 3
+                                    dakika.</span>
                             </div>
                             <button id="pick-video-btn" class="btn-secondary" type="button">Video Sec</button>
                         </div>
@@ -1737,20 +1741,25 @@
                             <label class="field-label">Video Adi</label>
                             <div class="input-shell">
                                 <i class="fas fa-heading"></i>
-                                <input id="video-title-input" class="input-cyber" type="text" maxlength="80" placeholder="Videona bir isim ver" />
+                                <input id="video-title-input" class="input-cyber" type="text" maxlength="80"
+                                    placeholder="Videona bir isim ver" />
                             </div>
                         </div>
 
                         <div class="field-group">
                             <label class="field-label">Aciklama</label>
-                            <div class="input-shell" style="align-items:flex-start; padding:14px 16px; min-height:140px;">
+                            <div class="input-shell"
+                                style="align-items:flex-start; padding:14px 16px; min-height:140px;">
                                 <i class="fas fa-align-left" style="margin-top:4px;"></i>
-                                <textarea id="video-description-input" class="input-cyber" rows="5" maxlength="280" placeholder="Videonda neler var?" style="resize:none; min-height:110px;"></textarea>
+                                <textarea id="video-description-input" class="input-cyber" rows="5" maxlength="280"
+                                    placeholder="Videonda neler var?" style="resize:none; min-height:110px;"></textarea>
                             </div>
                         </div>
 
-                        <button id="publish-video-btn" class="btn-main" type="button" style="width:100%;">Videoyu Paylas</button>
-                        <p class="upload-note">Paylasim, silme ve yonetim islemlerinde onay sorulur. Reels akisi asagida kaydirarak devam eder.</p>
+                        <button id="publish-video-btn" class="btn-main" type="button" style="width:100%;">Videoyu
+                            Paylas</button>
+                        <p class="upload-note">Paylasim, silme ve yonetim islemlerinde onay sorulur. Reels akisi asagida
+                            kaydirarak devam eder.</p>
                     </div>
 
                     <div class="video-feed-shell">
@@ -1759,7 +1768,9 @@
                                 <h2>Hat30 Reels</h2>
                                 <span class="tiny">Like, dislike, yorum ve admin kontrolu aktif</span>
                             </div>
-                            <p class="muted">Videolar reels mantigiyla yukaridan asagi kaydirilarak izlenir. Bir videoya dokunup sesini acabilir, yorum panelini genisletebilir ve tepkini bir tikla degistirebilirsin.</p>
+                            <p class="muted">Videolar reels mantigiyla yukaridan asagi kaydirilarak izlenir. Bir videoya
+                                dokunup sesini acabilir, yorum panelini genisletebilir ve tepkini bir tikla
+                                degistirebilirsin.</p>
                         </div>
 
                         <div id="video-reels-feed" class="video-reels-feed"></div>
@@ -1888,18 +1899,23 @@
                     <p id="my-email-view" class="muted" style="margin-top:6px;"></p>
 
                     <div class="profile-stat-grid">
-                        <div class="stat-item compact"><span class="stat-value" id="my-fol-count">0</span><span class="stat-label">Takipci</span></div>
-                        <div class="stat-item compact"><span class="stat-value" id="my-following-count">0</span><span class="stat-label">Takip</span></div>
-                        <div class="stat-item wide"><span class="stat-value" id="my-xp-count">0</span><span class="stat-label">XP</span></div>
+                        <div class="stat-item compact"><span class="stat-value" id="my-fol-count">0</span><span
+                                class="stat-label">Takipci</span></div>
+                        <div class="stat-item compact"><span class="stat-value" id="my-following-count">0</span><span
+                                class="stat-label">Takip</span></div>
+                        <div class="stat-item wide"><span class="stat-value" id="my-xp-count">0</span><span
+                                class="stat-label">XP</span></div>
                     </div>
 
                     <div class="profile-actions">
                         <button onclick="UserSystem.editName()" class="btn-secondary">Isim Degistir</button>
-                        <button onclick="document.getElementById('pfp-upload').click()" class="btn-secondary">Fotograf Sec</button>
+                        <button onclick="document.getElementById('pfp-upload').click()" class="btn-secondary">Fotograf
+                            Sec</button>
                     </div>
 
                     <input type="file" id="pfp-upload" hidden accept="image/*" onchange="UserSystem.updatePfp(this)" />
-                    <button onclick="UserSystem.logout()" class="btn-danger" style="width:100%; margin-top:16px;">Sistemden Cik</button>
+                    <button onclick="UserSystem.logout()" class="btn-danger"
+                        style="width:100%; margin-top:16px;">Sistemden Cik</button>
                 </div>
 
                 <div class="card-cyber">
@@ -2078,13 +2094,6 @@
             writeBatch,
             arrayUnion
         } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-        import {
-            getStorage,
-            ref as storageRef,
-            uploadBytesResumable,
-            getDownloadURL,
-            deleteObject
-        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAutPInq2BBsOnKlZS2A6M9XTEq9MuhgRY",
@@ -2098,7 +2107,9 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
-        const storage = getStorage(app, "gs://tanitimsitesi-1ca45.firebasestorage.app");
+
+        const CLOUDINARY_CLOUD_NAME = "dz4ywxmol";
+        const CLOUDINARY_UNSIGNED_PRESET = "dronex-videos";
 
         const MASTER_EMAIL = "adilerkamtek2011@gmail.com";
         const DEFAULT_THEME = {
@@ -2345,34 +2356,73 @@
         }
 
 
-        async function uploadVideoWithProgress(uploadRef, file) {
-            return await new Promise((resolve, reject) => {
-                const task = uploadBytesResumable(uploadRef, file, { contentType: file.type || "video/mp4" });
-                let lastProgressAt = Date.now();
-                const watchdog = setInterval(() => {
-                    if (Date.now() - lastProgressAt > 25000) {
-                        clearInterval(watchdog);
-                        try { task.cancel(); } catch (err) { console.error(err); }
-                        reject(new Error("Video yukleme takildi veya internet cok yavas"));
-                    }
-                }, 4000);
+        function cloudinaryConfigured() {
+            return !CLOUDINARY_CLOUD_NAME.startsWith("BURAYA_") && !CLOUDINARY_UNSIGNED_PRESET.startsWith("BURAYA_");
+        }
 
-                task.on("state_changed", (snapshot) => {
-                    lastProgressAt = Date.now();
-                    const pct = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100) || 0;
+        async function uploadVideoWithProgress(file) {
+            if (!cloudinaryConfigured()) {
+                throw new Error("Cloudinary ayarlari eksik. Cloud name ve unsigned preset girilmeli");
+            }
+
+            const endpoint = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/video/upload`;
+            const formData = new FormData();
+            formData.append("file", file);
+            formData.append("upload_preset", CLOUDINARY_UNSIGNED_PRESET);
+            formData.append("folder", "dronex-videos");
+
+            return await new Promise((resolve, reject) => {
+                const xhr = new XMLHttpRequest();
+                let settled = false;
+                const watchdog = setTimeout(() => {
+                    if (settled) return;
+                    settled = true;
+                    try { xhr.abort(); } catch (err) { console.error(err); }
+                    reject(new Error("Video yukleme zaman asimina ugradi"));
+                }, 90000);
+
+                xhr.upload.onprogress = (event) => {
+                    if (!event.lengthComputable) return;
+                    const pct = Math.round((event.loaded / event.total) * 100) || 0;
                     UI.showLoader(`VIDEO YUKLENIYOR %${pct}`);
-                }, (error) => {
-                    clearInterval(watchdog);
-                    reject(error);
-                }, async () => {
-                    clearInterval(watchdog);
-                    try {
-                        const url = await getDownloadURL(task.snapshot.ref);
-                        resolve(url);
-                    } catch (err) {
-                        reject(err);
+                };
+
+                xhr.onreadystatechange = () => {
+                    if (xhr.readyState !== 4 || settled) return;
+                    settled = true;
+                    clearTimeout(watchdog);
+
+                    if (xhr.status >= 200 && xhr.status < 300) {
+                        try {
+                            const payload = JSON.parse(xhr.responseText || "{}");
+                            resolve({
+                                secureUrl: payload.secure_url,
+                                publicId: payload.public_id || "",
+                                assetId: payload.asset_id || ""
+                            });
+                        } catch (err) {
+                            reject(new Error("Cloudinary cevabi okunamadi"));
+                        }
+                        return;
                     }
-                });
+
+                    try {
+                        const payload = JSON.parse(xhr.responseText || "{}");
+                        reject(new Error(payload.error?.message || "Cloudinary yuklemesi basarisiz oldu"));
+                    } catch (err) {
+                        reject(new Error("Cloudinary yuklemesi basarisiz oldu"));
+                    }
+                };
+
+                xhr.onerror = () => {
+                    if (settled) return;
+                    settled = true;
+                    clearTimeout(watchdog);
+                    reject(new Error("Cloudinary baglantisi kurulamadi"));
+                };
+
+                xhr.open("POST", endpoint);
+                xhr.send(formData);
             });
         }
 
@@ -2878,9 +2928,7 @@
                     }
 
                     const videoId = doc(collection(db, "videos")).id;
-                    const storagePath = `videos/${CURRENT_USER.uid}/${videoId}-${safeFileSegment(file.name)}`;
-                    const uploadRef = storageRef(storage, storagePath);
-                    const videoUrl = await uploadVideoWithProgress(uploadRef, file);
+                    const uploaded = await uploadVideoWithProgress(file);
 
                     UI.showLoader("VIDEO KAYDI OLUSTURULUYOR...");
                     await withTimeout(
@@ -2891,8 +2939,9 @@
                             authorPfp: CURRENT_USER_DATA?.pfp || "",
                             title,
                             description,
-                            videoUrl,
-                            storagePath,
+                            videoUrl: uploaded.secureUrl,
+                            cloudinaryPublicId: uploaded.publicId,
+                            cloudinaryAssetId: uploaded.assetId,
                             duration: Math.round(duration),
                             likes: 0,
                             dislikes: 0,
@@ -3031,16 +3080,9 @@
                     UI.showLoader();
                     await deleteCollectionDocs(collection(db, "videos", videoId, "comments"));
                     await deleteCollectionDocs(collection(db, "videos", videoId, "reactions"));
-                    if (video.storagePath) {
-                        try {
-                            await deleteObject(storageRef(storage, video.storagePath));
-                        } catch (storageErr) {
-                            console.error(storageErr);
-                        }
-                    }
                     await deleteDoc(doc(db, "videos", videoId));
                     UI.hideLoader();
-                    UI.showToast("Video silindi.", "success");
+                    UI.showToast("Video silindi. Cloudinary dosyasi gerekirse panelden temizlenebilir.", "success");
                 } catch (err) {
                     console.error(err);
                     UI.hideLoader();
