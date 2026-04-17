@@ -1994,7 +1994,7 @@
                             <h1 style="font-family:'Orbitron',sans-serif; font-size:clamp(2.2rem, 5vw, 4rem); margin-top:10px;">HAT30 YAKINDA</h1>
                             <p class="muted" style="margin-top:12px; max-width:560px;">Hat30 kontrol alanini simdiden hazirliyoruz. RGB kontrol, cip baslatma ve sensor taraflari burada toplanacak.</p>
                             <div class="chip-badge-row">
-                                <div class="chip-badge">69 RGB Led Hazir</div>
+                                <div class="chip-badge">6 RGB Led Hazir</div>
                                 <div class="chip-badge">Chip Control Stub</div>
                                 <div class="chip-badge">Sensor Feed Placeholder</div>
                             </div>
@@ -2008,10 +2008,18 @@
                             <span class="tiny">Simule komutlar</span>
                         </div>
                         <div class="hat30-control-grid">
-                            <button id="hat30-rgb-btn" class="btn-main" type="button">RGB Ledleri Ayarla (69 LED)</button>
+                            <button id="hat30-rgb-btn" class="btn-main" type="button">RGB Ledleri Ayarla (6 LED)</button>
                             <button id="hat30-start-btn" class="btn-secondary" type="button">Cipi Calistir</button>
                             <button id="hat30-stop-btn" class="btn-danger" type="button">Cipi Durdur</button>
                             <button id="hat30-sensor-btn" class="btn-secondary" type="button">Chip Sensor Verilerini Goruntule</button>
+                        </div>
+                        <div id="hat30-led-grid" class="hat30-led-grid">
+                            <div class="hat30-led-card"><label for="hat30-led-1">LED 1</label><input id="hat30-led-1" type="color" value="#ff5f6d" /></div>
+                            <div class="hat30-led-card"><label for="hat30-led-2">LED 2</label><input id="hat30-led-2" type="color" value="#ffc371" /></div>
+                            <div class="hat30-led-card"><label for="hat30-led-3">LED 3</label><input id="hat30-led-3" type="color" value="#5ee7ff" /></div>
+                            <div class="hat30-led-card"><label for="hat30-led-4">LED 4</label><input id="hat30-led-4" type="color" value="#7b61ff" /></div>
+                            <div class="hat30-led-card"><label for="hat30-led-5">LED 5</label><input id="hat30-led-5" type="color" value="#1df2a0" /></div>
+                            <div class="hat30-led-card"><label for="hat30-led-6">LED 6</label><input id="hat30-led-6" type="color" value="#ff4d7a" /></div>
                         </div>
                         <div class="helper-box hat30-note">Buradaki akisyonlar simdilik arayuz hazirligi icin var. Gercek cihaz baglandiginda komutlar bu panelden tetiklenecek.</div>
                         <div id="hat30-sensor-output" class="hat30-status-box">Hat30 paneli beklemede. Hazir oldugunda burada durum akisi gosterilecek.</div>
