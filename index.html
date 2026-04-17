@@ -1067,6 +1067,167 @@
             box-shadow: var(--glow);
         }
 
+        .nav-label {
+            font-size: 0.68rem;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 0.7px;
+            text-transform: uppercase;
+        }
+
+        .nav-btn {
+            overflow: hidden;
+        }
+
+        .nav-btn-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            line-height: 1;
+        }
+
+        .quick-access-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 28000;
+            display: none;
+            align-items: flex-end;
+            justify-content: center;
+            padding: 22px;
+            background: rgba(3, 7, 18, 0.58);
+            backdrop-filter: blur(14px);
+        }
+
+        .quick-access-panel {
+            width: min(460px, 100%);
+            padding: 22px;
+            border-radius: 28px;
+            background: rgba(8, 12, 24, 0.94);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: var(--shadow);
+        }
+
+        .quick-access-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        .quick-access-btn {
+            min-height: 128px;
+            border-radius: 22px;
+            padding: 18px;
+            text-align: left;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text);
+            transition: var(--transition);
+        }
+
+        .quick-access-btn:hover {
+            transform: translateY(-2px);
+            border-color: rgba(94, 231, 255, 0.28);
+            background: rgba(94, 231, 255, 0.08);
+        }
+
+        .quick-access-btn i {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 14px;
+        }
+
+        .quick-access-btn strong {
+            display: block;
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 6px;
+        }
+
+        .quick-access-btn span {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            line-height: 1.45;
+        }
+
+        .quick-access-footer {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 16px;
+        }
+
+        .leaderboard-placeholder {
+            min-height: 360px;
+            display: grid;
+            place-items: center;
+            text-align: center;
+            background:
+                radial-gradient(circle at top, rgba(255, 211, 105, 0.16), transparent 35%),
+                radial-gradient(circle at bottom left, rgba(94, 231, 255, 0.12), transparent 30%),
+                var(--card);
+        }
+
+        .leaderboard-placeholder i {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 18px;
+        }
+
+        .hat30-layout {
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 18px;
+        }
+
+        .chip-stage {
+            min-height: 340px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background:
+                radial-gradient(circle at top right, rgba(94, 231, 255, 0.18), transparent 35%),
+                radial-gradient(circle at bottom left, rgba(123, 97, 255, 0.18), transparent 32%),
+                linear-gradient(150deg, rgba(9, 15, 28, 0.96), rgba(13, 21, 39, 0.96));
+        }
+
+        .chip-badge-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .chip-badge {
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text-dim);
+            font-size: 0.86rem;
+        }
+
+        .hat30-control-grid {
+            display: grid;
+            gap: 12px;
+        }
+
+        .hat30-note {
+            margin-top: 14px;
+        }
+
+        .hat30-status-box {
+            margin-top: 14px;
+            padding: 18px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            min-height: 86px;
+            display: flex;
+            align-items: center;
+            color: var(--text-dim);
+            line-height: 1.5;
+        }
+
         #toast-container {
             position: fixed;
             top: 18px;
@@ -1510,6 +1671,10 @@
         @media (max-width: 980px) {
             .video-page-layout {
                 grid-template-columns: 1fr;
+            .quick-access-grid,
+            .hat30-layout {
+                grid-template-columns: 1fr;
+            }
             }
 
             .video-upload-card {
@@ -1818,6 +1983,52 @@
                 </div>
             </div>
 
+            <div id="page-hat30" class="page">
+                <div class="hat30-layout">
+                    <div class="card-cyber chip-stage">
+                        <div>
+                            <div class="section-title">
+                                <h2><i class="fas fa-microchip"></i> HAT30 Core</h2>
+                                <span class="tiny">Deneysel kontrol katmani</span>
+                            </div>
+                            <h1 style="font-family:'Orbitron',sans-serif; font-size:clamp(2.2rem, 5vw, 4rem); margin-top:10px;">HAT30 YAKINDA</h1>
+                            <p class="muted" style="margin-top:12px; max-width:560px;">Hat30 kontrol alanini simdiden hazirliyoruz. RGB kontrol, cip baslatma ve sensor taraflari burada toplanacak.</p>
+                            <div class="chip-badge-row">
+                                <div class="chip-badge">69 RGB Led Hazir</div>
+                                <div class="chip-badge">Chip Control Stub</div>
+                                <div class="chip-badge">Sensor Feed Placeholder</div>
+                            </div>
+                        </div>
+                        <div class="helper-box">Bu alan su an hayali bir panel gibi calisiyor. Butonlar ileride gercek cihaza baglandiginda ayni yerden yonetilecek.</div>
+                    </div>
+
+                    <div class="card-cyber">
+                        <div class="section-title">
+                            <h3><i class="fas fa-sliders"></i> Kontrol Merkezi</h3>
+                            <span class="tiny">Simule komutlar</span>
+                        </div>
+                        <div class="hat30-control-grid">
+                            <button id="hat30-rgb-btn" class="btn-main" type="button">RGB Ledleri Ayarla (69 LED)</button>
+                            <button id="hat30-start-btn" class="btn-secondary" type="button">Cipi Calistir</button>
+                            <button id="hat30-stop-btn" class="btn-danger" type="button">Cipi Durdur</button>
+                            <button id="hat30-sensor-btn" class="btn-secondary" type="button">Chip Sensor Verilerini Goruntule</button>
+                        </div>
+                        <div class="helper-box hat30-note">Buradaki akisyonlar simdilik arayuz hazirligi icin var. Gercek cihaz baglandiginda komutlar bu panelden tetiklenecek.</div>
+                        <div id="hat30-sensor-output" class="hat30-status-box">Hat30 paneli beklemede. Hazir oldugunda burada durum akisi gosterilecek.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="page-leaderboard" class="page">
+                <div class="card-cyber leaderboard-placeholder">
+                    <div>
+                        <i class="fas fa-ranking-star"></i>
+                        <h2 style="font-family:'Orbitron',sans-serif; margin-bottom:10px;">Liderlik Tablosu</h2>
+                        <p class="muted" style="max-width:520px;">Bu alan su anlik devre disi. Yakinda en aktif kullanicilar, XP yarisi ve topluluk siralamalari burada listelenecek.</p>
+                    </div>
+                </div>
+            </div>
+
             <div id="page-chat" class="page">
                 <div class="card-cyber" style="padding:16px;">
                     <div class="section-title">
@@ -2080,15 +2291,53 @@
             </div>
         </div>
 
-        <nav class="nav-dock">
-            <div class="nav-btn active" onclick="PageEngine.switch('home', this)"><i class="fas fa-house"></i></div>
-            <div class="nav-btn" onclick="PageEngine.switch('videos', this)"><i class="fas fa-video"></i></div>
-            <div class="nav-btn" onclick="PageEngine.switch('chat', this)"><i class="fas fa-globe"></i></div>
-            <div class="nav-btn" onclick="PageEngine.switch('dm', this)"><i class="fas fa-envelope"></i></div>
-            <div class="nav-btn" onclick="PageEngine.switch('profile', this)"><i class="fas fa-user"></i></div>
-            <div id="admin-nav-btn" class="nav-btn" style="display:none;" onclick="PageEngine.switch('admin', this)"><i
-                    class="fas fa-crown"></i></div>
+                <nav class="nav-dock">
+            <div class="nav-btn active" data-page="home" onclick="PageEngine.switch('home', this)">
+                <div class="nav-btn-content"><i class="fas fa-house"></i><span class="nav-label">Ana</span></div>
+            </div>
+            <div class="nav-btn" data-page="hat30" onclick="PageEngine.switch('hat30', this)">
+                <div class="nav-btn-content"><i class="fas fa-microchip"></i><span class="nav-label">HAT30</span></div>
+            </div>
+            <div class="nav-btn" data-page="videos" onclick="PageEngine.switch('videos', this)">
+                <div class="nav-btn-content"><i class="fas fa-video"></i><span class="nav-label">Reels</span></div>
+            </div>
+            <div class="nav-btn" data-page="chat" onclick="PageEngine.switch('chat', this)">
+                <div class="nav-btn-content"><i class="fas fa-globe"></i><span class="nav-label">Chat</span></div>
+            </div>
+            <div class="nav-btn" data-page="leaderboard" onclick="PageEngine.switch('leaderboard', this)">
+                <div class="nav-btn-content"><i class="fas fa-ranking-star"></i><span class="nav-label">Liderlik</span></div>
+            </div>
+            <div class="nav-btn" id="quick-menu-btn" data-page="menu" onclick="QuickMenu.toggle()">
+                <div class="nav-btn-content"><i class="fas fa-bars"></i><span class="nav-label">Menu</span></div>
+            </div>
+            <div id="admin-nav-btn" class="nav-btn" data-page="admin" style="display:none;" onclick="PageEngine.switch('admin', this)">
+                <div class="nav-btn-content"><i class="fas fa-crown"></i><span class="nav-label">Admin</span></div>
+            </div>
         </nav>
+
+        <div id="quick-access-overlay" class="quick-access-overlay">
+            <div class="quick-access-panel animate__animated animate__fadeInUp">
+                <div class="section-title">
+                    <h3><i class="fas fa-bars"></i> Hizli Gecis</h3>
+                    <span class="tiny">DM ve profil burada</span>
+                </div>
+                <div class="quick-access-grid">
+                    <button id="open-dm-menu-btn" class="quick-access-btn" type="button">
+                        <i class="fas fa-envelope"></i>
+                        <strong>DM Kutusu</strong>
+                        <span>Son konusmalarina don, yeni mesaj baslat ve WhatsApp benzeri akisi buradan ac.</span>
+                    </button>
+                    <button id="open-profile-menu-btn" class="quick-access-btn" type="button">
+                        <i class="fas fa-user-astronaut"></i>
+                        <strong>Profilim</strong>
+                        <span>Takip, XP, fotograf ve Videolarim alanina tek dokunusla gec.</span>
+                    </button>
+                </div>
+                <div class="quick-access-footer">
+                    <button id="close-quick-menu-btn" class="btn-secondary" type="button">Kapat</button>
+                </div>
+            </div>
+        </div>
     </main>
 
     <div id="toast-container"></div>
@@ -2545,8 +2794,7 @@
             if (!CURRENT_USER) return;
 
             if (uid === CURRENT_USER.uid) {
-                const profileBtn = document.querySelector('.nav-btn .fa-user')?.parentElement;
-                PageEngine.switch("profile", profileBtn);
+                PageEngine.switch("profile");
                 return;
             }
 
@@ -2629,6 +2877,14 @@
             }
         }
 
+        function getNavButtonForPage(pageId) {
+            if (["dm", "profile", "user-profile"].includes(pageId)) {
+                return document.getElementById("quick-menu-btn");
+            }
+
+            return document.querySelector(`.nav-btn[data-page="${pageId}"]`);
+        }
+
         window.PageEngine = {
             switch(pageId, el = null) {
                 document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
@@ -2636,11 +2892,72 @@
 
                 const target = document.getElementById(`page-${pageId}`);
                 if (target) target.classList.add("active");
-                if (el) el.classList.add("active");
+
+                const navEl = el || getNavButtonForPage(pageId);
+                if (navEl) navEl.classList.add("active");
+
+                if (window.QuickMenu && pageId !== "dm" && pageId !== "profile") {
+                    QuickMenu.close();
+                }
 
                 if (pageId === "dm") DMEngine.loadInbox();
                 if (pageId === "videos") VideoEngine.renderFeed();
                 if (pageId === "profile") VideoEngine.renderProfileVideos();
+            }
+        };
+
+        window.QuickMenu = {
+            toggle() {
+                const overlay = document.getElementById("quick-access-overlay");
+                if (!overlay) return;
+                const willOpen = overlay.style.display !== "flex";
+                overlay.style.display = willOpen ? "flex" : "none";
+                document.getElementById("quick-menu-btn")?.classList.toggle("active", willOpen);
+            },
+
+            close() {
+                const overlay = document.getElementById("quick-access-overlay");
+                if (!overlay) return;
+                overlay.style.display = "none";
+                document.getElementById("quick-menu-btn")?.classList.remove("active");
+            },
+
+            openPage(pageId) {
+                QuickMenu.close();
+                PageEngine.switch(pageId);
+            }
+        };
+
+        window.HAT30Engine = {
+            updateStatus(message) {
+                const box = document.getElementById("hat30-sensor-output");
+                if (box) box.innerText = message;
+            },
+
+            async configureRgb() {
+                const ok = await UI.askConfirm("69 RGB led icin demo ayar penceresi acilsin mi?");
+                if (!ok) return;
+                this.updateStatus("69 RGB led icin test profili hazirlaniyor. Renk dizilimi cok yakinda gercek cihaza baglanacak.");
+                UI.showToast("RGB led kontrol katmani hazirlik moduna alindi.", "info");
+            },
+
+            async startChip() {
+                const ok = await UI.askConfirm("Hat30 cipi demo modunda calistirilsin mi?");
+                if (!ok) return;
+                this.updateStatus("Chip calisma moduna gecti. Simdilik sanal bir akista bekliyor.");
+                UI.showToast("Hat30 chip baslatildi.", "success");
+            },
+
+            async stopChip() {
+                const ok = await UI.askConfirm("Hat30 cipi durdurulsun mu?");
+                if (!ok) return;
+                this.updateStatus("Chip kontrollu sekilde durduruldu. Bir sonraki komut bekleniyor.");
+                UI.showToast("Hat30 chip durduruldu.", "info");
+            },
+
+            showSensors() {
+                this.updateStatus("?? ?OK YAKINDA");
+                UI.showToast("Sensor paneli yakinda acilacak.", "info");
             }
         };
 
@@ -3332,8 +3649,7 @@
                 }
             }, { merge: true });
 
-            const dmBtn = document.querySelector('.nav-btn .fa-envelope')?.parentElement;
-            PageEngine.switch("dm", dmBtn);
+            PageEngine.switch("dm");
             DMEngine.open(dmId, target?.name || "Bilinmeyen", getSafePhoto(target?.pfp), targetUid, target);
         }
 
@@ -3784,19 +4100,9 @@
         };
 
         window.goBackFromViewedProfile = () => {
-            const navMap = {
-                home: ".fa-house",
-                videos: ".fa-video",
-                chat: ".fa-globe",
-                dm: ".fa-envelope",
-                profile: ".fa-user",
-                admin: ".fa-crown"
-            };
-
-            const selector = navMap[VIEWED_FROM_PAGE] || ".fa-globe";
-            const btn = document.querySelector(`.nav-btn ${selector}`)?.parentElement;
-            PageEngine.switch(VIEWED_FROM_PAGE || "chat", btn);
+            PageEngine.switch(VIEWED_FROM_PAGE || "chat");
         };
+
 
         window.deleteGlobalMsg = async (id) => {
             if (confirm("Mesaji silmek istiyor musun?")) {
@@ -3829,6 +4135,17 @@
             document.getElementById("confirm-overlay").addEventListener("click", (e) => {
                 if (e.target.id === "confirm-overlay") UI.resolveConfirm(false);
             });
+
+            document.getElementById("open-dm-menu-btn").onclick = () => QuickMenu.openPage("dm");
+            document.getElementById("open-profile-menu-btn").onclick = () => QuickMenu.openPage("profile");
+            document.getElementById("close-quick-menu-btn").onclick = () => QuickMenu.close();
+            document.getElementById("quick-access-overlay").addEventListener("click", (e) => {
+                if (e.target.id === "quick-access-overlay") QuickMenu.close();
+            });
+            document.getElementById("hat30-rgb-btn").onclick = () => HAT30Engine.configureRgb();
+            document.getElementById("hat30-start-btn").onclick = () => HAT30Engine.startChip();
+            document.getElementById("hat30-stop-btn").onclick = () => HAT30Engine.stopChip();
+            document.getElementById("hat30-sensor-btn").onclick = () => HAT30Engine.showSensors();
 
             document.getElementById("video-file-input").addEventListener("change", (e) => {
                 const file = e.target.files?.[0];
